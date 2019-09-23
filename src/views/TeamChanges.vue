@@ -1,36 +1,47 @@
-<template>
-  <v-timeline
-    :dense="$vuetify.breakpoint.smAndDown"
-  >
-    <v-timeline-item
-      v-for="dateChanges in changes"
-      :key="dateChanges.date"
-    >
-      <template v-slot:opposite>
-        <strong>
-          {{dateChanges.date}}
-        </strong>
-      </template>
-      <v-card class="elevation-2">
-        <v-list two-line subheader>
-          <template v-for="typeChanges in dateChanges.changes">
-            <v-subheader inset :key="typeChanges.type">{{typeChanges.type}}</v-subheader>
+<style scoped>
+  .full-height {
+    height: 100%;
+  }
+</style>
 
-            <template v-for="change in typeChanges.changes">
-              <player-list-item :key="`${change.uuid}-${typeChanges.type}`" v-bind="change"></player-list-item>
+<template>
+  <div class="full-height">
+    <loading-circular :loading="changes.length === 0"></loading-circular>
+    <v-timeline
+      :dense="$vuetify.breakpoint.smAndDown"
+      v-if="changes.length > 0"
+    >
+      <v-timeline-item
+        v-for="dateChanges in changes"
+        :key="dateChanges.date"
+      >
+        <template v-slot:opposite>
+          <strong>
+            {{dateChanges.date}}
+          </strong>
+        </template>
+        <v-card class="elevation-2">
+          <v-card-title v-if="$vuetify.breakpoint.smAndDown" class="font-weight-light">{{dateChanges.date}}</v-card-title>
+          <v-list two-line subheader>
+            <template v-for="typeChanges in dateChanges.changes">
+              <v-subheader inset :key="typeChanges.type">{{typeChanges.type}}</v-subheader>
+
+              <template v-for="change in typeChanges.changes">
+                <player-list-item :key="`${change.uuid}-${typeChanges.type}`" v-bind="change"></player-list-item>
+              </template>
             </template>
-          </template>
-        </v-list>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+          </v-list>
+        </v-card>
+      </v-timeline-item>
+    </v-timeline>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import '../components/uuid-format';
 import HelloWorld from "../components/HelloWorld.vue";
 import PlayerListItem from "../components/PlayerListItem.vue";
+import LoadingCircular from "../components/LoadingCircular.vue";
 
 async function fetchTeamChanges() {
   const data: {
@@ -75,7 +86,7 @@ async function fetchTeamChanges() {
 
 export default Vue.extend({
   components: {
-    HelloWorld,PlayerListItem
+    HelloWorld,PlayerListItem,LoadingCircular
   },
   data: () => ({
     changes: []
