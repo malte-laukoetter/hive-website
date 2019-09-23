@@ -104,8 +104,21 @@ export default class HiveSearch extends Vue {
       .filter(route => findInRoute(search, route))
       .map(route => ({path: route.path, name: route.name || route.path, type: 'PAGE'}))
 
-    const res: {uuid: string, name: string}[] = await fetch(`https://api.lergin.de/hive/names/${search}`).then(res => res.json())
-    const playerItems: SearchResult[] = res.sort((a,b) => a.name.localeCompare(b.name)).map(({uuid, name}) => ({type: 'PLAYER', uuid, name}))
+
+    const res: [{uuid: string, name: string}[], {username: string, UUID: string}] = await Promise.all([
+      fetch(`https://api.lergin.de/hive/names/${search}`).then(res => res.json()),
+      fetch(`https://api.hivemc.com/v1/player/${search}`).then(res => res.json()).catch(err => ({}))
+    ])
+
+    const playerItems: SearchResult[] = res[0].sort((a,b) => a.name.localeCompare(b.name)).map(({uuid, name}) => ({type: 'PLAYER', uuid, name}))
+
+    if (res[1].username) {
+      playerItems.unshift({
+        name: res[1].username,
+        uuid: res[1].UUID,
+        type: 'PLAYER'
+      })
+    }
 
     this.items = [... routeItems, ... playerItems]
   }
