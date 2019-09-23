@@ -1,14 +1,21 @@
 <template>
   <v-autocomplete
     style="margin-top: 8px"
+    append-icon=""
+    append-outer-icon="mdi-magnify"
+    label="Search"
+
     auto-select-first
+    no-filter
+    clearable
+    hide-details
+
+    item-text="name"
+
     :items="items"
     :search-input.sync="search"
-    label="Search"
-    append-icon=""
-    no-filter
-    hide-details
-    append-outer-icon="mdi-magnify"
+
+    @input="goToPath"
     >
     <template v-slot:item="{ item }">
       <player-list-item
@@ -18,17 +25,19 @@
         hide-info-icon
       ></player-list-item>
       <template v-if="item.type === 'PAGE'">
-        <v-list-item-content>
-          <v-list-item-title v-text="item.name"></v-list-item-title>
-          <v-list-item-subtitle v-text="item.path"></v-list-item-subtitle>
-        </v-list-item-content>
+        <router-link :to="item.path">
+          <v-list-item-content>
+            <v-list-item-title v-text="item.name"></v-list-item-title>
+            <v-list-item-subtitle v-text="item.path"></v-list-item-subtitle>
+          </v-list-item-content>
+        </router-link>
       </template>
     </template>
   </v-autocomplete>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import {routeConfig} from '../router'
 import { RouteConfig } from 'vue-router';
 import PlayerListItem from "../components/PlayerListItem.vue";
@@ -67,52 +76,43 @@ function findInRoute(search: string, route: RouteConfig): boolean {
 
 type SearchResult =  {type: "PAGE", path: string, name: string} | {type: 'PLAYER', name: string, uuid: string}
 
-export default Vue.extend({
-  components: {PlayerListItem},
-    data: () => ({
-      search: '',
-    }),
+@Component({
+  components: {
+    PlayerListItem
+  }
+})
+export default class HiveSearch extends Vue {
+  private search: string | SearchResult = ''
 
-    computed: {
-      items () {
-        const search: string = (this.search || '').toLowerCase()
-        const results: SearchResult[] = []
+  get items () {
+    let search = ''
+    if (typeof this.search === 'string') {
+      search = this.search
+    }
+    search = search.toLowerCase()
 
-        flattenRoutes(routeConfig)
-          .filter(route => findInRoute(search, route))
-          .forEach(route => results.push({path: route.path, name: route.name || route.path, type: 'PAGE'}))
+    const results: SearchResult[] = []
 
-        if (search.length >= 3) {
-          results.push({type: 'PLAYER', name: this.search, uuid: this.search})
-        }
+    flattenRoutes(routeConfig)
+      .filter(route => findInRoute(search, route))
+      .forEach(route => results.push({path: route.path, name: route.name || route.path, type: 'PAGE'}))
 
-        return results
-      },
-    },
- /*
-    watch: {
-      search (val) {
-        // Items have already been loaded
-        if (this.items.length > 0) return
+    if (search.length >= 3) {
+      results.push({type: 'PLAYER', name: search, uuid: search})
+    }
 
-        // Items have already been requested
-        if (this.isLoading) return
+    return results
+  }
 
-        this.isLoading = true
+  goToPath(selectedItem: SearchResult | undefined) {
+    if (!selectedItem) return
 
-        // Lazily load input items
-        fetch('https://api.publicapis.org/entries')
-          .then(res => res.json())
-          .then(res => {
-            const { count, entries } = res
-            this.count = count
-            this.entries = entries
-          })
-          .catch(err => {
-            console.log(err)
-          })
-          .finally(() => (this.isLoading = false))
-      },
-    },*/
-});
+    switch(selectedItem.type) {
+      case "PAGE":
+        this.$router.push(selectedItem.path)
+        break
+    }
+  }
+}
+
 </script>
