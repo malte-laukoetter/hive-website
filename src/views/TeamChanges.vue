@@ -6,7 +6,6 @@
 
 <template>
   <div class="full-height">
-    <loading-circular :loading="changes.length === 0"></loading-circular>
     <v-timeline
       :dense="$vuetify.breakpoint.smAndDown"
       v-if="changes.length > 0"
@@ -24,7 +23,7 @@
           <v-card-title v-if="$vuetify.breakpoint.smAndDown" class="font-weight-light">{{dateChanges.date}}</v-card-title>
           <v-list two-line subheader>
             <template v-for="typeChanges in dateChanges.changes">
-              <v-subheader inset :key="typeChanges.type">{{typeChanges.type}}</v-subheader>
+              <v-subheader inset :key="typeChanges.type">{{typeChanges.type | changeType}}</v-subheader>
 
               <template v-for="change in typeChanges.changes">
                 <player-list-item :key="`${change.uuid}-${typeChanges.type}`" v-bind="change"></player-list-item>
@@ -34,67 +33,107 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
+    <infinite-loading @infinite="loadMore">
+      <loading-circular class="mt-2" loading slot="spinner"></loading-circular>
+    </infinite-loading>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import HelloWorld from "../components/HelloWorld.vue";
 import PlayerListItem from "../components/PlayerListItem.vue";
 import LoadingCircular from "../components/LoadingCircular.vue";
+import InfiniteLoading, {StateChanger} from 'vue-infinite-loading';
 
-async function fetchTeamChanges() {
-  const data: {
+@Component({
+  components: {
+    HelloWorld,
+    PlayerListItem,
+    LoadingCircular,
+    InfiniteLoading
+  },
+  filters: {
+    changeType(type: string) {
+      switch (type) {
+        case "MODERATOR_ADD": return "New Moderators";
+        case "MODERATOR_REMOVE": return "Former Moderators";
+        case "SENIOR_MODERATOR_ADD": return "New Senior Moderators";
+        case "SENIOR_MODERATOR_REMOVE": return "Former Senior Moderators";
+        case "DEVELOPER_ADD": return "New Developers";
+        case "DEVELOPER_REMOVE": return "Former Developers";
+        case "OWNER_ADD": return "New Owners";
+        case "OWNER_REMOVE": return "Former Owners";
+        case "NECTAR_ADD": return "New Team Nectar Members";
+        case "NECTAR_REMOVE": return "Former Team Nectar Members";
+        default: return type
+      }
+    }
+  }
+})
+export default class TeamChanges extends Vue {
+  private data: {
     date: number;
     name: string;
     type: string;
     uuid: string;
-  }[] = await fetch(`https://api.lergin.de/hive/team/0`).then(res => res.json())
+  }[] = []
+  private page = 0
 
-  const changeDateMap = data
-    .map(change => ({... change, date: new Date(change.date).toLocaleDateString()}))
-    .reduce((acc, change) => {
-      if(acc.has(change.date)) {
-        acc.set(change.date, [... acc.get(change.date)!, change])
-      } else {
-        acc.set(change.date, [change])
-      }
+  async loadMore($state: StateChanger) {
+    const newData = await this.fetchTeamChanges(this.page)
 
-      return acc
-    }, new Map<string, {
-      name: string;
-      type: string;
-      uuid: string;
-    }[]>())
+    if (newData.length > 0) {
+      this.data = [... this.data, ... newData]
+      this.page = this.page + 1
 
-  let changes: { date: string, changes: {type: string, changes: {name: string, uuid: string}[]}[]}[] =
-    [... changeDateMap.entries()].map(([date, dateChanges]) => {
-    const changes = dateChanges.reduce((acc, change) => {
-      if(acc.has(change.type)) {
-        acc.set(change.type, [... acc.get(change.type)!, change])
-      } else {
-        acc.set(change.type, [change])
-      }
-      return acc
-    }, new Map<string, {name: string, uuid: string}[]>())
-    
-    return { date, changes: [... changes.entries()].map(([type, changes]) => ({type, changes})) }
-  })
-
-  return changes
-}
-
-export default Vue.extend({
-  components: {
-    HelloWorld,PlayerListItem,LoadingCircular
-  },
-  data: () => ({
-    changes: []
-  } as {
-    changes: { date: string, changes: {type: string, changes: {name: string, uuid: string}[]}[]}[]
-  }),
-  created: async function() {
-    this.changes = await fetchTeamChanges()
+      $state.loaded()
+    } else {
+      $state.complete()
+    }
   }
-});
+
+  get changes(): { date: string, changes: {type: string, changes: {name: string, uuid: string}[]}[]}[] {
+    const changeDateMap = this.data
+      .map(change => ({... change, date: new Date(change.date).toLocaleDateString()}))
+      .reduce((acc, change) => {
+        if(acc.has(change.date)) {
+          acc.set(change.date, [... acc.get(change.date)!, change])
+        } else {
+          acc.set(change.date, [change])
+        }
+
+        return acc
+      }, new Map<string, {
+        name: string;
+        type: string;
+        uuid: string;
+      }[]>())
+
+    let changes: { date: string, changes: {type: string, changes: {name: string, uuid: string}[]}[]}[] =
+      [... changeDateMap.entries()].map(([date, dateChanges]) => {
+      const changes = dateChanges.reduce((acc, change) => {
+        if(acc.has(change.type)) {
+          acc.set(change.type, [... acc.get(change.type)!, change])
+        } else {
+          acc.set(change.type, [change])
+        }
+        return acc
+      }, new Map<string, {name: string, uuid: string}[]>())
+      
+      return { date, changes: [... changes.entries()].map(([type, changes]) => ({type, changes})) }
+    })
+
+    return changes
+  }
+  
+  fetchTeamChanges(page: number = 0): Promise<{
+    date: number;
+    name: string;
+    type: string;
+    uuid: string;
+  }[]> {
+    return fetch(`https://api.lergin.de/hive/team/${page}`).then(res => res.json())
+  }
+}
 </script>
