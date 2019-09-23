@@ -1,3 +1,10 @@
+<style scoped>
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+</style>
+
 <template>
   <v-autocomplete
     style="margin-top: 8px"
@@ -18,12 +25,13 @@
     @input="goToPath"
     >
     <template v-slot:item="{ item }">
-      <player-list-item
-        v-if="item.type === 'PLAYER'"
-        :uuid="item.name"
-        :name="item.name"
-        hide-info-icon
-      ></player-list-item>
+      <router-link v-if="item.type === 'PLAYER'" :to="{page: 'Player', player: item.uuid}">
+        <player-list-item
+          :uuid="item.uuid"
+          :name="item.name"
+          hide-info-icon
+        ></player-list-item>
+      </router-link>
       <template v-if="item.type === 'PAGE'">
         <router-link :to="item.path">
           <v-list-item-content>
@@ -83,25 +91,23 @@ type SearchResult =  {type: "PAGE", path: string, name: string} | {type: 'PLAYER
 })
 export default class HiveSearch extends Vue {
   private search: string | SearchResult = ''
+  private items: SearchResult[] = []
 
-  get items () {
-    let search = ''
-    if (typeof this.search === 'string') {
-      search = this.search
+  @Watch('search')
+  async onSearchChange (search: string) {
+    if (typeof search !== 'string') {
+      search = ''
     }
     search = search.toLowerCase()
 
-    const results: SearchResult[] = []
-
-    flattenRoutes(routeConfig)
+    const routeItems: SearchResult[] = flattenRoutes(routeConfig)
       .filter(route => findInRoute(search, route))
-      .forEach(route => results.push({path: route.path, name: route.name || route.path, type: 'PAGE'}))
+      .map(route => ({path: route.path, name: route.name || route.path, type: 'PAGE'}))
 
-    if (search.length >= 3) {
-      results.push({type: 'PLAYER', name: search, uuid: search})
-    }
+    const res: {uuid: string, name: string}[] = await fetch(`https://api.lergin.de/hive/names/${search}`).then(res => res.json())
+    const playerItems: SearchResult[] = res.sort((a,b) => a.name.localeCompare(b.name)).map(({uuid, name}) => ({type: 'PLAYER', uuid, name}))
 
-    return results
+    this.items = [... routeItems, ... playerItems]
   }
 
   goToPath(selectedItem: SearchResult | undefined) {
