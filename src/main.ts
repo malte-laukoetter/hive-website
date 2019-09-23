@@ -11,3 +11,10 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount("#app");
+
+Vue.filter('toLocaleString', function (value: any) {
+  if (!value) return ''
+  if (!value.toLocaleString) return value
+
+  return value.toLocaleString()
+})
