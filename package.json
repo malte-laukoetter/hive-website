@@ -9,9 +9,13 @@
   },
   "dependencies": {
     "@mdi/font": "^4.4.95",
+    "@types/chart.js": "^2.8.5",
+    "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
+    "hive-api": "^1.13.2",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-chartjs": "^3.4.2",
     "vue-class-component": "^7.1.0",
     "vue-infinite-loading": "^2.4.4",
     "vue-property-decorator": "^8.2.2",

@@ -53,9 +53,10 @@ export const routeConfig: RouteConfig[] = [
     },
   },
   {
-    path: "/player",
-    name: "Player Statistics",
-    component: Home,
+    path: "/player/:uuid",
+    name: "Player",
+    props: true,
+    component: () => import(/* webpackChunkName: "player" */ "./views/Player.vue"),
     meta: {
       breadcrumbs: [
         breadcrumb.home

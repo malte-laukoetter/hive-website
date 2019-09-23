@@ -28,12 +28,14 @@
         <span v-if="value > 3">{{ value | toLocaleString }}</span>
       </template>
       <template v-slot:item.name="{item}">
-        <v-avatar class="ma-1 mr-3" size=32>
-          <v-img
-            :src="`https://cravatar.eu/avatar/${item.uuid}`"
-            :alt="`Minecraft Skin Head of ${item.name}`"></v-img>
-        </v-avatar>
-        <span>{{ item.name }}</span>
+        <router-link :to="`/player/${item.uuid}`">
+          <v-avatar class="ma-1 mr-3" size=32>
+            <v-img
+              :src="`https://cravatar.eu/avatar/${item.uuid}`"
+              :alt="`Minecraft Skin Head of ${item.name}`"></v-img>
+          </v-avatar>
+          <span>{{ item.name }}</span>
+        </router-link>
       </template>
       <template v-slot:item.value="{value}">
         {{value | toLocaleString}}
