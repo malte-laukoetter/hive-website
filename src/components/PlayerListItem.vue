@@ -8,7 +8,9 @@
 
     <v-list-item-content>
       <v-list-item-title>{{name}}</v-list-item-title>
-      <v-list-item-subtitle><uuid-format :uuid="uuid"></uuid-format></v-list-item-subtitle>
+      <v-list-item-subtitle v-if="$vuetify.breakpoint.smAndUp">
+        <slot name="subtitle"><uuid-format :uuid="uuid"></uuid-format></slot>
+      </v-list-item-subtitle>
     </v-list-item-content>
 
     <v-list-item-action v-if="!hideInfoIcon">
@@ -21,6 +23,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import '../components/uuid-format';
 
 export default Vue.extend({
   props: {
