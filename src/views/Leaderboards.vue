@@ -1,24 +1,26 @@
 <template>
-  <v-row>
-    <v-col
-      cols="12" md="6" lg="4"
-      v-for="leaderboard in leaderboards"
-      :key="leaderboard.id"
-    >
-      <leaderboard-card
-        :href="`https://api.lergin.de/hive/leaderboard/${leaderboard.id}?limit=5`"
-        :title="leaderboard.title"
-        :property-title="leaderboard.propertyTitle"
-        :size="5"
+  <hive-app>
+    <v-row>
+      <v-col
+        cols="12" md="6" lg="4"
+        v-for="leaderboard in leaderboards"
+        :key="leaderboard.id"
       >
-        <template #actions>
-          <v-card-actions>
-            <v-btn text :to="`/leaderboard/${leaderboard.href}`">Show all</v-btn>
-          </v-card-actions>
-        </template>
-      </leaderboard-card>
-    </v-col>
-  </v-row>
+        <leaderboard-card
+          :href="`https://api.lergin.de/hive/leaderboard/${leaderboard.id}?limit=5`"
+          :title="leaderboard.title"
+          :property-title="leaderboard.propertyTitle"
+          :size="5"
+        >
+          <template #actions>
+            <v-card-actions>
+              <v-btn text :to="`/leaderboard/${leaderboard.href}`">Show all</v-btn>
+            </v-card-actions>
+          </template>
+        </leaderboard-card>
+      </v-col>
+    </v-row>
+  </hive-app>
 </template>
 
 <script lang="ts">

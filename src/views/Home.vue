@@ -1,5 +1,7 @@
 <template>
+<hive-app>
   <HelloWorld />
+</hive-app>
 </template>
 
 <script lang="ts">

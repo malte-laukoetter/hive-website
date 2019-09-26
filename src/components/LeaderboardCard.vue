@@ -1,3 +1,9 @@
+<style scoped>
+  .v-data-table >>> .v-data-table-header-mobile {
+    display: none
+  }
+</style>
+
 <template>
   <v-card>
     <v-card-title v-if="title">
@@ -7,6 +13,7 @@
       disable-filtering
       disable-pagination
       disable-sort
+      :mobile-breakpoint="300"
       :headers="[{
         text: 'Place',
         value: '_place',

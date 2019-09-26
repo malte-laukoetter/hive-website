@@ -1,26 +1,45 @@
+<style scoped>
+  a {
+    text-decoration: inherit;
+    color: inherit;
+  }
+
+  .v-avatar {
+    margin-top: -64px;
+  }
+
+  .v-card {
+    margin-top: 48px;
+  }
+</style>
+
 <template>
   <v-card>
-    <v-row>
-      <v-col class="shrink ml-2">
-        <v-avatar size="96">
-          <img
-            :src="`https://crafatar.com/avatars/${uuid}`"
-            :alt="`Minecraft Skin Head of ${name}`"/>
-        </v-avatar>
-        <div class="mt-2 grey--text text--darken-2 font-weight-light">{{name}}</div>
-      </v-col>
-      <v-col class="d-flex flex-column justify-end align-end mr-2">
-        <slot></slot>
-      </v-col>
-    </v-row>
+    <router-link :to="`/player/${uuid}`">
+      <v-container>
+        <v-row dense>
+          <v-col class="shrink text-center">
+            <minecraft-avatar class="elevation-2" :size="96" :uuid="uuid" :name="name"></minecraft-avatar>
+            <div class="mt-2 grey--text text--darken-2 font-weight-regular">{{name}}</div>
+          </v-col>
+          <v-col class="d-flex flex-column justify-end align-end">
+            <slot></slot>
+          </v-col>
+        </v-row>
+      </v-container>
+    </router-link>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import '../components/uuid-format';
+import MinecraftAvatar from "../components/MinecraftAvatar.vue";
 
 export default Vue.extend({
+  components: {
+    MinecraftAvatar
+  },
   props: {
     uuid: String,
     name: String,

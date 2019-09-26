@@ -1,30 +1,25 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Mixins } from 'vue-property-decorator'
 import { Line, mixins as chartjsMixins } from 'vue-chartjs'
-import { ChartOptions, ChartData, Chart } from 'chart.js'
+import { ChartOptions, ChartData, Chart, ChartDataSets } from 'chart.js'
 
 Chart.defaults.global.defaultFontFamily = "Roboto"
 
 @Component({})
 export default class TimelineChart extends Mixins(Line) {
-  @Prop()
+  @Prop(Number)
   private height!: number
+  @Prop()
+  private datasets!: ChartDataSets[]
 
   async mounted() {
-    const data: {x: string, y: number}[] = await fetch('/data.json').then(res => res.json());
 
+  }
+
+  @Watch('datasets')
+  onDatasetsChange() {
     this.renderChart({
-      datasets: [
-        {
-          label: 'Points',
-          data: data.map(({x, y}) => ({x : new Date(x), y: y*2*Math.random()})),
-          borderColor: this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark.secondary as string : this.$vuetify.theme.themes.light.secondary as string,
-        },
-        {
-          label: 'Tokens',
-          data: data.map(({x, y}) => ({x : new Date(x), y}))
-        },
-      ]
+      datasets: this.datasets
     } as ChartData, {... this.options})
   }
 
@@ -64,7 +59,10 @@ export default class TimelineChart extends Mixins(Line) {
       }],
       yAxes: [{
         display: true,
-        ticks: { beginAtZero: true }
+        ticks: { 
+          beginAtZero: true,
+          callback: (value: number)  => value.toLocaleString()
+        }
       }]
     },
     legend: {

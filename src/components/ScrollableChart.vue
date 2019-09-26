@@ -18,7 +18,7 @@
   <v-card class="scroll-wrapper" :id="`scroll-target-${id}`">
     <div class="scroll-target" v-scroll:[`#scroll-target-${id}`]="onScroll">
       <canvas :style="{left: scrollLeft + 'px'}" class="axis" width="0" height="0" ref="axis"></canvas>
-      <timeline-chart :width="width" :height="height" :plugins="plugins" ref="chart" @rendered="renderAxis"></timeline-chart>
+      <timeline-chart :datasets="datasets" :width="width" :height="height" :plugins="plugins" ref="chart" @rendered="renderAxis"></timeline-chart>
     </div>
   </v-card>
 </template>
@@ -45,6 +45,9 @@ export default class ScrollableChart extends Vue {
   height!: number
   @Prop(Number)
   width!: number
+  
+  @Prop(Array)
+  datasets!: any
 
   scrollLeft: number = 0
   id: string = Math.random().toString(16).replace('.', '-')

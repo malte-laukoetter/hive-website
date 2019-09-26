@@ -17,15 +17,16 @@
     clearable
     hide-details
 
+    return-object
     item-text="name"
 
     :items="items"
     :search-input.sync="search"
 
-    @input="goToPath"
+    @change="goToPath"
     >
     <template v-slot:item="{ item }">
-      <router-link v-if="item.type === 'PLAYER'" :to="{page: 'Player', player: item.uuid}">
+      <router-link v-if="item.type === 'PLAYER'" :to="`/player/${item.uuid}`">
         <player-list-item
           :uuid="item.uuid"
           :name="item.name"
@@ -132,6 +133,9 @@ export default class HiveSearch extends Vue {
     switch(selectedItem.type) {
       case "PAGE":
         this.$router.push(selectedItem.path)
+        break
+      case "PLAYER":
+        this.$router.push(`/player/${selectedItem.uuid}`)
         break
     }
   }
