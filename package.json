@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/font": "^4.4.95",
+    "@mdi/js": "^4.4.95",
     "@types/chart.js": "^2.8.5",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",

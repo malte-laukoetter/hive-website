@@ -9,7 +9,7 @@ a {
   <v-autocomplete
     style="margin-top: 8px"
     append-icon=""
-    append-outer-icon="mdi-magnify"
+    append-outer-icon="{{mdiMagnify}}"
     label="Search"
     auto-select-first
     no-filter
@@ -46,6 +46,7 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { routeConfig } from "../router";
 import { RouteConfig } from "vue-router";
 import PlayerListItem from "../components/PlayerListItem.vue";
+import { mdiMagnify } from '@mdi/js'
 
 function flattenRoutes(routes: RouteConfig[]) {
   const routeStack = [...routes];
@@ -93,6 +94,7 @@ type SearchResult =
 export default class HiveSearch extends Vue {
   private search: string | SearchResult = "";
   private items: SearchResult[] = [];
+  private mdiMagnify = mdiMagnify
 
   @Watch("search")
   async onSearchChange(search: string) {

@@ -25,7 +25,7 @@ a {
 
       <v-list-item-action v-if="!hideInfoIcon">
         <v-btn icon>
-          <v-icon color="grey lighten-1">mdi-information</v-icon>
+          <v-icon color="grey lighten-1">mdiInformation</v-icon>
         </v-btn>
       </v-list-item-action>
     </v-list-item>
@@ -36,6 +36,7 @@ a {
 import Vue from "vue";
 import "../components/uuid-format";
 import MinecraftAvatar from "../components/MinecraftAvatar.vue";
+import {mdiInformation} from '@mdi/js'
 
 export default Vue.extend({
   components: {
@@ -49,7 +50,9 @@ export default Vue.extend({
     hideInfoIcon: Boolean
   },
 
-  data: () => ({}),
+  data: () => ({
+    mdiInformation: mdiInformation
+  }),
 
   computed: {
     avatarUrl() {

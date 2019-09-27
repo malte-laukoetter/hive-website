@@ -36,7 +36,7 @@
     >
       <template v-slot:item._place="{ value }">
         <v-icon v-if="value <= 3"
-          >mdi-numeric-{{ value }}-circle-outline</v-icon
+          >{{ placeIcon(value) }}</v-icon
         >
         <span v-if="value > 3">{{ value | toLocaleString }}</span>
       </template>
@@ -63,6 +63,7 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import PlayerListItem from "../components/PlayerListItem.vue";
 import LoadingCircular from "../components/LoadingCircular.vue";
+import { mdiNumeric1CircleOutline, mdiNumeric2CircleOutline, mdiNumeric3CircleOutline } from '@mdi/js'
 
 type LeaderboardEntry = {
   _place: number;
@@ -112,6 +113,14 @@ export default class LeaderboardCard extends Vue {
     if (this.href == null) return;
 
     this.fetchedData = await fetch(this.href).then(res => res.json());
+  }
+
+  placeIcon(place: 1 | 2 | 3): string {
+    switch (place) {
+      case 1: return mdiNumeric1CircleOutline
+      case 2: return mdiNumeric2CircleOutline
+      case 3: return mdiNumeric3CircleOutline
+    }
   }
 }
 </script>

@@ -14,23 +14,23 @@
     <v-bottom-navigation app grow v-if="$vuetify.breakpoint.smAndDown">
       <v-btn to="/team">
         <span>Team</span>
-        <v-icon>mdi-account-group</v-icon>
+        <v-icon>{{icons.mdiAccountGroup}}</v-icon>
       </v-btn>
       <v-btn to="/maps">
         <span>Maps</span>
-        <v-icon>mdi-city</v-icon>
+        <v-icon>{{icons.mdiCity}}</v-icon>
       </v-btn>
       <v-btn>
         <span>Server</span>
-        <v-icon>mdi-chart-histogram</v-icon>
+        <v-icon>{{icons.mdiChartHistogram}}</v-icon>
       </v-btn>
       <v-btn>
         <span>Player</span>
-        <v-icon>mdi-account-details</v-icon>
+        <v-icon>{{icons.mdiAccountDetails}}</v-icon>
       </v-btn>
       <v-btn to="/leaderboard">
         <span>Rankings</span>
-        <v-icon>mdi-format-list-numbered</v-icon>
+        <v-icon>{{icons.mdiFormatListNumbered}}</v-icon>
       </v-btn>
     </v-bottom-navigation>
 
@@ -49,6 +49,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import HiveAppBar from "./HiveAppBar.vue";
+import { mdiAccountGroup, mdiCity, mdiChartHistogram, mdiAccountDetails, mdiFormatListNumbered } from '@mdi/js'
 
 @Component({
   components: {
@@ -58,5 +59,13 @@ import HiveAppBar from "./HiveAppBar.vue";
 export default class HiveApp extends Vue {
   @Prop(String)
   readonly name: string | undefined;
+
+  readonly icons = {
+    mdiAccountGroup,
+    mdiCity,
+    mdiChartHistogram,
+    mdiAccountDetails,
+    mdiFormatListNumbered
+  }
 }
 </script>
