@@ -25,7 +25,7 @@ a {
 
       <v-list-item-action v-if="!hideInfoIcon">
         <v-btn icon>
-          <v-icon color="grey lighten-1">mdiInformation</v-icon>
+          <v-icon color="grey lighten-1">{{mdiInformation}}</v-icon>
         </v-btn>
       </v-list-item-action>
     </v-list-item>

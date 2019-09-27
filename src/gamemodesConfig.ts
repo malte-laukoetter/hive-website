@@ -10,9 +10,9 @@ import {
 } from "hive-api/dist/hive.min.js";
 
 const numFormat = (a: string | number) => new Number(a || 0).toLocaleString();
-const strFormat = (a: string) =>
+const strFormat = (a: string | number) =>
   a
-    ? a
+    ? a.toString()
         .split(/\s/g)
         .map(
           a =>

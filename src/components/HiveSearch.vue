@@ -9,7 +9,7 @@ a {
   <v-autocomplete
     style="margin-top: 8px"
     append-icon=""
-    append-outer-icon="{{mdiMagnify}}"
+    :append-outer-icon="mdiMagnify"
     label="Search"
     auto-select-first
     no-filter

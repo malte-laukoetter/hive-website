@@ -1,8 +1,10 @@
 <template>
   <div>
-    <loading-circular :loading="!playerInfo"></loading-circular>
+    <loading-circular :loading="loading"></loading-circular>
 
-    <v-row v-if="!!playerInfo">
+    <no-data-banner :value="!loading && !playerInfo"></no-data-banner>
+
+    <v-row v-if="!loading && !!playerInfo">
       <v-col cols="6" sm="4" md="2">
         <count-card :count="playerInfo.tokens" title="Tokens"></count-card>
       </v-col>
@@ -75,6 +77,7 @@ import {
   GameTypes
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
+import NoDataBanner from "@/components/NoDataBanner.vue";
 
 @Component({
   components: {
@@ -84,7 +87,8 @@ import "@/components/uuid-format.js";
     PlayerInfoCard,
     CountCard,
     BarChart,
-    HiveAppBarExtended
+    HiveAppBarExtended,
+    NoDataBanner
   }
 })
 export default class PlayerInfo extends Vue {
@@ -125,6 +129,7 @@ export default class PlayerInfo extends Vue {
 
   private player: HivePlayer | null = null;
   private playerInfo: HivePlayerInfo | null = null;
+  private loading: boolean = true;
 
   private achievementLabels = [
     "SKY",
@@ -218,10 +223,16 @@ export default class PlayerInfo extends Vue {
   async fetchData(): Promise<void> {
     if (this.uuid == null) return;
 
-    this.player = new HivePlayer(this.uuid);
-    this.playerInfo = await this.player.info();
-
-    this.data = await fetch("/data.json").then(res => res.json());
+    this.loading = true
+    try {
+      this.player = new HivePlayer(this.uuid);
+      this.playerInfo = await this.player.info();
+    } catch {
+      this.playerInfo = null
+    } finally {
+      this.data = await fetch("/data.json").then(res => res.json());
+      this.loading = false
+    }
   }
 
   @Watch("uuid", { immediate: true })

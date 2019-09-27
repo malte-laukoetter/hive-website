@@ -2,7 +2,9 @@
   <div>
     <loading-circular :loading="loading"></loading-circular>
 
-    <v-row v-if="!loading">
+    <no-data-banner :value="!loading && (!playerGameInfo || playerGameInfo.points === 0)"></no-data-banner>
+
+    <v-row v-if="!loading && playerGameInfo && playerGameInfo.points !== 0">
       <v-col cols="12" md="4">
         <player-game-info-card
           :name="playerInfo.name"
@@ -33,6 +35,7 @@ import CountCard from "@/components/CountCard.vue";
 import ScrollableChart from "@/components/ScrollableChart.vue";
 import PlayerGameInfoCard from "@/components/PlayerGameInfoCard.vue";
 import BarChart from "@/components/BarChart.vue";
+import NoDataBanner from "@/components/NoDataBanner.vue";
 import {
   Player as HivePlayer,
   PlayerInfo,
@@ -42,6 +45,7 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";
+import {mdiAlert} from '@mdi/js'
 
 @Component({
   components: {
@@ -51,7 +55,8 @@ import gameModeConfigs from "@/gamemodesConfig";
     PlayerInfoCard,
     CountCard,
     BarChart,
-    PlayerGameInfoCard
+    PlayerGameInfoCard,
+    NoDataBanner
   }
 })
 export default class PlayerGameInfo extends Vue {
@@ -64,6 +69,7 @@ export default class PlayerGameInfo extends Vue {
   private playerInfo: PlayerInfo | null = null;
   private playerGameInfo: HivePlayerGameInfo | null = null;
   private loading: boolean = true;
+  private mdiAlert = mdiAlert
 
   get stats() {
     return gameModeConfigs[this.game].stats;
@@ -76,13 +82,20 @@ export default class PlayerGameInfo extends Vue {
     this.player = new HivePlayer(this.uuid);
     const gameType: GameType = GameTypes[this.game];
 
-    const [playerGameInfo, playerInfo] = await Promise.all([
-      this.player.gameInfo(gameType),
-      this.player.info()
-    ]);
-    this.playerInfo = playerInfo;
-    this.playerGameInfo = playerGameInfo;
-    this.loading = false;
+    
+    try {
+      const [playerGameInfo, playerInfo] = await Promise.all([
+        this.player.gameInfo(gameType),
+        this.player.info()
+      ]);
+      this.playerInfo = playerInfo;
+      this.playerGameInfo = playerGameInfo;
+    } catch {
+      this.playerInfo = null
+      this.playerGameInfo = null
+    } finally {
+      this.loading = false
+    }
   }
 
   @Watch("uuid", { immediate: true })
