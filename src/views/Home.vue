@@ -1,7 +1,7 @@
 <template>
-<hive-app>
-  <HelloWorld />
-</hive-app>
+  <hive-app>
+    <HelloWorld></HelloWorld>
+  </hive-app>
 </template>
 
 <script lang="ts">

@@ -1,19 +1,23 @@
 <style scoped>
-  a {
-    color: inherit;
-    text-decoration: inherit;
-  }
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 </style>
 
 <template>
   <router-link :to="`/player/${uuid}`">
     <v-list-item>
       <v-list-item-avatar>
-        <minecraft-avatar :uuid="uuid" :name="name" :size="48"></minecraft-avatar>
+        <minecraft-avatar
+          :uuid="uuid"
+          :name="name"
+          :size="48"
+        ></minecraft-avatar>
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title>{{name}}</v-list-item-title>
+        <v-list-item-title>{{ name }}</v-list-item-title>
         <v-list-item-subtitle v-if="$vuetify.breakpoint.smAndUp">
           <slot name="subtitle"><uuid-format :uuid="uuid"></uuid-format></slot>
         </v-list-item-subtitle>
@@ -30,8 +34,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import '../components/uuid-format';
-import MinecraftAvatar from '../components/MinecraftAvatar.vue';
+import "../components/uuid-format";
+import MinecraftAvatar from "../components/MinecraftAvatar.vue";
 
 export default Vue.extend({
   components: {
@@ -45,17 +49,16 @@ export default Vue.extend({
     hideInfoIcon: Boolean
   },
 
-  data: () => ({
-  }),
+  data: () => ({}),
 
   computed: {
-    avatarUrl () {
+    avatarUrl() {
       if (this.uuid) {
-        return `https://cravatar.eu/avatar/${this.uuid}`
+        return `https://cravatar.eu/avatar/${this.uuid}`;
       }
 
-      return `https://cravatar.eu/avatar/steve`
-    },
-  },
+      return `https://cravatar.eu/avatar/steve`;
+    }
+  }
 });
 </script>

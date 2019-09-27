@@ -1,30 +1,30 @@
 <script lang="ts">
-import { Vue, Component, Prop, Watch, Mixins } from 'vue-property-decorator'
-import { Line, mixins as chartjsMixins } from 'vue-chartjs'
-import { ChartOptions, ChartData, Chart, ChartDataSets } from 'chart.js'
+import { Vue, Component, Prop, Watch, Mixins } from "vue-property-decorator";
+import { Line, mixins as chartjsMixins } from "vue-chartjs";
+import { ChartOptions, ChartData, Chart, ChartDataSets } from "chart.js";
 
-Chart.defaults.global.defaultFontFamily = "Roboto"
+Chart.defaults.global.defaultFontFamily = "Roboto";
 
 @Component({})
 export default class TimelineChart extends Mixins(Line) {
   @Prop(Number)
-  private height!: number
+  private height!: number;
   @Prop()
-  private datasets!: ChartDataSets[]
+  private datasets!: ChartDataSets[];
 
-  async mounted() {
+  async mounted() {}
 
-  }
-
-  @Watch('datasets')
+  @Watch("datasets")
   onDatasetsChange() {
-    this.renderChart({
-      datasets: this.datasets
-    } as ChartData, {... this.options})
+    this.renderChart(
+      {
+        datasets: this.datasets
+      } as ChartData,
+      { ...this.options }
+    );
   }
 
   options: ChartOptions = {
-
     responsive: true,
     maintainAspectRatio: false,
     layout: {
@@ -38,37 +38,42 @@ export default class TimelineChart extends Mixins(Line) {
       },
       line: {
         tension: 0,
-        borderColor: this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark.primary as string : this.$vuetify.theme.themes.light.primary as string,
+        borderColor: this.$vuetify.theme.dark
+          ? (this.$vuetify.theme.themes.dark.primary as string)
+          : (this.$vuetify.theme.themes.light.primary as string),
         borderWidth: 4,
-        borderJoinStyle: 'round',
-      },
+        borderJoinStyle: "round"
+      }
     },
     scales: {
-      xAxes: [{
-        type: "time",
-        ticks: {
-          reverse: true
-        },
-        time: {
-          minUnit: 'day',
-          displayFormats: {
-            day: 'll'
-          }
-        },
-        display: true
-      }],
-      yAxes: [{
-        display: true,
-        ticks: { 
-          beginAtZero: true,
-          callback: (value: number)  => value.toLocaleString()
+      xAxes: [
+        {
+          type: "time",
+          ticks: {
+            reverse: true
+          },
+          time: {
+            minUnit: "day",
+            displayFormats: {
+              day: "ll"
+            }
+          },
+          display: true
         }
-      }]
+      ],
+      yAxes: [
+        {
+          display: true,
+          ticks: {
+            beginAtZero: true,
+            callback: (value: number) => value.toLocaleString()
+          }
+        }
+      ]
     },
     legend: {
       display: false
     }
-  }
+  };
 }
-
 </script>

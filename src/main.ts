@@ -10,7 +10,7 @@ import HiveBreadcrumb from "./components/HiveBreadcrumb.vue";
 import HiveFooter from "./components/HiveFooter.vue";
 import HiveApp from "./components/HiveApp.vue";
 
-import './assets/style.css'
+import "./assets/style.css";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBPl570AoqaHuCgX342wICImCJbz4c3vFs",
@@ -29,34 +29,34 @@ firebase.analytics();
 
 Vue.config.productionTip = false;
 
+Vue.component("hive-breadcrumb", HiveBreadcrumb);
+Vue.component("hive-footer", HiveFooter);
+Vue.component("hive-app", HiveApp);
+
 new Vue({
   router,
   vuetify,
   render: h => h(App)
 }).$mount("#app");
 
-Vue.filter('toLocaleString', function (value: any) {
-  if (value == null) return ''
-  if (!value.toLocaleString) return value
+Vue.filter("toLocaleString", function(value: any) {
+  if (value == null) return "";
+  if (!value.toLocaleString) return value;
 
-  return value.toLocaleString()
-})
+  return value.toLocaleString();
+});
 
-Vue.filter('dateFormat', function (value: Date) {
-  if (!value) return ''
-  if (!value.getTime) return value
+Vue.filter("dateFormat", function(value: Date) {
+  if (!value) return "";
+  if (!value.getTime) return value;
 
-  return value.toLocaleString(undefined,{
+  return value.toLocaleString(undefined, {
     hour12: false,
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  })
-})
-
-Vue.component('hive-breadcrumb', HiveBreadcrumb)
-Vue.component('hive-footer', HiveFooter)
-Vue.component('hive-app', HiveApp)
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  });
+});

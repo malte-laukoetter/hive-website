@@ -1,16 +1,16 @@
 <style scoped>
-  a {
-    text-decoration: inherit;
-    color: inherit;
-  }
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
 
-  .v-avatar {
-    margin-top: -64px;
-  }
+.v-avatar {
+  margin-top: -64px;
+}
 
-  .v-card {
-    margin-top: 48px;
-  }
+.v-card {
+  margin-top: 48px;
+}
 </style>
 
 <template>
@@ -19,8 +19,15 @@
       <v-container>
         <v-row dense>
           <v-col class="shrink text-center">
-            <minecraft-avatar class="elevation-2" :size="96" :uuid="uuid" :name="name"></minecraft-avatar>
-            <div class="mt-2 grey--text text--darken-2 font-weight-regular">{{name}}</div>
+            <minecraft-avatar
+              class="elevation-2"
+              :size="96"
+              :uuid="uuid"
+              :name="name"
+            ></minecraft-avatar>
+            <div class="mt-2 grey--text text--darken-2 font-weight-regular">
+              {{ name }}
+            </div>
           </v-col>
           <v-col class="d-flex flex-column justify-end align-end">
             <slot></slot>
@@ -33,7 +40,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import '../components/uuid-format';
+import "../components/uuid-format";
 import MinecraftAvatar from "../components/MinecraftAvatar.vue";
 
 export default Vue.extend({
@@ -47,17 +54,16 @@ export default Vue.extend({
     hideInfoIcon: Boolean
   },
 
-  data: () => ({
-  }),
+  data: () => ({}),
 
   computed: {
-    avatarUrl () {
+    avatarUrl() {
       if (this.uuid) {
-        return `https://cravatar.eu/avatar/${this.uuid}`
+        return `https://cravatar.eu/avatar/${this.uuid}`;
       }
 
-      return `https://cravatar.eu/avatar/steve`
-    },
-  },
+      return `https://cravatar.eu/avatar/steve`;
+    }
+  }
 });
 </script>

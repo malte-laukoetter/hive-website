@@ -1,9 +1,8 @@
 <style scoped>
-
-  .container {
-    max-width: 1265px;
-    height: 100%;
-  }
+.container {
+  max-width: 1265px;
+  height: 100%;
+}
 </style>
 
 <template>
@@ -37,7 +36,7 @@
 
     <v-content>
       <v-container>
-        <div class="headline font-weight-light">{{name || $route.name}}</div>
+        <div class="headline font-weight-light">{{ name || $route.name }}</div>
         <hive-breadcrumb></hive-breadcrumb>
         <slot></slot>
       </v-container>
@@ -48,8 +47,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import HiveAppBar from './HiveAppBar.vue'
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import HiveAppBar from "./HiveAppBar.vue";
 
 @Component({
   components: {
@@ -58,6 +57,6 @@ import HiveAppBar from './HiveAppBar.vue'
 })
 export default class HiveApp extends Vue {
   @Prop(String)
-  readonly name: string | undefined
+  readonly name: string | undefined;
 }
 </script>

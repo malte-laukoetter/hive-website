@@ -1,8 +1,8 @@
 <style scoped>
-  a {
-    color: inherit;
-    text-decoration: inherit;
-  }
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 </style>
 
 <template>
@@ -11,20 +11,16 @@
     append-icon=""
     append-outer-icon="mdi-magnify"
     label="Search"
-
     auto-select-first
     no-filter
     clearable
     hide-details
-
     return-object
     item-text="name"
-
     :items="items"
     :search-input.sync="search"
-
     @change="goToPath"
-    >
+  >
     <template v-slot:item="{ item }">
       <router-link v-if="item.type === 'PLAYER'" :to="`/player/${item.uuid}`">
         <player-list-item
@@ -46,44 +42,48 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import {routeConfig} from '../router'
-import { RouteConfig } from 'vue-router';
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { routeConfig } from "../router";
+import { RouteConfig } from "vue-router";
 import PlayerListItem from "../components/PlayerListItem.vue";
 
 function flattenRoutes(routes: RouteConfig[]) {
-  const routeStack = [... routes]
-  const flattenedRoutes: RouteConfig[] = []
+  const routeStack = [...routes];
+  const flattenedRoutes: RouteConfig[] = [];
 
   while (routeStack.length > 0) {
-    const route = routeStack.pop()
+    const route = routeStack.pop();
 
-    if(route) {
-      flattenedRoutes.push(route)
+    if (route) {
+      flattenedRoutes.push(route);
 
       if (route.children) {
-        route.children.forEach(childRoute => routeStack.push({
-          ... childRoute,
-          path: route.path + childRoute.path,
-          name: route.name + ' / ' + childRoute.name,
-        }))
+        route.children.forEach(childRoute =>
+          routeStack.push({
+            ...childRoute,
+            path: route.path + childRoute.path,
+            name: route.name + " / " + childRoute.name
+          })
+        );
       }
     }
   }
-  
-  return flattenedRoutes
+
+  return flattenedRoutes;
 }
 
 function findInRoute(search: string, route: RouteConfig): boolean {
   if (route.path.toLowerCase().includes(search)) {
-    return true
+    return true;
   } else if (route.name && route.name.toLowerCase().includes(search)) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
-type SearchResult =  {type: "PAGE", path: string, name: string} | {type: 'PLAYER', name: string, uuid: string}
+type SearchResult =
+  | { type: "PAGE"; path: string; name: string }
+  | { type: "PLAYER"; name: string; uuid: string };
 
 @Component({
   components: {
@@ -91,54 +91,66 @@ type SearchResult =  {type: "PAGE", path: string, name: string} | {type: 'PLAYER
   }
 })
 export default class HiveSearch extends Vue {
-  private search: string | SearchResult = ''
-  private items: SearchResult[] = []
+  private search: string | SearchResult = "";
+  private items: SearchResult[] = [];
 
-  @Watch('search')
-  async onSearchChange (search: string) {
-    if (typeof search !== 'string') {
-      search = ''
+  @Watch("search")
+  async onSearchChange(search: string) {
+    if (typeof search !== "string") {
+      search = "";
     }
-    search = search.toLowerCase()
+    search = search.toLowerCase();
 
     const routeItems: SearchResult[] = flattenRoutes(routeConfig)
       .filter(route => findInRoute(search, route))
-      .map(route => ({path: route.path, name: route.name || route.path, type: 'PAGE'}))
+      .map(route => ({
+        path: route.path,
+        name: route.name || route.path,
+        type: "PAGE"
+      }));
 
     if (search.length >= 3) {
-      const res: [{uuid: string, name: string}[], {username: string, UUID: string}] = await Promise.all([
-        fetch(`https://api.lergin.de/hive/names/${search}`).then(res => res.json()),
-        fetch(`https://api.hivemc.com/v1/player/${search}`).then(res => res.json()).catch(err => ({}))
-      ])
+      const res: [
+        { uuid: string; name: string }[],
+        { username: string; UUID: string }
+      ] = await Promise.all([
+        fetch(`https://api.lergin.de/hive/names/${search}`).then(res =>
+          res.json()
+        ),
+        fetch(`https://api.hivemc.com/v1/player/${search}`)
+          .then(res => res.json())
+          .catch(err => ({}))
+      ]);
 
-      const playerItems: SearchResult[] = res[0].sort((a,b) => a.name.localeCompare(b.name)).map(({uuid, name}) => ({type: 'PLAYER', uuid, name}))
+      const playerItems: SearchResult[] = res[0]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(({ uuid, name }) => ({ type: "PLAYER", uuid, name }));
 
       if (res[1].username) {
         playerItems.unshift({
           name: res[1].username,
           uuid: res[1].UUID,
-          type: 'PLAYER'
-        })
+          type: "PLAYER"
+        });
       }
 
-      this.items = [... routeItems, ... playerItems]
+      this.items = [...routeItems, ...playerItems];
     } else {
-      this.items = routeItems
+      this.items = routeItems;
     }
   }
 
   goToPath(selectedItem: SearchResult | undefined) {
-    if (!selectedItem) return
+    if (!selectedItem) return;
 
-    switch(selectedItem.type) {
+    switch (selectedItem.type) {
       case "PAGE":
-        this.$router.push(selectedItem.path)
-        break
+        this.$router.push(selectedItem.path);
+        break;
       case "PLAYER":
-        this.$router.push(`/player/${selectedItem.uuid}`)
-        break
+        this.$router.push(`/player/${selectedItem.uuid}`);
+        break;
     }
   }
 }
-
 </script>

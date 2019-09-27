@@ -1,63 +1,76 @@
-import Vue from "vue";
+import Vue, { ComponentOptions, AsyncComponent } from "vue";
 import Router, { RouteConfig, RawLocation } from "vue-router";
 import Home from "./views/Home.vue";
-import {GameTypes} from 'hive-api';
+//import {GameTypes} from 'hive-api';
+import gamemodeConfigs from "./gamemodesConfig";
 
 Vue.use(Router);
 
 const breadcrumb: {
   [key: string]: {
-    text: string,
-    disabled?: boolean
-    link?: boolean
-    exact?: boolean
-    to?: RawLocation
-    href?: string
-  }
+    text: string;
+    disabled?: boolean;
+    link?: boolean;
+    exact?: boolean;
+    to?: RawLocation;
+    href?: string;
+  };
 } = {
   home: {
-    text: 'Home',
+    text: "Home",
     exact: true,
-    to: { name: 'Home' }
+    to: { name: "Home" }
   },
   leaderboard: {
-    text: 'Leaderboards',
+    text: "Leaderboards",
     exact: true,
-    to: { name: 'Leaderboards' }
+    to: { name: "Leaderboards" }
   }
-}
+};
 
-const leaderboards: { title: string, id: string, propertyTitle: string, href: string }[] = [{
-  title: 'Medal Leaderboard',
-  id: 'medal',
-  propertyTitle: 'Gold Medals',
-  href: 'medals'
-}, {
-  title: 'Kill Leaderboard',
-  id: 'totalkills',
-  propertyTitle: 'Kills',
-  href: 'kills'
-}, {
-  title: 'Point Leaderboard',
-  id: 'totalpoints',
-  propertyTitle: 'Points',
-  href: 'points'
-}, {
-  title: 'Achievement Leaderboard',
-  id: 'achievement',
-  propertyTitle: 'Achievements',
-  href: 'achievements'
-}, {
-  title: 'Token Leaderboard',
-  id: 'token',
-  propertyTitle: 'Tokens',
-  href: 'tokens'
-}, {
-  title: 'Hide Block Level Leaderboard',
-  id: 'hide_blocklevels',
-  propertyTitle: 'Block Levels',
-  href: 'hide'
-}]
+const leaderboards: {
+  title: string;
+  id: string;
+  propertyTitle: string;
+  href: string;
+}[] = [
+  {
+    title: "Medal Leaderboard",
+    id: "medal",
+    propertyTitle: "Gold Medals",
+    href: "medals"
+  },
+  {
+    title: "Kill Leaderboard",
+    id: "totalkills",
+    propertyTitle: "Kills",
+    href: "kills"
+  },
+  {
+    title: "Point Leaderboard",
+    id: "totalpoints",
+    propertyTitle: "Points",
+    href: "points"
+  },
+  {
+    title: "Achievement Leaderboard",
+    id: "achievement",
+    propertyTitle: "Achievements",
+    href: "achievements"
+  },
+  {
+    title: "Token Leaderboard",
+    id: "token",
+    propertyTitle: "Tokens",
+    href: "tokens"
+  },
+  {
+    title: "Hide Block Level Leaderboard",
+    id: "hide_blocklevels",
+    propertyTitle: "Block Levels",
+    href: "hide"
+  }
+];
 
 export const routeConfig: RouteConfig[] = [
   {
@@ -69,69 +82,86 @@ export const routeConfig: RouteConfig[] = [
     path: "/team",
     name: "Team Changes",
     meta: {
-      breadcrumbs: [
-        breadcrumb.home
-      ]
+      breadcrumbs: [breadcrumb.home]
     },
-    component: () => import(/* webpackChunkName: "teamChanges" */ "./views/TeamChanges.vue")
+    component: () =>
+      import(/* webpackChunkName: "teamChanges" */ "./views/TeamChanges.vue")
   },
   {
     path: "/maps",
     name: "Maps",
     component: Home,
     meta: {
-      breadcrumbs: [
-        breadcrumb.home
-      ]
-    },
+      breadcrumbs: [breadcrumb.home]
+    }
   },
   {
     path: "/player/:uuid",
     name: "Player",
-    children: GameTypes.list.map(type => ({
-      name: type.id,
-      path: type.id,
-      props: (route) => ({
-        game: type.id,
-        ... route.params
-      }),
-      component: () => import(/* webpackChunkName: "playerGameInfo" */ "./views/PlayerGameInfo.vue"),
-      meta: {
-        breadcrumbs: (params: {uuid: string}) => [{
-          text: type.name,
-          exact: true,
-          to: `/player/${params.uuid}/${type.id}`
-        }]
+    children: [
+      ...Object.keys(gamemodeConfigs).map(
+        type =>
+          ({
+            name: type,
+            path: type,
+            props: route => ({
+              game: type,
+              ...route.params
+            }),
+            component: () =>
+              import(
+                /* webpackChunkName: "playerGameInfo" */ "./views/PlayerGameInfo.vue"
+              ),
+            meta: {
+              breadcrumbs: (params: { uuid: string }) => [
+                {
+                  text: type,
+                  exact: true,
+                  to: `/player/${params.uuid}/${type}`
+                }
+              ]
+            }
+          } as RouteConfig)
+      ),
+      {
+        name: "Player",
+        path: "",
+        props: true,
+        meta: {
+          breadcrumbs: () => []
+        },
+        component: () =>
+          import(/* webpackChunkName: "playerInfo" */ "./views/PlayerInfo.vue")
       }
-    })),
-    props: {default: true},
-    component: () => import(/* webpackChunkName: "player" */ "./views/Player.vue"),
+    ],
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "player" */ "./views/Player.vue"),
     meta: {
-      breadcrumbs: (params: {uuid: string}) => ([
+      breadcrumbs: (params: { uuid: string }) => [
         breadcrumb.home,
         {
-          text: 'Player',
+          text: "Player",
           disabled: true
         },
         {
           text: params.uuid,
           exact: true,
-          to: { name: 'Player', params: {uuid: params.uuid}}
+          to: { name: "Player", params: { uuid: params.uuid } }
         }
-      ])
-    },
+      ]
+    }
   },
   {
     path: "/leaderboard",
     name: "Leaderboards",
     meta: {
-      breadcrumbs: [
-        breadcrumb.home
-      ]
+      breadcrumbs: [breadcrumb.home]
     },
-    component: () => import(/* webpackChunkName: "leaderboards" */ "./views/Leaderboards.vue")
+    component: () =>
+      import(/* webpackChunkName: "leaderboards" */ "./views/Leaderboards.vue")
   },
-  ... leaderboards.map(leaderboard => ({
+  ...leaderboards.map(leaderboard => ({
     path: `/leaderboard/${leaderboard.href}`,
     name: leaderboard.title,
     props: {
@@ -140,17 +170,15 @@ export const routeConfig: RouteConfig[] = [
       propertyTitle: leaderboard.propertyTitle
     },
     meta: {
-      breadcrumbs: [
-        breadcrumb.home,
-        breadcrumb.leaderboard
-      ]
+      breadcrumbs: [breadcrumb.home, breadcrumb.leaderboard]
     },
-    component: () => import(/* webpackChunkName: "leaderboard" */ "./views/Leaderboard.vue")
-  })),
-]
+    component: () =>
+      import(/* webpackChunkName: "leaderboard" */ "./views/Leaderboard.vue")
+  }))
+];
 
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: routeConfig,
+  routes: routeConfig
 });

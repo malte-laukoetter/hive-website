@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuetify from "vuetify";
-import 'vuetify/dist/vuetify.min.css'
-import colors from 'vuetify/lib/util/colors'
+import "vuetify/dist/vuetify.min.css";
+import colors from "vuetify/lib/util/colors";
 
 Vue.use(Vuetify);
 
@@ -12,7 +12,7 @@ export default new Vuetify({
     },
     themes: {
       light: {
-        primary: colors.blue.base, 
+        primary: colors.blue.base,
         secondary: colors.lightGreen.base,
         accent: "#82B1FF",
         error: "#FF5252",
