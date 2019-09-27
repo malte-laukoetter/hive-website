@@ -90,7 +90,8 @@ export const routeConfig: RouteConfig[] = [
   {
     path: "/maps",
     name: "Maps",
-    component: Home,
+    component: () =>
+      import(/* webpackChunkName: "maps" */ "./views/Maps.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }
