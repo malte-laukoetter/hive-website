@@ -43,9 +43,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LeaderboardCard from "../components/LeaderboardCard.vue";
-import LoadingCircular from "../components/LoadingCircular.vue";
-import PlayerCard from "../components/PlayerCard.vue";
+import LeaderboardCard from "@/components/LeaderboardCard.vue";
+import LoadingCircular from "@/components/LoadingCircular.vue";
+import PlayerCard from "@/components/PlayerCard.vue";
 
 type LeaderboardEntry = {
   _place: number;

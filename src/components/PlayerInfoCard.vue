@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { PlayerInfo, TheSwarmAchievement } from "hive-api";
+import { PlayerInfo, TheSwarmAchievement } from "hive-api/dist/hive.min.js";
 import "../components/uuid-format.js";
 import "mc-format";
 import MinecraftAvatar from "../components/MinecraftAvatar.vue";

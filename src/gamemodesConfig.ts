@@ -7,7 +7,7 @@ import {
   SgBattleCrie,
   HbClass,
   GameTypes
-} from "hive-api";
+} from "hive-api/dist/hive.min.js";
 
 const numFormat = (a: string | number) => new Number(a || 0).toLocaleString();
 const strFormat = (a: string) =>

@@ -23,20 +23,20 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "../components/LoadingCircular.vue";
-import TimelineChart from "../components/TimelineChart.vue";
-import PlayerInfoCard from "../components/PlayerInfoCard.vue";
-import CountCard from "../components/CountCard.vue";
-import ScrollableChart from "../components/ScrollableChart.vue";
-import BarChart from "../components/BarChart.vue";
-import PlayerInfo from "./PlayerInfo.vue";
-import HiveAppBarExtended from "../components/HiveAppBarExtended.vue";
+import LoadingCircular from "@/components/LoadingCircular.vue";
+import TimelineChart from "@/components/TimelineChart.vue";
+import PlayerInfoCard from "@/components/PlayerInfoCard.vue";
+import CountCard from "@/components/CountCard.vue";
+import ScrollableChart from "@/components/ScrollableChart.vue";
+import BarChart from "@/components/BarChart.vue";
+import PlayerInfo from "@/views/PlayerInfo.vue";
+import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
   GameTypes
-} from "hive-api";
-import "../components/uuid-format.js";
+} from "hive-api/dist/hive.min.js";
+import "@/components/uuid-format.js";
 
 @Component({
   components: {

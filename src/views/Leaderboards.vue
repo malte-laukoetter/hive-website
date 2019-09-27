@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import LeaderboardCard from "../components/LeaderboardCard.vue";
+import LeaderboardCard from "@/components/LeaderboardCard.vue";
 
 export default Vue.extend({
   components: {

@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions, AsyncComponent } from "vue";
 import Router, { RouteConfig, RawLocation } from "vue-router";
 import Home from "./views/Home.vue";
-//import {GameTypes} from 'hive-api';
+//import {GameTypes} from 'hive-api/dist/hive.min.js';
 import gamemodeConfigs from "./gamemodesConfig";
 
 Vue.use(Router);
