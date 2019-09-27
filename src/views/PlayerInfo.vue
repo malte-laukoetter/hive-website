@@ -223,15 +223,15 @@ export default class PlayerInfo extends Vue {
   async fetchData(): Promise<void> {
     if (this.uuid == null) return;
 
-    this.loading = true
+    this.loading = true;
     try {
       this.player = new HivePlayer(this.uuid);
       this.playerInfo = await this.player.info();
     } catch {
-      this.playerInfo = null
+      this.playerInfo = null;
     } finally {
       this.data = await fetch("/data.json").then(res => res.json());
-      this.loading = false
+      this.loading = false;
     }
   }
 

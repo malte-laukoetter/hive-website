@@ -12,7 +12,8 @@ import {
 const numFormat = (a: string | number) => new Number(a || 0).toLocaleString();
 const strFormat = (a: string | number) =>
   a
-    ? a.toString()
+    ? a
+        .toString()
         .split(/\s/g)
         .map(
           a =>

@@ -1,25 +1,28 @@
 <template>
   <hive-app>
     <div class="full-height">
-      <v-timeline
-        :dense="$vuetify.breakpoint.smAndDown"
-        v-if="data.length > 0"
-      >
+      <loading-circular :loading="data.length === 0"></loading-circular>
+
+      <v-timeline :dense="$vuetify.breakpoint.smAndDown" v-if="data.length > 0">
         <v-timeline-item v-for="map in data" :key="map.worldName">
           <template v-slot:opposite>
             <strong>
               {{ map.date | timestampToString }}
             </strong>
           </template>
-          <v-card class="elevation-2">         
-            <v-card-title
-              class="font-weight-light"
-              >{{GameTypes[map.gameType].name}} - {{ map.mapName }}</v-card-title
+          <v-card class="elevation-2">
+            <v-card-title class="font-weight-light"
+              >{{ map.gameType | gameTypeToName }} -
+              {{ map.mapName }}</v-card-title
             >
             <v-card-text>
-              <div class="caption mt-n2" v-if="$vuetify.breakpoint.mdAndUp">{{map.worldName}}</div>
-              <div class="caption mt-n2" v-if="$vuetify.breakpoint.smAndDown">{{ map.date | timestampToString }} - {{map.worldName}}</div>
-              <div class="body-1 mt-2 text--primary">{{map.author}}</div>
+              <div class="caption mt-n2" v-if="$vuetify.breakpoint.mdAndUp">
+                {{ map.worldName }}
+              </div>
+              <div class="caption mt-n2" v-if="$vuetify.breakpoint.smAndDown">
+                {{ map.date | timestampToString }} - {{ map.worldName }}
+              </div>
+              <div class="body-1 mt-2 text--primary">{{ map.author }}</div>
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -31,7 +34,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import LoadingCircular from "@/components/LoadingCircular.vue";
-import {GameTypes} from 'hive-api/dist/hive.min.js'
+import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 
 @Component({
   components: {
@@ -40,9 +43,12 @@ import {GameTypes} from 'hive-api/dist/hive.min.js'
   filters: {
     timestampToString: (timestamp: number) => {
       if (timestamp < 1504610000000) {
-        return 'A long time ago'
+        return "A long time ago";
       }
-      return new Date(timestamp).toLocaleDateString()
+      return new Date(timestamp).toLocaleDateString();
+    },
+    gameTypeToName: (gameType: string) => {
+      return ((GameTypes as any) as { [key: string]: GameType })[gameType].name;
     }
   }
 })
@@ -55,10 +61,8 @@ export default class TeamChanges extends Vue {
     worldName: string;
   }[] = [];
 
-  private GameTypes = GameTypes
-
   async mounted() {
-    this.data = await this.fetchMaps()
+    this.data = await this.fetchMaps();
   }
 
   fetchMaps(
@@ -72,9 +76,7 @@ export default class TeamChanges extends Vue {
       worldName: string;
     }[]
   > {
-    return fetch(`https://api.lergin.de/hive/maps`).then(res =>
-      res.json()
-    );
+    return fetch(`https://api.lergin.de/hive/maps`).then(res => res.json());
   }
 }
 </script>

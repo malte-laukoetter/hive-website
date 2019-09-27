@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions, AsyncComponent } from "vue";
 import Router, { RouteConfig, RawLocation } from "vue-router";
 import Home from "./views/Home.vue";
-//import {GameTypes} from 'hive-api/dist/hive.min.js';
+import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 import gamemodeConfigs from "./gamemodesConfig";
 
 Vue.use(Router);
@@ -90,15 +90,13 @@ export const routeConfig: RouteConfig[] = [
   {
     path: "/maps",
     name: "Maps",
-    component: () =>
-      import(/* webpackChunkName: "maps" */ "./views/Maps.vue"),
+    component: () => import(/* webpackChunkName: "maps" */ "./views/Maps.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }
   },
   {
     path: "/player/:uuid",
-    name: "Player",
     children: [
       ...Object.keys(gamemodeConfigs).map(
         type =>
@@ -116,7 +114,9 @@ export const routeConfig: RouteConfig[] = [
             meta: {
               breadcrumbs: (params: { uuid: string }) => [
                 {
-                  text: type,
+                  text: ((GameTypes as any) as { [key: string]: GameType })[
+                    type
+                  ].name,
                   exact: true,
                   to: `/player/${params.uuid}/${type}`
                 }

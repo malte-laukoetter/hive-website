@@ -2,7 +2,9 @@
   <div>
     <loading-circular :loading="loading"></loading-circular>
 
-    <no-data-banner :value="!loading && (!playerGameInfo || playerGameInfo.points === 0)"></no-data-banner>
+    <no-data-banner
+      :value="!loading && (!playerGameInfo || playerGameInfo.points === 0)"
+    ></no-data-banner>
 
     <v-row v-if="!loading && playerGameInfo && playerGameInfo.points !== 0">
       <v-col cols="12" md="4">
@@ -45,7 +47,7 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";
-import {mdiAlert} from '@mdi/js'
+import { mdiAlert } from "@mdi/js";
 
 @Component({
   components: {
@@ -69,7 +71,7 @@ export default class PlayerGameInfo extends Vue {
   private playerInfo: PlayerInfo | null = null;
   private playerGameInfo: HivePlayerGameInfo | null = null;
   private loading: boolean = true;
-  private mdiAlert = mdiAlert
+  private mdiAlert = mdiAlert;
 
   get stats() {
     return gameModeConfigs[this.game].stats;
@@ -82,7 +84,6 @@ export default class PlayerGameInfo extends Vue {
     this.player = new HivePlayer(this.uuid);
     const gameType: GameType = GameTypes[this.game];
 
-    
     try {
       const [playerGameInfo, playerInfo] = await Promise.all([
         this.player.gameInfo(gameType),
@@ -91,10 +92,10 @@ export default class PlayerGameInfo extends Vue {
       this.playerInfo = playerInfo;
       this.playerGameInfo = playerGameInfo;
     } catch {
-      this.playerInfo = null
-      this.playerGameInfo = null
+      this.playerInfo = null;
+      this.playerGameInfo = null;
     } finally {
-      this.loading = false
+      this.loading = false;
     }
   }
 

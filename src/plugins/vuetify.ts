@@ -1,10 +1,14 @@
 import Vue from "vue";
-import Vuetify from "vuetify/lib";
+import Vuetify, { Scroll } from "vuetify/lib";
 //import "vuetify/types"
 //import "vuetify/dist/vuetify.min.css";
 import colors from "vuetify/lib/util/colors";
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  directives: {
+    Scroll
+  }
+});
 
 export default new Vuetify({
   theme: {
