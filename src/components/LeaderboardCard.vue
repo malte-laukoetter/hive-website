@@ -42,7 +42,7 @@
         <router-link :to="`/player/${item.uuid}`">
           <v-avatar class="ma-1 mr-3" size="32">
             <v-img
-              :src="`https://cravatar.eu/avatar/${item.uuid}`"
+              :src="`https://crafatar.com/avatars/${item.uuid}`"
               :alt="`Minecraft Skin Head of ${item.name}`"
             ></v-img>
           </v-avatar>

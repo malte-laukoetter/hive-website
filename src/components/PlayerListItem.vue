@@ -52,16 +52,6 @@ export default Vue.extend({
 
   data: () => ({
     mdiInformation: mdiInformation
-  }),
-
-  computed: {
-    avatarUrl() {
-      if (this.uuid) {
-        return `https://cravatar.eu/avatar/${this.uuid}`;
-      }
-
-      return `https://cravatar.eu/avatar/steve`;
-    }
-  }
+  })
 });
 </script>

@@ -55,15 +55,5 @@ export default Vue.extend({
   },
 
   data: () => ({}),
-
-  computed: {
-    avatarUrl() {
-      if (this.uuid) {
-        return `https://cravatar.eu/avatar/${this.uuid}`;
-      }
-
-      return `https://cravatar.eu/avatar/steve`;
-    }
-  }
 });
 </script>
