@@ -8,24 +8,24 @@
     :options.sync="options"
     disable-filtering
     fixed-header
-
+    class="elevation-2"
   >
     <template #top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>{{game | gameTypeToName}}</v-toolbar-title>
         <div class="flex-grow-1"></div>
-        <date-picker-dialog @input="onDataDateChange" :value="dataDate" label="Data from" :date-picker-props="{ reactive: true, min: '2017-12-06', max: '2019-09-12', 'first-day-of-week': 1 }"></date-picker-dialog>
-        <date-picker-dialog @input="onCompareDateChange" :value="compareDate" label="Compared with" :datePickerProps="{ reactive: true, min: '2017-12-06', max: '2019-09-28', 'first-day-of-week': 1 }"></date-picker-dialog>
+        <date-picker-dialog class="mb-n6" @input="onDataDateChange" :value="dataDate" label="Data from" :date-picker-props="{ reactive: true, min: '2017-12-06', max: '2019-09-12', 'first-day-of-week': 1 }"></date-picker-dialog>
+        <date-picker-dialog class="mb-n6" @input="onCompareDateChange" :value="compareDate" label="Compared with" :datePickerProps="{ reactive: true, min: '2017-12-06', max: '2019-09-28', 'first-day-of-week': 1 }"></date-picker-dialog>
       </v-toolbar>
     </template>
-    <template v-for="prop in properties" #[`item.${prop}`]="{ value }">
-      <span :key="prop">{{ value | toLocaleString }}</span>
+    <template v-for="prop in properties" #[`item.${prop}`]="{ value, item }">
+      <span :key="prop">{{ value | toLocaleString }} {{compareData.has(item.uuid) ? compareData.get(item.uuid)[prop] : undefined | toLocaleString}}</span>
     </template>
     <template #item.uuid="{ item }">
       <minecraft-avatar class="ma-1 mr-3" :size="32" :name="item.name" :uuid="item.uuid"></minecraft-avatar>
       <span>{{item.name}}</span>
     </template>
-    <template #item.place="{ value }">
+    <template #item.place="{ value, item }">
+      <v-icon>{{changeIcon(value, compareData.has(item.uuid) ? compareData.get(item.uuid).place : undefined)}}</v-icon>
       <v-icon v-if="value <= 2">{{ placeIcon(value + 1) }}</v-icon>
       <span v-if="value > 2">{{ value + 1 | toLocaleString }}</span>
     </template>
@@ -46,7 +46,13 @@ import gameModeConfigs from '@/gamemodesConfig'
 import {
   mdiNumeric1CircleOutline,
   mdiNumeric2CircleOutline,
-  mdiNumeric3CircleOutline
+  mdiNumeric3CircleOutline,
+  mdiChevronTripleUp,
+  mdiChevronUp,
+  mdiChevronTripleDown,
+  mdiChevronDown,
+  mdiChevronRight,
+  mdiHelpCircleOutline
 } from "@mdi/js";
 
 type LeaderboardEntry = {
@@ -78,6 +84,7 @@ export default class PlayerInfo extends Vue {
   private compareDate!: string
 
   private data: Leaderboard = []
+  private compareData: Map<string, LeaderboardEntry> = new Map()
   private loading: boolean = true
   private options: DataOptions | null = null
 
@@ -95,6 +102,25 @@ export default class PlayerInfo extends Vue {
 
   get properties() {
     return gameModeConfigs[this.game].leaderboard.map(({key}) => key)
+  }
+
+  changeIcon(curr: number, prev: number | undefined) {
+    if (prev == null) return mdiHelpCircleOutline
+
+    if (curr === prev) return mdiChevronRight
+
+    if (curr < prev) {
+      if (curr < 100 && prev - curr > 10) return  mdiChevronTripleUp
+      if (curr > 100 && prev - curr > 100) return  mdiChevronTripleUp
+      return mdiChevronUp
+    }
+    if (curr > prev) {
+      if (prev < 100 && prev - curr > -10) return  mdiChevronTripleUp
+      if (prev > 100 && prev - curr > -100) return  mdiChevronTripleDown
+      return mdiChevronDown
+    }
+    if (curr > prev && prev - curr < -10 ) return  mdiChevronTripleDown
+    if (curr > prev) return mdiChevronDown
   }
 
   onDataDateChange(date: string) {
@@ -118,12 +144,10 @@ export default class PlayerInfo extends Vue {
   }
 
   private dataStore: {
-    [page: number]: LeaderboardEntry[]
+    [page: string]: LeaderboardEntry[]
   } = {}
 
   @Watch('game')
-  @Watch('dataDate')
-  @Watch('compareDate')
   clearDataStore() {
     this.data = []
     this.dataStore = {}
@@ -142,33 +166,29 @@ export default class PlayerInfo extends Vue {
     if (!this.options) return
 
     let { sortBy, page, itemsPerPage, sortDesc } = this.options
-    const sorting = sortBy.length > 0
 
     if (itemsPerPage === ITEMS_PER_PAGE_ALL) {
       itemsPerPage = ITEMS_PRE_FIRESTORE_PAGE * FIRESTORE_PAGES
       page = 1
     }
 
+    const pageFetchPromises = []
+    const comparePageFetchPromises = []
+
+    for (let firestorePage = 0; firestorePage < FIRESTORE_PAGES; firestorePage++) {
+      pageFetchPromises.push(this.fetchPage(this.dataDate, firestorePage))
+      comparePageFetchPromises.push(this.fetchPage(this.compareDate, firestorePage))
+    }
+
+    const [data, compareData] = await Promise.all([Promise.all(pageFetchPromises), Promise.all(comparePageFetchPromises)])
+    this.compareData = compareData.flat().reduce((acc, entry) => {
+      acc.set(entry.uuid, entry)
+      return acc
+    }, new Map<string, LeaderboardEntry>())
+
     const firstItem = (page - 1) * itemsPerPage
     const lastItem = firstItem + itemsPerPage
-
-    let firstItemFirestorePage = Math.floor(firstItem / ITEMS_PRE_FIRESTORE_PAGE)
-    let lastItemFirestorePage = Math.floor(lastItem / ITEMS_PRE_FIRESTORE_PAGE)
-
-    if (sorting) {
-      firstItemFirestorePage = 0
-      lastItemFirestorePage = 9
-    }
-
-    const pageFetchPromises = []
-
-    for (let firestorePage = firstItemFirestorePage; firestorePage <= lastItemFirestorePage; firestorePage++) {
-      pageFetchPromises.push(this.fetchPage(firestorePage))
-    }
-
-    const offset = firstItemFirestorePage * ITEMS_PRE_FIRESTORE_PAGE
-
-    const data = await Promise.all(pageFetchPromises)
+  
     this.data = data
       .flat()
       .sort((a, b) => {
@@ -185,58 +205,16 @@ export default class PlayerInfo extends Vue {
           return 0
         }
       })
-      .slice(firstItem - offset, lastItem - offset)
+      .slice(firstItem, lastItem)
 
-     // 
-  /*  const db = firebase.firestore()
-    const page = 0;
-
-    const data = await db.collection('gameLeaderboards').doc(this.game).collection('data').doc(`${this.dataDate}-${page}`).get()
-
-    let doc = data;
-
-    if (doc && doc.exists) {
-      const data: {a: firebase.firestore.Blob} | undefined = doc.data() as {a: firebase.firestore.Blob}
-
-      if (!data) return
-
-      const decodedData = JSON.parse(LZString.decompressFromBase64(data.a.toBase64()));
-*//*
-      let prevDoc = res[1][0];
-
-      if(prevDoc && prevDoc.exists && !this.prevDataCacheKeys.has(res[1][1])){
-        let prevData = JSON.parse(LZString.decompressFromBase64(prevDoc.data().a.toBase64()));
-        this.prevData = this.prevData.concat(prevData);
-        this.prevDataCacheKeys.add(res[1][1])
-        this.$.grid.clearCache();
-      }
-
-      data = data.map(place => {
-        let placePrevData = this.prevData.filter(a => a.uuid === place.uuid);
-
-        if(placePrevData[0]){
-          place.prev = Object.keys(placePrevData[0])
-            // calc values for each key
-            .map(key => [key, place[key] - placePrevData[0][key] || NaN])
-            // put them together into one object
-            .reduce((obj, [key, val]) => { obj[key] = val; return obj }, {})
-        }
-
-        return place;
-      }); *//*
-
-      this.data = decodedData
-      console.log(this.data)
-    }*/
     this.loading = false
-
   }
 
-  async fetchPage(page: number): Promise<LeaderboardEntry[]> {
-    if (this.dataStore[page]) return this.dataStore[page]
+  async fetchPage(date: string, page: number): Promise<LeaderboardEntry[]> {
+    if (this.dataStore[`${date}-${page}`]) return this.dataStore[`${date}-${page}`]
 
     const db = firebase.firestore()
-    const doc = await db.collection('gameLeaderboards').doc(this.game).collection('data').doc(`${this.dataDate}-${page}`).get()
+    const doc = await db.collection('gameLeaderboards').doc(this.game).collection('data').doc(`${date}-${page}`).get()
 
     if (!doc || !doc.exists) return []
 

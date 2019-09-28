@@ -1951,10 +1951,6 @@ const gameModeConfigs: {
         title: "Games Played"
       },
       {
-        key: "victories",
-        title: "Victories"
-      },
-      {
         key: "eggs",
         title: "Eggs Fired"
       },

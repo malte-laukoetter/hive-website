@@ -1,22 +1,24 @@
 <template>
-  <v-menu
-    v-model="menu"
-    :close-on-content-click="false"
-    :nudge-right="40"
-    transition="scale-transition"
-    offset-y
-  >
-    <template v-slot:activator="{ on }">
-      <v-text-field
-        :value="value"
-        :label="label"
-        :prepend-icon="mdiCalendar"
-        readonly
-        v-on="on"
-      ></v-text-field>
-    </template>
-    <v-date-picker :value="value" @input="input" v-bind="datePickerProps"></v-date-picker>
-  </v-menu>
+  <div>
+    <v-menu
+      v-model="menu"
+      :close-on-content-click="false"
+      :nudge-right="40"
+      transition="scale-transition"
+      offset-y
+    >
+      <template v-slot:activator="{ on }">
+        <v-text-field
+          :value="value"
+          :label="label"
+          :prepend-icon="mdiCalendar"
+          readonly
+          v-on="on"
+        ></v-text-field>
+      </template>
+      <v-date-picker :value="value" @input="input" v-bind="datePickerProps"></v-date-picker>
+    </v-menu>
+  </div>
 </template>
 
 <script lang="ts">
