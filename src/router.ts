@@ -68,7 +68,7 @@ const leaderboards: {
     title: "Hide Block Level Leaderboard",
     id: "hide_blocklevels",
     propertyTitle: "Block Levels",
-    href: "hide"
+    href: "hidelevels"
   }
 ];
 
@@ -175,7 +175,53 @@ export const routeConfig: RouteConfig[] = [
     },
     component: () =>
       import(/* webpackChunkName: "leaderboard" */ "./views/Leaderboard.vue")
-  }))
+  })),
+  {
+    path: "/leaderboard",
+    children: [
+      ...Object.keys(gamemodeConfigs).map(
+        type =>
+          ({
+            name: `${type} Leaderboard`,
+            path: `${type}/:dataDate?/:compareDate?`,
+            props: route => ({
+              game: type,
+              ...route.params
+            }),
+            component: () =>
+              import(
+                /* webpackChunkName: "gamemodeLeaderboard" */ "./views/GamemodeLeaderboard.vue"
+              ),
+            meta: {
+              breadcrumbs: () => [
+                {
+                  text: ((GameTypes as any) as { [key: string]: GameType })[
+                    type
+                  ].name,
+                  exact: true,
+                  to: `/leaderboard/${type}`
+                }
+              ],
+              title: `${((GameTypes as any) as { [key: string]: GameType })[
+                type
+              ].name} Leaderboard`
+            }
+          } as RouteConfig)
+      )
+    ],
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "gamemodeLeaderboards" */ "./views/GamemodeLeaderboards.vue"),
+    meta: {
+      breadcrumbs: () => [
+        breadcrumb.home,
+        {
+          text: "Gamemode Leaderboards",
+          disabled: true
+        }
+      ]
+    }
+  },
 ];
 
 export default new Router({

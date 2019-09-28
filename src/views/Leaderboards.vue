@@ -73,7 +73,7 @@ export default Vue.extend({
         {
           title: "Hide Block Level Leaderboard",
           id: "hide_blocklevels",
-          href: "hide",
+          href: "hidelevels",
           propertyTitle: "Block Levels"
         }
       ]
