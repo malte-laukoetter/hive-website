@@ -55,32 +55,39 @@ export default class Player extends Vue {
   readonly uuid!: string;
 
   private supportedGameTypes = [
-    GameTypes.SG,
-    GameTypes.BP,
-    GameTypes.CAI,
-    GameTypes.CR,
     GameTypes.DR,
-    GameTypes.HB,
-    GameTypes.HERO,
-    GameTypes.HIDE,
-    GameTypes.OITC,
-    GameTypes.SP,
-    GameTypes.TIMV,
-    GameTypes.SKY,
-    GameTypes.LAB,
-    GameTypes.DRAW,
-    GameTypes.SLAP,
-    GameTypes.EF,
-    GameTypes.MM,
     GameTypes.GRAV,
-    GameTypes.RR,
+
+    GameTypes.HIDE,
+
+    GameTypes.BED,
+    GameTypes.SKY,
     GameTypes.GNT,
     GameTypes.GNTM,
-    GameTypes.BD,
-    GameTypes.SGN,
-    GameTypes.SPL,
+
+    GameTypes.TIMV,
     GameTypes.MIMV,
-    GameTypes.BED
+
+    GameTypes.BP,
+    GameTypes.DRAW,
+  
+    GameTypes.SG,
+    GameTypes.SGN,
+    GameTypes.HERO,
+
+    GameTypes.SP,
+    GameTypes.CAI,
+    GameTypes.LAB,
+    GameTypes.HB,
+
+    GameTypes.BD,
+    GameTypes.CR,
+    GameTypes.EF,
+    GameTypes.MM,
+    GameTypes.OITC,
+    GameTypes.RR,
+    GameTypes.SLAP,
+    GameTypes.SPL,
   ];
 
   private activeTab = 0;
