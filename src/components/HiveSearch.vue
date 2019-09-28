@@ -3,13 +3,19 @@ a {
   color: inherit;
   text-decoration: inherit;
 }
+
+.v-autocomplete >>> .v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
+  transform: none
+}
 </style>
 
 <template>
   <v-autocomplete
-    style="margin-top: 8px"
-    append-icon=""
-    :append-outer-icon="mdiMagnify"
+    :solo="$vuetify.breakpoint.smAndUp"
+    flat
+    :light="$vuetify.breakpoint.smAndUp && !$vuetify.theme.dark"
+    style="margin-top: 8px; width: 100%"
+    :append-icon="mdiMagnify"
     label="Search"
     auto-select-first
     no-filter

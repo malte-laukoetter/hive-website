@@ -3,6 +3,9 @@
   color: #fff;
   opacity: 0.9;
 }
+.v-toolbar__title {
+  font-family: 'Roboto Slab', serif;
+}
 </style>
 <template>
   <v-app-bar
@@ -20,14 +23,14 @@
       ></v-img>
     </template>
 
-    <v-toolbar-title v-if="$vuetify.breakpoint.smAndUp">
+    <v-toolbar-title class="ml-6" v-if="$vuetify.breakpoint.smAndUp">
       <span>Hive Statistics</span>
     </v-toolbar-title>
 
     <v-spacer v-if="$vuetify.breakpoint.smAndUp"></v-spacer>
 
     <v-toolbar-items
-      :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : 'inherit' }"
+      :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '50%' }"
     >
       <hive-search></hive-search>
     </v-toolbar-items>
@@ -41,22 +44,22 @@
         v-if="$vuetify.breakpoint.mdAndUp"
         optional
       >
-        <v-tab to="/team">
+        <v-tab to="/team" class="font-weight-bold">
           Team Changes
         </v-tab>
-        <v-tab to="/maps">
+        <v-tab to="/maps" class="font-weight-bold">
           Maps
         </v-tab>
-        <v-tab>
+        <v-tab class="font-weight-bold">
           Server Statistics
         </v-tab>
-        <v-tab>
+        <v-tab class="font-weight-bold">
           Player Statistics
         </v-tab>
-        <v-tab>
+        <v-tab class="font-weight-bold">
           Gamemode Leaderboards
         </v-tab>
-        <v-tab to="/leaderboard">
+        <v-tab to="/leaderboard" class="font-weight-bold">
           Rankings
         </v-tab>
       </v-tabs>
