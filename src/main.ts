@@ -9,7 +9,6 @@ import "firebase/performance";
 import HiveBreadcrumb from "./components/HiveBreadcrumb.vue";
 import HiveFooter from "./components/HiveFooter.vue";
 import HiveApp from "./components/HiveApp.vue";
-import { Scroll } from "vuetify/lib";
 
 import "./assets/style.css";
 
@@ -26,7 +25,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.performance();
-firebase.analytics();
 
 Vue.config.productionTip = false;
 
@@ -37,10 +35,7 @@ Vue.component("hive-app", HiveApp);
 new Vue({
   router,
   vuetify,
-  render: h => h(App),
-  directives: {
-    scroll: Scroll
-  }
+  render: h => h(App)
 }).$mount("#app");
 
 Vue.filter("toLocaleString", function(value: any) {
