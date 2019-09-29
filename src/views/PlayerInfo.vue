@@ -12,7 +12,7 @@
         <count-card :count="playerInfo.medals" title="Medals"></count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="0" title="Achievements"></count-card>
+        <count-card :count="achievements" title="Achievements"></count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
         <count-card
@@ -24,7 +24,7 @@
         <count-card :count="playerInfo.crates || 0" title="Crates"></count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="0" title="Points"></count-card>
+        <count-card :count="totalPoints" title="Points"></count-card>
       </v-col>
 
       <v-col cols="12" md="4">
@@ -41,21 +41,13 @@
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Achievements</v-card-title>
-          <bar-chart
-            :data="achievements"
-            :labels="['Global', ...achievementLabels]"
-            title="Achievements"
-          ></bar-chart>
+          <player-stat-bar-chart :uuid="uuid" title="Achievements" property="achievements"></player-stat-bar-chart>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Points</v-card-title>
-          <bar-chart
-            :data="points"
-            :labels="achievementLabels"
-            title="Points"
-          ></bar-chart>
+          <player-stat-bar-chart :uuid="uuid" title="Points" property="points"></player-stat-bar-chart>
         </v-card>
       </v-col>
     </v-row>
@@ -71,6 +63,7 @@ import CountCard from "@/components/CountCard.vue";
 import ScrollableChart from "@/components/ScrollableChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
+import PlayerStatBarChart from "@/components/PlayerStatBarChart.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -78,6 +71,8 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";
+import * as firebase from 'firebase/app'
+import 'firebase/database'
 
 @Component({
   components: {
@@ -88,47 +83,18 @@ import NoDataBanner from "@/components/NoDataBanner.vue";
     CountCard,
     BarChart,
     HiveAppBarExtended,
-    NoDataBanner
+    NoDataBanner,
+    PlayerStatBarChart
   }
 })
 export default class PlayerInfo extends Vue {
   @Prop({ type: String })
   readonly uuid!: string;
 
-  private supportedGameTypes = [
-    GameTypes.SG,
-    GameTypes.BP,
-    GameTypes.CAI,
-    GameTypes.CR,
-    GameTypes.DR,
-    GameTypes.HB,
-    GameTypes.HERO,
-    GameTypes.HIDE,
-    GameTypes.OITC,
-    GameTypes.SP,
-    GameTypes.TIMV,
-    GameTypes.SKY,
-    GameTypes.LAB,
-    GameTypes.DRAW,
-    GameTypes.SLAP,
-    GameTypes.EF,
-    GameTypes.MM,
-    GameTypes.GRAV,
-    GameTypes.RR,
-    GameTypes.GNT,
-    GameTypes.GNTM,
-    GameTypes.PMK,
-    GameTypes.BD,
-    GameTypes.SGN,
-    GameTypes.SPL,
-    GameTypes.MIMV,
-    GameTypes.BED
-  ];
-
-  private activeTab = 0;
-
   private player: HivePlayer | null = null;
   private playerInfo: HivePlayerInfo | null = null;
+  private totalPoints: number = 0;
+  private achievements: number = 0;
   private loading: boolean = true;
 
   private achievementLabels = [
@@ -150,26 +116,6 @@ export default class PlayerInfo extends Vue {
     "HERO",
     "RR",
     "CR"
-  ];
-  private achievements = [
-    63,
-    63,
-    62,
-    45,
-    43,
-    42,
-    33,
-    32,
-    31,
-    27,
-    19,
-    18,
-    16,
-    16,
-    10,
-    8,
-    7,
-    2
   ];
   private points = [
     1879487,
@@ -236,8 +182,22 @@ export default class PlayerInfo extends Vue {
   }
 
   @Watch("uuid", { immediate: true })
-  onUuidChange() {
+  onUuidChange(newUuid: string, oldUuid: string) {
+    const db = firebase.database()
+    if (oldUuid) {
+      const oldPlayerDataRef = db.ref('playerStats').child('data').child(this.uuid).child('data')
+      oldPlayerDataRef.child('points').child('total').off('value')
+      oldPlayerDataRef.child('achievements').child('total').off('value')
+    }
+
     this.fetchData();
+    const playerDataRef = db.ref('playerStats').child('data').child(this.uuid).child('data')
+    playerDataRef.child('points').child('total').on('value', (snapshot) => {
+      this.totalPoints = snapshot.val()
+    })
+    playerDataRef.child('achievements').child('total').on('value', (snapshot) => {
+      this.achievements = snapshot.val()
+    })
   }
 }
 </script>
