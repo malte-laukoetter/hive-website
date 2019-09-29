@@ -35,7 +35,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import {DataOptions} from 'vuetify/src/components/VData/VData'
 import DatePickerDialog from '@/components/DatePickerDialog.vue'
 import MinecraftAvatar from '@/components/MinecraftAvatar.vue'
 import {GameTypes, GameType} from 'hive-api/dist/hive.min.js'
@@ -86,7 +85,16 @@ export default class PlayerInfo extends Vue {
   private data: Leaderboard = []
   private compareData: Map<string, LeaderboardEntry> = new Map()
   private loading: boolean = true
-  private options: DataOptions | null = null
+  private options: {
+    page: number
+    itemsPerPage: number
+    sortBy: string[]
+    sortDesc: boolean[]
+    groupBy: string[]
+    groupDesc: boolean[]
+    multiSort: boolean
+    mustSort: boolean
+  } | null = null
 
   get headers() {
     return  [
@@ -119,8 +127,6 @@ export default class PlayerInfo extends Vue {
       if (prev > 100 && prev - curr > -100) return  mdiChevronTripleDown
       return mdiChevronDown
     }
-    if (curr > prev && prev - curr < -10 ) return  mdiChevronTripleDown
-    if (curr > prev) return mdiChevronDown
   }
 
   onDataDateChange(date: string) {
