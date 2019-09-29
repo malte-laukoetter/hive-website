@@ -54,6 +54,6 @@ export default Vue.extend({
     hideInfoIcon: Boolean
   },
 
-  data: () => ({}),
+  data: () => ({})
 });
 </script>

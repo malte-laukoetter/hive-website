@@ -40,7 +40,12 @@
       </template>
       <template v-slot:item.name="{ item }">
         <router-link :to="`/player/${item.uuid}`">
-          <minecraft-avatar class="ma-1 mr-3" :size="32" :uuid="item.uuid" :name="item.name"></minecraft-avatar>
+          <minecraft-avatar
+            class="ma-1 mr-3"
+            :size="32"
+            :uuid="item.uuid"
+            :name="item.name"
+          ></minecraft-avatar>
           <span>{{ item.name }}</span>
         </router-link>
       </template>

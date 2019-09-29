@@ -66,7 +66,7 @@ export default class GamemodeLeaderboards extends Vue {
 
     GameTypes.BP,
     GameTypes.DRAW,
-  
+
     GameTypes.SG,
     GameTypes.SGN,
     GameTypes.HERO,
@@ -83,7 +83,7 @@ export default class GamemodeLeaderboards extends Vue {
     GameTypes.OITC,
     GameTypes.RR,
     GameTypes.SLAP,
-    GameTypes.SPL,
+    GameTypes.SPL
   ];
 
   private player: HivePlayer | null = null;

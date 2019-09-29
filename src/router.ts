@@ -202,16 +202,18 @@ export const routeConfig: RouteConfig[] = [
                   to: `/leaderboard/${type}`
                 }
               ],
-              title: `${((GameTypes as any) as { [key: string]: GameType })[
-                type
-              ].name} Leaderboard`
+              title: `${
+                ((GameTypes as any) as { [key: string]: GameType })[type].name
+              } Leaderboard`
             }
           } as RouteConfig)
       )
     ],
     props: true,
     component: () =>
-      import(/* webpackChunkName: "gamemodeLeaderboards" */ "./views/GamemodeLeaderboards.vue"),
+      import(
+        /* webpackChunkName: "gamemodeLeaderboards" */ "./views/GamemodeLeaderboards.vue"
+      ),
     meta: {
       breadcrumbs: () => [
         breadcrumb.home,
@@ -221,7 +223,7 @@ export const routeConfig: RouteConfig[] = [
         }
       ]
     }
-  },
+  }
 ];
 
 export default new Router({

@@ -4,7 +4,7 @@
   opacity: 0.9;
 }
 .v-toolbar__title {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 </style>
 <template>

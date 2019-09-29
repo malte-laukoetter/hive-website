@@ -70,7 +70,7 @@ export default class Player extends Vue {
 
     GameTypes.BP,
     GameTypes.DRAW,
-  
+
     GameTypes.SG,
     GameTypes.SGN,
     GameTypes.HERO,
@@ -87,7 +87,7 @@ export default class Player extends Vue {
     GameTypes.OITC,
     GameTypes.RR,
     GameTypes.SLAP,
-    GameTypes.SPL,
+    GameTypes.SPL
   ];
 
   private activeTab = 0;

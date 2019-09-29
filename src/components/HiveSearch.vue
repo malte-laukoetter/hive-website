@@ -4,8 +4,11 @@ a {
   text-decoration: inherit;
 }
 
-.v-autocomplete >>> .v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
-  transform: none
+.v-autocomplete
+  >>> .v-select.v-select--is-menu-active
+  .v-input__icon--append
+  .v-icon {
+  transform: none;
 }
 </style>
 
