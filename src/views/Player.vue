@@ -37,6 +37,8 @@ import {
   GameTypes
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
+import * as firebase from 'firebase/app'
+import 'firebase/database'
 
 @Component({
   components: {
@@ -100,11 +102,28 @@ export default class Player extends Vue {
 
     this.player = new HivePlayer(this.uuid);
     this.playerInfo = await this.player.info();
+    
+    if (this.uuid.length < 32) {
+      this.$router.push(`/player/${this.player.uuid}`)
+    } else {
+      const db = firebase.database()
+      db.ref("latestPlayersPub").push().set({uuid: this.uuid, name: this.playerInfo.name});
+      db.ref("playerStats").child("daily").child(this.uuid).set(0);
+    }
   }
 
   @Watch("uuid", { immediate: true })
   onUuidChange() {
+
     this.fetchData();
+    this.updateVisitData();
+  }
+
+  async updateVisitData() {
+    if (this.uuid == null) return
+    const db = firebase.database()
+
+    db.ref("latestPlayers").push().set(this.uuid);
   }
 }
 </script>

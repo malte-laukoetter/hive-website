@@ -15,24 +15,28 @@ canvas.axis {
 </style>
 
 <template>
-  <v-card class="scroll-wrapper" :id="`scroll-target-${id}`">
-    <div class="scroll-target" v-scroll:[`#scroll-target-${id}`]="onScroll">
-      <canvas
-        :style="{ left: scrollLeft + 'px' }"
-        class="axis"
-        width="0"
-        height="0"
-        ref="axis"
-      ></canvas>
-      <timeline-chart
-        :datasets="datasets"
-        :width="width"
-        :height="height"
-        :plugins="plugins"
-        ref="chart"
-        @rendered="renderAxis"
-      ></timeline-chart>
+  <v-card>
+    <slot name="header"></slot>
+    <div  class="scroll-wrapper">
+      <div class="scroll-target">
+        <canvas
+          :style="{ left: '0px' }"
+          class="axis"
+          width="0"
+          height="0"
+          ref="axis"
+        ></canvas>
+        <timeline-chart
+          :datasets="datasets"
+          :width="width"
+          :height="height"
+          :plugins="plugins"
+          ref="chart"
+          @rendered="renderAxis"
+        ></timeline-chart>
+      </div>
     </div>
+    <slot></slot>
   </v-card>
 </template>
 
@@ -72,12 +76,7 @@ export default class ScrollableChart extends Vue {
   width!: number;
 
   @Prop(Array)
-  datasets!: any;
-
-  scrollLeft: number = 0;
-  id: string = Math.random()
-    .toString(16)
-    .replace(".", "-");
+  datasets!: any[];
 
   plugins: PluginServiceRegistrationOptions[] = [
     {
@@ -86,14 +85,6 @@ export default class ScrollableChart extends Vue {
       }
     }
   ];
-
-  onScroll(e: any) {
-    this.scrollLeft = e.target.scrollLeft;
-  }
-
-  get axisStyle() {
-    return { left: this.scrollLeft };
-  }
 
   async renderAxis() {
     const chart: Chart = this.chart.$data._chart;
@@ -125,6 +116,13 @@ export default class ScrollableChart extends Vue {
       width,
       height
     );
+  }
+
+  public redraw() {
+    const chart: Chart = this.chart.$data._chart;
+    chart.width = this.width + 1
+    chart.height = this.height
+    chart.resize()
   }
 }
 </script>

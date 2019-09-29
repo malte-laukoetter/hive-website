@@ -24,6 +24,14 @@
           </v-col>
         </v-row>
       </v-col>
+
+      <v-col cols="12" :md="playerGameInfo.achievements ? 6 : 12">
+        <player-stat-line-chart :uuid="uuid" title="Points" :properties="[`points/${game}`]" :labels="['Points']"></player-stat-line-chart>
+      </v-col>
+      
+      <v-col cols="12" md="6" v-if="playerGameInfo.achievements">
+        <player-stat-line-chart :uuid="uuid" title="Achievements" :properties="[`achievements/${game}`]" :labels="['Achievements']"></player-stat-line-chart>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -48,6 +56,7 @@ import {
 import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";
 import { mdiAlert } from "@mdi/js";
+import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
 
 @Component({
   components: {
@@ -58,7 +67,8 @@ import { mdiAlert } from "@mdi/js";
     CountCard,
     BarChart,
     PlayerGameInfoCard,
-    NoDataBanner
+    NoDataBanner,
+    PlayerStatLineChart
   }
 })
 export default class PlayerGameInfo extends Vue {

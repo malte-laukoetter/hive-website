@@ -9,12 +9,17 @@ Chart.defaults.global.defaultFontFamily = "Roboto";
 export default class TimelineChart extends Mixins(Line) {
   @Prop(Number)
   private height!: number;
-  @Prop()
+  @Prop(Number)
+  private width!: number;
+  @Prop(Array)
   private datasets!: ChartDataSets[];
 
-  async mounted() {}
+  async mounted() {
+    this.onDatasetsChange()
+  }
 
   @Watch("datasets")
+  @Watch("width")
   onDatasetsChange() {
     this.renderChart(
       {

@@ -31,11 +31,7 @@
         <player-info-card :player-info="playerInfo"></player-info-card>
       </v-col>
       <v-col cols="12" md="8">
-        <scrollable-chart
-          :datasets="pointTokenDataSets"
-          :width="5000"
-          :height="400"
-        ></scrollable-chart>
+        <player-stat-line-chart :uuid="uuid" title="Points & Tokens" :properties="['points/total', 'tokens']" :labels="['Points', 'Tokens']"></player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="6">
@@ -49,6 +45,14 @@
           <v-card-title>Points</v-card-title>
           <player-stat-bar-chart :uuid="uuid" title="Points" property="points"></player-stat-bar-chart>
         </v-card>
+      </v-col>
+      
+      <v-col cols="12" md="6">
+        <player-stat-line-chart :uuid="uuid" title="Medals" :properties="['medals']" :labels="['Medals']"></player-stat-line-chart>
+      </v-col>
+      
+      <v-col cols="12" md="6">
+        <player-stat-line-chart :uuid="uuid" title="Achievements" :properties="['achievements/total']" :labels="['Achievements']"></player-stat-line-chart>
       </v-col>
     </v-row>
   </div>
@@ -64,6 +68,7 @@ import ScrollableChart from "@/components/ScrollableChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
 import PlayerStatBarChart from "@/components/PlayerStatBarChart.vue";
+import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -84,7 +89,8 @@ import 'firebase/database'
     BarChart,
     HiveAppBarExtended,
     NoDataBanner,
-    PlayerStatBarChart
+    PlayerStatBarChart,
+    PlayerStatLineChart
   }
 })
 export default class PlayerInfo extends Vue {
@@ -97,56 +103,7 @@ export default class PlayerInfo extends Vue {
   private achievements: number = 0;
   private loading: boolean = true;
 
-  private achievementLabels = [
-    "SKY",
-    "TIMV",
-    "BED",
-    "SP",
-    "DR",
-    "HIDE",
-    "BP",
-    "global",
-    "CAI",
-    "MIMV",
-    "LAB",
-    "SG",
-    "HB",
-    "SPL",
-    "OITC",
-    "HERO",
-    "RR",
-    "CR"
-  ];
-  private points = [
-    1879487,
-    600380,
-    576330,
-    573596,
-    179040,
-    106480,
-    73590,
-    68856,
-    51545,
-    47170,
-    43840,
-    30051,
-    24610,
-    16645,
-    11628,
-    10660,
-    6090,
-    5806,
-    5170,
-    4865,
-    4690,
-    2026,
-    931,
-    606,
-    563,
-    505
-  ];
-
-  private data = [];
+private data = [];
   get pointTokenDataSets() {
     return [
       {
@@ -173,10 +130,10 @@ export default class PlayerInfo extends Vue {
     try {
       this.player = new HivePlayer(this.uuid);
       this.playerInfo = await this.player.info();
+      this.data = await fetch("/data.json").then(res => res.json());
     } catch {
       this.playerInfo = null;
     } finally {
-      this.data = await fetch("/data.json").then(res => res.json());
       this.loading = false;
     }
   }
