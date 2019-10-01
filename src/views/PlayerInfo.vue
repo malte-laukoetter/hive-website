@@ -46,12 +46,16 @@
           <player-stat-bar-chart :uuid="uuid" title="Points" property="points"></player-stat-bar-chart>
         </v-card>
       </v-col>
+
+      <v-col cols="12" md="4">
+        <achievement-list :achievements="achievementList" title="Global Achievements"></achievement-list>
+      </v-col>
       
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="4">
         <player-stat-line-chart :uuid="uuid" title="Medals" :properties="['medals']" :labels="['Medals']"></player-stat-line-chart>
       </v-col>
       
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="4">
         <player-stat-line-chart :uuid="uuid" title="Achievements" :properties="['achievements/total']" :labels="['Achievements']"></player-stat-line-chart>
       </v-col>
     </v-row>
@@ -69,10 +73,15 @@ import BarChart from "@/components/BarChart.vue";
 import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
 import PlayerStatBarChart from "@/components/PlayerStatBarChart.vue";
 import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
+import AchievementList from "@/components/AchievementList.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
-  GameTypes
+  GameTypes,
+  Server,
+  AchievementInfo,
+  Achievement,
+  ServerAchievement
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";
@@ -90,7 +99,8 @@ import 'firebase/database'
     HiveAppBarExtended,
     NoDataBanner,
     PlayerStatBarChart,
-    PlayerStatLineChart
+    PlayerStatLineChart,
+    AchievementList
   }
 })
 export default class PlayerInfo extends Vue {
@@ -101,9 +111,10 @@ export default class PlayerInfo extends Vue {
   private playerInfo: HivePlayerInfo | null = null;
   private totalPoints: number = 0;
   private achievements: number = 0;
+  private globalAchievements: AchievementInfo[] = [];
   private loading: boolean = true;
 
-private data = [];
+  private data = [];
   get pointTokenDataSets() {
     return [
       {
@@ -155,6 +166,24 @@ private data = [];
     playerDataRef.child('achievements').child('total').on('value', (snapshot) => {
       this.achievements = snapshot.val()
     })
+  }
+
+  mounted() {
+    this.fetchGlobalAchievements()
+  }
+
+  async fetchGlobalAchievements() {
+    this.globalAchievements = await Server.achievements()
+  }
+
+  get achievementList(): Achievement[] {
+    if (!this.playerInfo) return []
+    return [
+      ... this.playerInfo.achievements, 
+      ... this.globalAchievements
+        .filter(a => !this.playerInfo!.achievements.find(({id}) => id == a.id))
+        .map(a => new ServerAchievement(a.id, 0, new Date(0)))
+    ]
   }
 }
 </script>
