@@ -57,7 +57,7 @@ import {
   Chart
 } from "chart.js";
 
-import TimelineChart from "../components/TimelineChart.vue";
+import TimelineChart from "@/components/TimelineChart.vue";
 
 @Component({
   components: {

@@ -67,7 +67,7 @@
         <v-tab to="/maps" class="font-weight-bold">
           Maps
         </v-tab>
-        <v-tab class="font-weight-bold">
+        <v-tab to="/server" class="font-weight-bold">
           Server Statistics
         </v-tab>
         <v-tab class="font-weight-bold">

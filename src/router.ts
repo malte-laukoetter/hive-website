@@ -96,6 +96,14 @@ export const routeConfig: RouteConfig[] = [
     }
   },
   {
+    path: "/server",
+    name: "Server",
+    component: () => import(/* webpackChunkName: "server" */ "./views/Server.vue"),
+    meta: {
+      breadcrumbs: [breadcrumb.home]
+    }
+  },
+  {
     path: "/player/:uuid",
     children: [
       ...Object.keys(gamemodeConfigs).map(

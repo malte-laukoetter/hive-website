@@ -20,7 +20,7 @@
         <span>Maps</span>
         <v-icon>{{ icons.mdiCity }}</v-icon>
       </v-btn>
-      <v-btn>
+      <v-btn to="/server">
         <span>Server</span>
         <v-icon>{{ icons.mdiChartHistogram }}</v-icon>
       </v-btn>

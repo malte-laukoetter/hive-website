@@ -35,9 +35,5 @@ export default class LeaderboardCard extends Vue {
 
   @Prop({type: String, default: 'Achievements'})
   readonly title!: string;
-
-  async mounted() {
-    console.log(this.achievements)
-  }
 }
 </script>
