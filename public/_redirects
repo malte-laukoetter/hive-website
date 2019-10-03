@@ -1,1 +1,9 @@
+/player/:slug /players/:slug 301
+/stats /server 301
+/medals /rankings/medals 301
+/points /rankings/points 301
+/tokens /rankings/tokens 301
+/kills /rankings/kills 301
+/achievements /rankings/achievements 301
+/hide /rankings/hide-blocklevels 301
 /*    /index.html   200
