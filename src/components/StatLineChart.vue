@@ -5,7 +5,7 @@
       ref="chart"
       :datasets="dataSets"
       :width="chartWidth"
-      :height="400"
+      :height="height"
     >
       <template #header><v-card-title>{{title}}</v-card-title></template>
       <loading-circular :loading="loading"></loading-circular>    
@@ -39,6 +39,8 @@ export default class StatLineChart extends Vue {
   readonly labels!: string[]
   @Prop(String)
   readonly title!: string
+  @Prop({type: Number, default: 400})
+  readonly height!: number
 
   @Ref('chart')
   readonly chart!: HTMLElement

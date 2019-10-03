@@ -1,5 +1,5 @@
 <template>
-  <stat-line-chart :data="[data]" title="Unique Players" :labels="['Players']" :loading="loading"></stat-line-chart>
+  <stat-line-chart :data="[data]" title="Unique Players - Server" :labels="['Players']" :loading="loading"></stat-line-chart>
 </template>
 
 <script lang="ts">
