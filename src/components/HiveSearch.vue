@@ -14,9 +14,9 @@ a {
 
 <template>
   <v-autocomplete
-    :solo="$vuetify.breakpoint.smAndUp"
+    :solo="solo"
     flat
-    :light="$vuetify.breakpoint.smAndUp && !$vuetify.theme.dark"
+    :light="solo && !$vuetify.theme.dark"
     style="margin-top: 8px; width: 100%"
     :append-icon="mdiMagnify"
     label="Search for a player or leaderboard"
@@ -95,14 +95,14 @@ const pageSearchResults: PageSearchResult[] = [
     type: 'PAGE',
     path: `/rankings/${leaderboard.href}`,
     name: leaderboard.title
-  })),
+  } as PageSearchResult)),
   ...Object.keys(gamemodeConfigs).map( type => ({
     type: 'PAGE',
     path: `/leaderboards/${type}`,
     name: `${
         ((GameTypes as any) as { [key: string]: GameType })[type].name
       } Leaderboard`,
-  }))
+  } as PageSearchResult))
 ];
 
 function findInRoute(search: string, route: PageSearchResult): boolean {
@@ -120,6 +120,8 @@ function findInRoute(search: string, route: PageSearchResult): boolean {
   }
 })
 export default class HiveSearch extends Vue {
+  @Prop({ type: Boolean, default: false})
+  readonly solo!: boolean;
   private search: string | SearchResult = "";
   private items: SearchResult[] = [];
   private mdiMagnify = mdiMagnify;

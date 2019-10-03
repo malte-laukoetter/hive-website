@@ -22,6 +22,10 @@
 .v-toolbar__title {
   font-family: "Roboto Slab", serif;
 }
+.v-toolbar__title a {
+  color: inherit;
+  text-decoration: inherit
+}
 </style>
 
 <template>
@@ -32,6 +36,7 @@
     :shrink-on-scroll="$vuetify.breakpoint.smAndUp"
     src="/img/hub.png"
     :extension-height="$vuetify.breakpoint.mdAndUp ? 96 : 48"
+    v-scroll="updateSearchIsSolo"  
   >
     <template v-slot:img="{ props }">
       <v-img
@@ -41,15 +46,21 @@
     </template>
 
     <v-toolbar-title class="ml-6" v-if="$vuetify.breakpoint.smAndUp">
-      <span>Hive Statistics</span>
+      <router-link to="/">
+        <span>Hive Statistics</span>
+      </router-link>
     </v-toolbar-title>
+
+    <v-btn icon class="mr-1" v-if="$vuetify.breakpoint.xsOnly">
+      <v-icon>{{mdiHome}}</v-icon>
+    </v-btn>
 
     <v-spacer v-if="$vuetify.breakpoint.smAndUp"></v-spacer>
 
     <v-toolbar-items
       :style="{ width: $vuetify.breakpoint.xsOnly ? '100%' : '50%' }"
     >
-      <hive-search></hive-search>
+      <hive-search :solo="searchIsSolo"></hive-search>
     </v-toolbar-items>
 
     <template v-slot:extension>
@@ -90,11 +101,24 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import HiveSearch from "../components/HiveSearch.vue";
+import { mdiHome } from "@mdi/js"
 
 @Component({
   components: {
     HiveSearch
   }
 })
-export default class HiveAppBarExtended extends Vue {}
+export default class HiveAppBarExtended extends Vue {
+  private mdiHome = mdiHome
+
+  private searchIsSolo: boolean = false
+
+  mounted() {
+    this.searchIsSolo = this.$vuetify.breakpoint.smAndUp
+  }
+
+  updateSearchIsSolo(e) {
+    this.searchIsSolo = window.scrollY === 0 && this.$vuetify.breakpoint.smAndUp
+  }
+}
 </script>
