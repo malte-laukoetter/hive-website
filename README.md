@@ -1,4 +1,4 @@
-# call-a-bike
+# hive-website-2
 
 ## Project setup
 ```
