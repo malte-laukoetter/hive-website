@@ -9,6 +9,7 @@ import "firebase/performance";
 import HiveBreadcrumb from "./components/HiveBreadcrumb.vue";
 import HiveFooter from "./components/HiveFooter.vue";
 import HiveApp from "./components/HiveApp.vue";
+import VueMeta from 'vue-meta'
 
 import "./assets/style.css";
 
@@ -31,6 +32,7 @@ Vue.config.productionTip = false;
 Vue.component("hive-breadcrumb", HiveBreadcrumb);
 Vue.component("hive-footer", HiveFooter);
 Vue.component("hive-app", HiveApp);
+Vue.use(VueMeta)
 
 new Vue({
   router,

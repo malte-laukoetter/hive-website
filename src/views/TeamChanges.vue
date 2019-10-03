@@ -86,6 +86,9 @@ import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
           return type;
       }
     }
+  },
+  metaInfo: {
+    title: 'Team'
   }
 })
 export default class TeamChanges extends Vue {

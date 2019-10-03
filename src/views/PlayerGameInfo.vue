@@ -79,7 +79,10 @@ import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
     NoDataBanner,
     PlayerStatLineChart,
     AchievementList
-  }
+  },
+  metaInfo: (vue: PlayerGameInfo) => ({
+    title: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${(GameTypes[vue.game] as GameType).name}`
+  })
 })
 export default class PlayerGameInfo extends Vue {
   @Prop({ type: String })

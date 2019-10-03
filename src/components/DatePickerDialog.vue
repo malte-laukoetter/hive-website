@@ -45,9 +45,8 @@ export default class PlayerInfo extends Vue {
 
   @Emit()
   input(value: string) {
-    console.log(value);
     this.menu = false;
-    return value; //this.value
+    return value;
   }
 }
 </script>

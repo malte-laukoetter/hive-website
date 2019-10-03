@@ -20,8 +20,8 @@
           label="Data from"
           :date-picker-props="{
             reactive: true,
-            min: '2017-12-06',
-            max: '2019-09-12',
+            min: OLDEST_DATE,
+            max: LATEST_DATE,
             'first-day-of-week': 1
           }"
         ></date-picker-dialog>
@@ -32,43 +32,49 @@
           label="Compared with"
           :datePickerProps="{
             reactive: true,
-            min: '2017-12-06',
-            max: '2019-09-28',
+            min: OLDEST_DATE,
+            max: LATEST_DATE,
             'first-day-of-week': 1
           }"
         ></date-picker-dialog>
       </v-toolbar>
     </template>
     <template v-for="prop in properties" #[`item.${prop}`]="{ value, item }">
-      <span :key="prop"
-        >{{ value | toLocaleString }}
-        {{
-          compareData.has(item.uuid)
-            ? compareData.get(item.uuid)[prop]
-            : undefined | toLocaleString
-        }}</span
-      >
+      <div :key="prop">
+        <span>{{ value | toLocaleString }}</span>
+        <span class="caption ml-1">{{formatChange(value, item.uuid, prop)}}</span>
+      </div>
     </template>
     <template #item.uuid="{ item }">
-      <minecraft-avatar
-        class="ma-1 mr-3"
-        :size="32"
-        :name="item.name"
-        :uuid="item.uuid"
-      ></minecraft-avatar>
-      <span>{{ item.name }}</span>
+      <router-link :to="`/players/${item.uuid}/${game}`">
+        <minecraft-avatar
+          class="ma-1 mr-3"
+          :size="32"
+          :name="item.name"
+          :uuid="item.uuid"
+        ></minecraft-avatar>
+        <span>{{ item.name }}</span>
+      </router-link>
     </template>
     <template #item.place="{ value, item }">
-      <v-icon>{{
-        changeIcon(
-          value,
-          compareData.has(item.uuid)
-            ? compareData.get(item.uuid).place
-            : undefined
-        )
-      }}</v-icon>
-      <v-icon v-if="value <= 2">{{ placeIcon(value + 1) }}</v-icon>
-      <span v-if="value > 2">{{ (value + 1) | toLocaleString }}</span>
+      <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <div v-on="on">
+        <v-icon>{{
+          changeIcon(
+            value,
+            compareData.has(item.uuid)
+              ? compareData.get(item.uuid).place
+              : undefined
+          )
+        }}</v-icon>
+        <v-icon v-if="value <= 2">{{ placeIcon(value + 1) }}</v-icon>
+        <span v-if="value > 2">{{ (value + 1) | toLocaleString }}</span></div>
+      </template>
+      <span>
+        Previously: {{compareData.has(item.uuid) ? compareData.get(item.uuid).place + 1 : '?'}}
+      </span>
+    </v-tooltip>
     </template>
   </v-data-table>
 </template>
@@ -103,6 +109,12 @@ type LeaderboardEntry = {
 };
 type Leaderboard = LeaderboardEntry[];
 
+let date = new Date()
+date.setDate(date.getDate() - 1)
+const YESTERDAY = date.toISOString().substring(0,10)
+date.setMonth(date.getMonth()-1)
+const ONE_MONTY_BEFORE = date.toISOString().substring(0,10)
+
 @Component({
   components: {
     DatePickerDialog,
@@ -112,14 +124,19 @@ type Leaderboard = LeaderboardEntry[];
     gameTypeToName: (gameType: string) => {
       return ((GameTypes as any) as { [key: string]: GameType })[gameType].name;
     }
-  }
+  },
+  metaInfo: (vue: GamemodeLeaderboard) => ({
+    title: `Advanced Leaderboards - ${GameTypes[vue.game].name}`
+  })
 })
-export default class PlayerInfo extends Vue {
+export default class GamemodeLeaderboard extends Vue {
+  readonly LATEST_DATE = YESTERDAY
+  readonly OLDEST_DATE = '2017-12-06'
   @Prop({ type: String })
   readonly game!: string;
-  @Prop({ type: String, default: "2019-09-20" })
+  @Prop({ type: String, default: YESTERDAY })
   private dataDate!: string;
-  @Prop({ type: String, default: "2019-08-20" })
+  @Prop({ type: String, default: ONE_MONTY_BEFORE })
   private compareDate!: string;
 
   private data: Leaderboard = [];
@@ -166,8 +183,8 @@ export default class PlayerInfo extends Vue {
       return mdiChevronUp;
     }
     if (curr > prev) {
-      if (prev < 100 && prev - curr > -10) return mdiChevronTripleUp;
-      if (prev > 100 && prev - curr > -100) return mdiChevronTripleDown;
+      if (prev < 100 && prev - curr < -10) return mdiChevronTripleDown;
+      if (prev > 100 && prev - curr < -100) return mdiChevronTripleDown;
       return mdiChevronDown;
     }
   }
@@ -300,6 +317,14 @@ export default class PlayerInfo extends Vue {
       case 3:
         return mdiNumeric3CircleOutline;
     }
+  }
+
+  formatChange(value: number, uuid: string, prop: string): string {
+    if (!this.compareData.has(uuid)) return ''
+
+    const change = value - this.compareData.get(uuid)![prop]
+
+    return `(${(change > 0 ? '+' : '')}${change.toLocaleString()})`
   }
 }
 </script>

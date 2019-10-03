@@ -50,7 +50,10 @@ import 'firebase/database'
     BarChart,
     HiveAppBarExtended,
     PlayerInfo
-  }
+  },
+  metaInfo: (vue: Player) => ({
+    title: vue.playerInfo ? vue.playerInfo.name : vue.uuid
+  })
 })
 export default class Player extends Vue {
   @Prop({ type: String })
@@ -92,10 +95,8 @@ export default class Player extends Vue {
     GameTypes.SPL
   ];
 
-  private activeTab = 0;
-
   private player: HivePlayer | null = null;
-  private playerInfo: HivePlayerInfo | null = null;
+  playerInfo: HivePlayerInfo | null = null;
 
   async fetchData(): Promise<void> {
     if (this.uuid == null) return;

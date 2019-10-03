@@ -23,6 +23,9 @@ import StatLineChart from "@/components/StatLineChart.vue"
   components: {
     ServerUniquePlayerLineChart,
     StatLineChart
+  },
+  metaInfo: {
+    title: 'Server'
   }
 })
 export default class Server extends Vue {

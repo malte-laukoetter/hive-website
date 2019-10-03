@@ -50,6 +50,9 @@ import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
     gameTypeToName: (gameType: string) => {
       return ((GameTypes as any) as { [key: string]: GameType })[gameType].name;
     }
+  },
+  metaInfo: {
+    title: 'Maps'
   }
 })
 export default class TeamChanges extends Vue {

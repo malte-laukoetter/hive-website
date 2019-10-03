@@ -37,6 +37,9 @@ export default Vue.extend({
   components: {
     LeaderboardCard
   },
+  metaInfo: {
+    title: 'Rankings'
+  },
   data: () =>
     ({
       leaderboards: [

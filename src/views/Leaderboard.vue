@@ -59,7 +59,10 @@ type LeaderboardEntry = {
     LeaderboardCard,
     PlayerCard,
     LoadingCircular
-  }
+  },
+  metaInfo: (vue: Leaderboard) => ({
+    title: vue.title
+  })
 })
 export default class Leaderboard extends Vue {
   @Prop({ type: String })

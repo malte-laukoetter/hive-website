@@ -50,9 +50,9 @@ export default class StatLineChart extends Vue {
 
   get chartWidth() {
     const dateDifference = this.data.filter(data => data.length > 0).map(data => data[data.length - 1].x - data[0].x).sort()[0]
-    const size = dateDifference ? Math.floor(dateDifference / 30_000_000) : 1000
+    const size = dateDifference ? Math.floor(dateDifference / 30_000_000) : 1500
 
-    return Math.max(size, 800)
+    return Math.max(size, 1500)
   }
 
   get dataSets() {
