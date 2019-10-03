@@ -19,7 +19,7 @@ a {
     :light="$vuetify.breakpoint.smAndUp && !$vuetify.theme.dark"
     style="margin-top: 8px; width: 100%"
     :append-icon="mdiMagnify"
-    label="Search"
+    label="Search for a player or leaderboard"
     auto-select-first
     no-filter
     clearable
@@ -31,7 +31,7 @@ a {
     @change="goToPath"
   >
     <template v-slot:item="{ item }">
-      <router-link v-if="item.type === 'PLAYER'" :to="`/player/${item.uuid}`">
+      <router-link v-if="item.type === 'PLAYER'" :to="`/players/${item.uuid}`">
         <player-list-item
           :uuid="item.uuid"
           :name="item.name"
@@ -52,37 +52,60 @@ a {
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import { routeConfig } from "../router";
 import { RouteConfig } from "vue-router";
-import PlayerListItem from "../components/PlayerListItem.vue";
+import PlayerListItem from "@/components/PlayerListItem.vue";
 import { mdiMagnify } from "@mdi/js";
+import { leaderboards } from '@/router'
+import gamemodeConfigs from "@/gamemodesConfig";
+import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 
-function flattenRoutes(routes: RouteConfig[]) {
-  const routeStack = [...routes];
-  const flattenedRoutes: RouteConfig[] = [];
+type PageSearchResult = { type: "PAGE"; path: string; name: string }
 
-  while (routeStack.length > 0) {
-    const route = routeStack.pop();
+type SearchResult =
+  | PageSearchResult
+  | { type: "PLAYER"; name: string; uuid: string };
 
-    if (route) {
-      flattenedRoutes.push(route);
+const pageSearchResults: PageSearchResult[] = [
+  {
+    type: 'PAGE',
+    path: '/',
+    name: 'Home'
+  },
+  {
+    type: 'PAGE',
+    path: '/team',
+    name: 'Team Changes'
+  },
+  {
+    type: 'PAGE',
+    path: '/maps',
+    name: 'Maps'
+  },
+  {
+    type: 'PAGE',
+    path: '/server',
+    name: 'Server Statistics'
+  },
+  {
+    type: 'PAGE',
+    path: '/rankings',
+    name: 'Rankings'
+  },
+  ... leaderboards.map(leaderboard => ({
+    type: 'PAGE',
+    path: `/rankings/${leaderboard.href}`,
+    name: leaderboard.title
+  })),
+  ...Object.keys(gamemodeConfigs).map( type => ({
+    type: 'PAGE',
+    path: `/leaderboards/${type}`,
+    name: `${
+        ((GameTypes as any) as { [key: string]: GameType })[type].name
+      } Leaderboard`,
+  }))
+];
 
-      if (route.children) {
-        route.children.forEach(childRoute =>
-          routeStack.push({
-            ...childRoute,
-            path: route.path + childRoute.path,
-            name: route.name + " / " + childRoute.name
-          })
-        );
-      }
-    }
-  }
-
-  return flattenedRoutes;
-}
-
-function findInRoute(search: string, route: RouteConfig): boolean {
+function findInRoute(search: string, route: PageSearchResult): boolean {
   if (route.path.toLowerCase().includes(search)) {
     return true;
   } else if (route.name && route.name.toLowerCase().includes(search)) {
@@ -90,10 +113,6 @@ function findInRoute(search: string, route: RouteConfig): boolean {
   }
   return false;
 }
-
-type SearchResult =
-  | { type: "PAGE"; path: string; name: string }
-  | { type: "PLAYER"; name: string; uuid: string };
 
 @Component({
   components: {
@@ -112,15 +131,9 @@ export default class HiveSearch extends Vue {
     }
     search = search.toLowerCase();
 
-    const routeItems: SearchResult[] = flattenRoutes(routeConfig)
-      .filter(route => findInRoute(search, route))
-      .map(route => ({
-        path: route.path,
-        name: route.name || route.path,
-        type: "PAGE"
-      }));
+    const routeItems: SearchResult[] = pageSearchResults.filter(route => findInRoute(search, route))
 
-    if (search.length >= 3) {
+    if (search) {
       const res: [
         { uuid: string; name: string }[],
         { username: string; UUID: string }
@@ -128,9 +141,9 @@ export default class HiveSearch extends Vue {
         fetch(`https://api.lergin.de/hive/names/${search}`).then(res =>
           res.json()
         ),
-        fetch(`https://api.hivemc.com/v1/player/${search}`)
+        search.length > 3 ? fetch(`https://api.hivemc.com/v1/player/${search}`)
           .then(res => res.json())
-          .catch(err => ({}))
+          .catch(err => ({})) : {}
       ]);
 
       const playerItems: SearchResult[] = res[0]
@@ -159,7 +172,7 @@ export default class HiveSearch extends Vue {
         this.$router.push(selectedItem.path);
         break;
       case "PLAYER":
-        this.$router.push(`/player/${selectedItem.uuid}`);
+        this.$router.push(`/players/${selectedItem.uuid}`);
         break;
     }
   }

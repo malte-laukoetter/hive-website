@@ -3,7 +3,7 @@
     <template #navigation>
       <hive-app-bar-extended>
         <v-tab
-          :to="`/leaderboard/${gameType.id}`"
+          :to="`/leaderboards/${gameType.id}`"
           v-for="gameType in supportedGameTypes"
           :key="gameType.id"
         >
@@ -88,17 +88,5 @@ export default class GamemodeLeaderboards extends Vue {
 
   private player: HivePlayer | null = null;
   private playerInfo: HivePlayerInfo | null = null;
-
-  /*async fetchData(): Promise<void> {
-    if (this.uuid == null) return;
-
-    this.player = new HivePlayer(this.uuid);
-    this.playerInfo = await this.player.info();
-  }
-
-  @Watch("uuid", { immediate: true })
-  onUuidChange() {
-    this.fetchData();
-  }*/
 }
 </script>

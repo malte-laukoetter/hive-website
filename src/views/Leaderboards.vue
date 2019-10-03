@@ -18,7 +18,7 @@
         >
           <template #actions>
             <v-card-actions>
-              <v-btn text :to="`/leaderboard/${leaderboard.href}`"
+              <v-btn text :to="`/rankings/${leaderboard.href}`"
                 >Show all</v-btn
               >
             </v-card-actions>
@@ -41,37 +41,37 @@ export default Vue.extend({
     ({
       leaderboards: [
         {
-          title: "Medal Leaderboard",
+          title: "Medals",
           id: "medal",
           href: "medals",
           propertyTitle: "Gold Medals"
         },
         {
-          title: "Point Leaderboard",
+          title: "Points",
           id: "totalpoints",
           href: "points",
           propertyTitle: "Points"
         },
         {
-          title: "Token Leaderboard",
+          title: "Tokens",
           id: "token",
           href: "tokens",
           propertyTitle: "Tokens"
         },
         {
-          title: "Achievement Leaderboard",
+          title: "Achievements",
           id: "achievement",
           href: "achievements",
           propertyTitle: "Achievements"
         },
         {
-          title: "Kill Leaderboard",
+          title: "Kills",
           id: "totalkills",
           href: "kills",
           propertyTitle: "Kills"
         },
         {
-          title: "Hide Block Level Leaderboard",
+          title: "Hide Block Levels",
           id: "hide_blocklevels",
           href: "hidelevels",
           propertyTitle: "Block Levels"

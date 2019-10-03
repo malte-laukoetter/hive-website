@@ -24,11 +24,11 @@
         <span>Server</span>
         <v-icon>{{ icons.mdiChartHistogram }}</v-icon>
       </v-btn>
-      <v-btn>
-        <span>Player</span>
-        <v-icon>{{ icons.mdiAccountDetails }}</v-icon>
+      <v-btn to="/leaderboards">
+        <span>Leaderboards</span>
+        <v-icon>{{ icons.mdiClipboardList }}</v-icon>
       </v-btn>
-      <v-btn to="/leaderboard">
+      <v-btn to="/rankings">
         <span>Rankings</span>
         <v-icon>{{ icons.mdiFormatListNumbered }}</v-icon>
       </v-btn>
@@ -53,7 +53,7 @@ import {
   mdiAccountGroup,
   mdiCity,
   mdiChartHistogram,
-  mdiAccountDetails,
+  mdiClipboardList,
   mdiFormatListNumbered
 } from "@mdi/js";
 
@@ -70,7 +70,7 @@ export default class HiveApp extends Vue {
     mdiAccountGroup,
     mdiCity,
     mdiChartHistogram,
-    mdiAccountDetails,
+    mdiClipboardList,
     mdiFormatListNumbered
   };
 }

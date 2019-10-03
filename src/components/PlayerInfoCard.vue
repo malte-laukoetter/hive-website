@@ -18,7 +18,7 @@
       <v-col cols="12" class="text-center subtitle-2 mt-n5">Last Login</v-col>
     </v-col>
     <v-col cols="12" class="d-flex flex-wrap">
-      <v-btn class="flex-grow-1" v-if="swarm" text :to="`/player/${swarm}`"
+      <v-btn class="flex-grow-1" v-if="swarm" text :to="`/players/${swarm}`"
         >The Swarm</v-btn
       >
       <v-btn

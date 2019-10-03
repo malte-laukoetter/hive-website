@@ -6,7 +6,7 @@ a {
 </style>
 
 <template>
-  <router-link :to="`/player/${uuid}`">
+  <router-link :to="`/players/${uuid}`">
     <v-list-item>
       <v-list-item-avatar>
         <minecraft-avatar

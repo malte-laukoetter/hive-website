@@ -22,53 +22,60 @@ const breadcrumb: {
     to: { name: "Home" }
   },
   leaderboard: {
-    text: "Leaderboards",
+    text: "Rankings",
     exact: true,
-    to: { name: "Leaderboards" }
+    to: { path: "/rankings" }
   }
 };
 
-const leaderboards: {
+export const leaderboards: {
   title: string;
+  breadcrumb: string;
   id: string;
   propertyTitle: string;
   href: string;
 }[] = [
   {
-    title: "Medal Leaderboard",
+    title: "Medals Ranking",
+    breadcrumb: "Medals",
     id: "medal",
     propertyTitle: "Gold Medals",
     href: "medals"
   },
   {
-    title: "Kill Leaderboard",
+    title: "Kills Ranking",
+    breadcrumb: "Kills",
     id: "totalkills",
     propertyTitle: "Kills",
     href: "kills"
   },
   {
-    title: "Point Leaderboard",
+    title: "Points Ranking",
+    breadcrumb: "Points",
     id: "totalpoints",
     propertyTitle: "Points",
     href: "points"
   },
   {
-    title: "Achievement Leaderboard",
+    title: "Achievements Ranking",
+    breadcrumb: "Achievements",
     id: "achievement",
     propertyTitle: "Achievements",
     href: "achievements"
   },
   {
-    title: "Token Leaderboard",
+    title: "Tokens Ranking",
+    breadcrumb: "Tokens",
     id: "token",
     propertyTitle: "Tokens",
     href: "tokens"
   },
   {
-    title: "Hide Block Level Leaderboard",
+    title: "Hide Block Levels Ranking",
+    breadcrumb: "Hide Block Levels",
     id: "hide_blocklevels",
     propertyTitle: "Block Levels",
-    href: "hidelevels"
+    href: "hide-levels"
   }
 ];
 
@@ -104,7 +111,7 @@ export const routeConfig: RouteConfig[] = [
     }
   },
   {
-    path: "/player/:uuid",
+    path: "/players/:uuid",
     children: [
       ...Object.keys(gamemodeConfigs).map(
         type =>
@@ -126,7 +133,7 @@ export const routeConfig: RouteConfig[] = [
                     type
                   ].name,
                   exact: true,
-                  to: `/player/${params.uuid}/${type}`
+                  to: `/players/${params.uuid}/${type}`
                 }
               ]
             }
@@ -162,16 +169,16 @@ export const routeConfig: RouteConfig[] = [
     }
   },
   {
-    path: "/leaderboard",
-    name: "Leaderboards",
+    path: "/rankings",
+    name: "Rankings",
     meta: {
       breadcrumbs: [breadcrumb.home]
     },
     component: () =>
-      import(/* webpackChunkName: "leaderboards" */ "./views/Leaderboards.vue")
+      import(/* webpackChunkName: "ranking" */ "./views/Leaderboards.vue")
   },
   ...leaderboards.map(leaderboard => ({
-    path: `/leaderboard/${leaderboard.href}`,
+    path: `/rankings/${leaderboard.href}`,
     name: leaderboard.title,
     props: {
       title: leaderboard.title,
@@ -179,13 +186,17 @@ export const routeConfig: RouteConfig[] = [
       propertyTitle: leaderboard.propertyTitle
     },
     meta: {
-      breadcrumbs: [breadcrumb.home, breadcrumb.leaderboard]
+      breadcrumbs: () => [breadcrumb.home, breadcrumb.leaderboard, {
+        text: leaderboard.breadcrumb,
+        exact: true,
+        to: `/rankings/${leaderboard.href}`
+      }]
     },
     component: () =>
       import(/* webpackChunkName: "leaderboard" */ "./views/Leaderboard.vue")
   })),
   {
-    path: "/leaderboard",
+    path: "/leaderboards",
     children: [
       ...Object.keys(gamemodeConfigs).map(
         type =>
@@ -207,7 +218,7 @@ export const routeConfig: RouteConfig[] = [
                     type
                   ].name,
                   exact: true,
-                  to: `/leaderboard/${type}`
+                  to: `/leaderboards/${type}`
                 }
               ],
               title: `${
@@ -215,7 +226,11 @@ export const routeConfig: RouteConfig[] = [
               } Leaderboard`
             }
           } as RouteConfig)
-      )
+      ),
+      {
+        path: '',
+        redirect: { path: 'HIDE' }
+      }
     ],
     props: true,
     component: () =>

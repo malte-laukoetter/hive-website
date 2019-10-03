@@ -53,13 +53,13 @@
         <v-tab to="/server" class="font-weight-bold">
           Server Statistics
         </v-tab>
-        <v-tab class="font-weight-bold">
+        <v-tab to="/players" class="font-weight-bold">
           Player Statistics
         </v-tab>
-        <v-tab class="font-weight-bold">
+        <v-tab to="/leaderboards" class="font-weight-bold">
           Gamemode Leaderboards
         </v-tab>
-        <v-tab to="/leaderboard" class="font-weight-bold">
+        <v-tab to="/rankings" class="font-weight-bold">
           Rankings
         </v-tab>
       </v-tabs>

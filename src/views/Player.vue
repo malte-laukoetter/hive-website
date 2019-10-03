@@ -2,7 +2,7 @@
   <hive-app :name="playerInfo ? playerInfo.name : 'Player'">
     <template #navigation>
       <hive-app-bar-extended>
-        <v-tab :to="`/player/${uuid}`" exact>
+        <v-tab :to="`/players/${uuid}`" exact>
           General
         </v-tab>
         <v-tab
@@ -104,7 +104,7 @@ export default class Player extends Vue {
     this.playerInfo = await this.player.info();
     
     if (this.uuid.length < 32) {
-      this.$router.push(`/player/${this.player.uuid}`)
+      this.$router.push(`/players/${this.player.uuid}`)
     } else {
       const db = firebase.database()
       db.ref("latestPlayersPub").push().set({uuid: this.uuid, name: this.playerInfo.name});
