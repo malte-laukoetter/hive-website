@@ -66,7 +66,7 @@ type LeaderboardEntry = {
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: vue.title
       }
     ]

@@ -42,7 +42,7 @@ import StatLineChart from "@/components/StatLineChart.vue";
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: `Server`
       }
     ]

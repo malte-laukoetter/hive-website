@@ -14,7 +14,7 @@ export default Vue.extend({
     title: "404",
     meta: [
       {
-        property: "robots",
+        name: "robots",
         content: "noindex"
       }
     ]

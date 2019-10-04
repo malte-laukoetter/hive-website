@@ -98,7 +98,7 @@ import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${
           (GameTypes[vue.game] as GameType).name
         }`

@@ -141,7 +141,7 @@ const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: `Advanced Leaderboards - ${
           ((GameTypes as any) as { [key: string]: GameType })[vue.game].name
         }`

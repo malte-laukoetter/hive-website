@@ -40,7 +40,7 @@ export default Vue.extend({
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: `Rankings`
       }
     ]

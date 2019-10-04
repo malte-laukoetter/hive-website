@@ -19,23 +19,23 @@ import { MetaInfo } from "vue-meta";
     meta: [
       {
         vmid: "description",
-        property: "description",
+        name: "description",
         content:
           "Hive Stats, Leaderboards, Maps, Team changes and many things more!"
       },
       {
-        property: "twitter:site",
+        name: "twitter:site",
         content: "@hivemc_updates"
       },
       {
         vmid: "og:description",
-        property: "og:description",
+        name: "og:description",
         content:
           "Hive Stats, Leaderboards, Maps, Team changes and many things more!"
       },
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         template: chunk => {
           return chunk
             ? `${chunk} | Hive Stats and Leaderboards`

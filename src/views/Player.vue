@@ -57,12 +57,12 @@ import { MetaInfo } from "vue-meta";
     meta: [
       {
         vmid: "og:image",
-        property: "og:image",
+        name: "og:image",
         content: `https://crafatar.com/renders/body/${vue.uuid}`
       },
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: vue.playerInfo ? vue.playerInfo.name : vue.uuid
       }
     ]

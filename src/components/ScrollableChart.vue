@@ -89,6 +89,7 @@ export default class ScrollableChart extends Vue {
   ];
 
   async renderAxis() {
+    if (!this.chart) return;
     const chart: Chart = this.chart.$data._chart;
 
     if (chart.ctx === null) return;
@@ -121,6 +122,7 @@ export default class ScrollableChart extends Vue {
   }
 
   public redraw() {
+    if (!this.chart) return;
     const chart: Chart = this.chart.$data._chart;
     chart.width = this.width + 1;
     chart.height = this.height;

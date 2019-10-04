@@ -90,7 +90,7 @@ import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
     meta: [
       {
         vmid: "og:title",
-        property: "og:title",
+        name: "og:title",
         content: `Team`
       }
     ]
