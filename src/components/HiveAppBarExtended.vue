@@ -35,7 +35,7 @@
     dark
     :shrink-on-scroll="$vuetify.breakpoint.smAndUp"
     :hide-on-scroll="$vuetify.breakpoint.smAndUp"
-    src="/img/hub.png"
+    src="/img/hub.jpg"
     :extension-height="$vuetify.breakpoint.mdAndUp ? 96 : 48"
     v-scroll="updateSearchIsSolo"
   >
