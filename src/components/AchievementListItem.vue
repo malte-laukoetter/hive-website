@@ -1,5 +1,3 @@
-<style scoped></style>
-
 <template>
   <v-list-item v-if="achievement && achievementInfo">
     <v-list-item-icon>

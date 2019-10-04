@@ -40,8 +40,8 @@ a {
 
 <script lang="ts">
 import Vue from "vue";
-import "../components/uuid-format";
-import MinecraftAvatar from "../components/MinecraftAvatar.vue";
+import "@/components/uuid-format";
+import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 
 export default Vue.extend({
   components: {

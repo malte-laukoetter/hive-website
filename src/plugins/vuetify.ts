@@ -1,7 +1,5 @@
 import Vue from "vue";
 import Vuetify, { Scroll } from "vuetify/lib";
-//import "vuetify/types"
-//import "vuetify/dist/vuetify.min.css";
 import colors from "vuetify/lib/util/colors";
 
 Vue.use(Vuetify, {

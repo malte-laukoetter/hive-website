@@ -53,11 +53,11 @@ a {
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { RouteConfig } from "vue-router";
-import PlayerListItem from "@/components/PlayerListItem.vue";
 import { mdiMagnify } from "@mdi/js";
+import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
+import PlayerListItem from "@/components/PlayerListItem.vue";
 import { leaderboards } from "@/router";
 import gamemodeConfigs from "@/gamemodesConfig";
-import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 
 type PageSearchResult = { type: "PAGE"; path: string; name: string };
 

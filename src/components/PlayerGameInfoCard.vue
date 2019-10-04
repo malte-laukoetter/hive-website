@@ -30,15 +30,11 @@ import {
   PlayerInfo,
   GameTitle
 } from "hive-api/dist/hive.min.js";
-import "../components/uuid-format.js";
-import "mc-format";
-import MinecraftAvatar from "../components/MinecraftAvatar.vue";
-import BasePlayerInfoCard from "../components/BasePlayerInfoCard.vue";
-import gameModeConfigs from "../gamemodesConfig";
+import BasePlayerInfoCard from "@/components/BasePlayerInfoCard.vue";
+import gameModeConfigs from "@/gamemodesConfig";
 
 @Component({
   components: {
-    MinecraftAvatar,
     BasePlayerInfoCard
   }
 })

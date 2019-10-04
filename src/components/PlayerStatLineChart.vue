@@ -15,7 +15,6 @@ import {
   GameTypes,
   GameType
 } from "hive-api/dist/hive.min.js";
-import "@/components/uuid-format.js";
 import StatLineChart from "@/components/StatLineChart.vue";
 import * as firebase from "firebase/app";
 import "firebase/database";

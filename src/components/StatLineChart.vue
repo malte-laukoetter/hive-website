@@ -5,10 +5,11 @@
       :datasets="dataSets"
       :width="chartWidth"
       :height="height"
+      :loading="loading"
     >
-      <template #header
-        ><v-card-title>{{ title }}</v-card-title></template
-      >
+      <template #header>
+        <v-card-title>{{ title }}</v-card-title>
+      </template>
       <loading-circular :loading="loading"></loading-circular>
     </scrollable-chart>
   </div>

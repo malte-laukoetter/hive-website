@@ -17,7 +17,7 @@ canvas.axis {
 <template>
   <v-card>
     <slot name="header"></slot>
-    <div class="scroll-wrapper">
+    <div class="scroll-wrapper" v-if="!loading">
       <div class="scroll-target">
         <canvas
           :style="{ left: '0px' }"
@@ -74,6 +74,8 @@ export default class ScrollableChart extends Vue {
   height!: number;
   @Prop(Number)
   width!: number;
+  @Prop(Boolean)
+  loading!: boolean;
 
   @Prop(Array)
   datasets!: any[];

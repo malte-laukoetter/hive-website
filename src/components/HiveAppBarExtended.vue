@@ -100,8 +100,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import HiveSearch from "../components/HiveSearch.vue";
 import { mdiHome } from "@mdi/js";
+import HiveSearch from "@/components/HiveSearch.vue";
 
 @Component({
   components: {

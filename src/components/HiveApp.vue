@@ -48,7 +48,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import HiveAppBar from "./HiveAppBar.vue";
 import {
   mdiAccountGroup,
   mdiCity,
@@ -56,6 +55,7 @@ import {
   mdiClipboardList,
   mdiFormatListNumbered
 } from "@mdi/js";
+import HiveAppBar from "./HiveAppBar.vue";
 
 @Component({
   components: {
