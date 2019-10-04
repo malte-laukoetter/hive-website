@@ -2,7 +2,7 @@
   <hive-app>
     <div class="full-height">
       <v-timeline
-        :dense="$vuetify.breakpoint.smAndDown"
+        :dense="!$vuetify.breakpoint.mdAndUp"
         v-if="changes.length > 0"
       >
         <v-timeline-item v-for="dateChanges in changes" :key="dateChanges.date">
@@ -13,7 +13,7 @@
           </template>
           <v-card class="elevation-2">
             <v-card-title
-              v-if="$vuetify.breakpoint.smAndDown"
+              v-if="!$vuetify.breakpoint.mdAndUp"
               class="font-weight-light"
               >{{ dateChanges.date }}</v-card-title
             >

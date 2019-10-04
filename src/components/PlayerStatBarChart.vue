@@ -1,9 +1,10 @@
 <template>
   <div>
     <loading-circular :loading="loading"></loading-circular>
+    <span class="ma-2" v-if="!loading && (data.length === 0 || data[0].length === 0)">No data collected so far... Please come back later :)</span>
 
     <bar-chart
-      v-if="!loading"
+      v-if="!loading && !(data.length === 0 || data[0].length === 0)"
       :data="data"
       :labels="labels"
       :title="title"
