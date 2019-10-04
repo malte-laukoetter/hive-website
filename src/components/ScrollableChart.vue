@@ -17,7 +17,7 @@ canvas.axis {
 <template>
   <v-card>
     <slot name="header"></slot>
-    <div  class="scroll-wrapper">
+    <div class="scroll-wrapper">
       <div class="scroll-target">
         <canvas
           :style="{ left: '0px' }"
@@ -120,9 +120,9 @@ export default class ScrollableChart extends Vue {
 
   public redraw() {
     const chart: Chart = this.chart.$data._chart;
-    chart.width = this.width + 1
-    chart.height = this.height
-    chart.resize()
+    chart.width = this.width + 1;
+    chart.height = this.height;
+    chart.resize();
   }
 }
 </script>

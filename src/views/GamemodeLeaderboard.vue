@@ -42,7 +42,9 @@
     <template v-for="prop in properties" #[`item.${prop}`]="{ value, item }">
       <div :key="prop">
         <span>{{ value | toLocaleString }}</span>
-        <span class="caption ml-1">{{formatChange(value, item.uuid, prop)}}</span>
+        <span class="caption ml-1">{{
+          formatChange(value, item.uuid, prop)
+        }}</span>
       </div>
     </template>
     <template #item.uuid="{ item }">
@@ -58,23 +60,29 @@
     </template>
     <template #item.place="{ value, item }">
       <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-        <div v-on="on">
-        <v-icon>{{
-          changeIcon(
-            value,
+        <template v-slot:activator="{ on }">
+          <div v-on="on">
+            <v-icon>{{
+              changeIcon(
+                value,
+                compareData.has(item.uuid)
+                  ? compareData.get(item.uuid).place
+                  : undefined
+              )
+            }}</v-icon>
+            <v-icon v-if="value <= 2">{{ placeIcon(value + 1) }}</v-icon>
+            <span v-if="value > 2">{{ (value + 1) | toLocaleString }}</span>
+          </div>
+        </template>
+        <span>
+          Previously:
+          {{
             compareData.has(item.uuid)
-              ? compareData.get(item.uuid).place
-              : undefined
-          )
-        }}</v-icon>
-        <v-icon v-if="value <= 2">{{ placeIcon(value + 1) }}</v-icon>
-        <span v-if="value > 2">{{ (value + 1) | toLocaleString }}</span></div>
-      </template>
-      <span>
-        Previously: {{compareData.has(item.uuid) ? compareData.get(item.uuid).place + 1 : '?'}}
-      </span>
-    </v-tooltip>
+              ? compareData.get(item.uuid).place + 1
+              : "?"
+          }}
+        </span>
+      </v-tooltip>
     </template>
   </v-data-table>
 </template>
@@ -109,11 +117,11 @@ type LeaderboardEntry = {
 };
 type Leaderboard = LeaderboardEntry[];
 
-let date = new Date()
-date.setDate(date.getDate() - 1)
-const YESTERDAY = date.toISOString().substring(0,10)
-date.setMonth(date.getMonth()-1)
-const ONE_MONTY_BEFORE = date.toISOString().substring(0,10)
+let date = new Date();
+date.setDate(date.getDate() - 1);
+const YESTERDAY = date.toISOString().substring(0, 10);
+date.setMonth(date.getMonth() - 1);
+const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
 
 @Component({
   components: {
@@ -130,8 +138,8 @@ const ONE_MONTY_BEFORE = date.toISOString().substring(0,10)
   })
 })
 export default class GamemodeLeaderboard extends Vue {
-  readonly LATEST_DATE = YESTERDAY
-  readonly OLDEST_DATE = '2017-12-06'
+  readonly LATEST_DATE = YESTERDAY;
+  readonly OLDEST_DATE = "2017-12-06";
   @Prop({ type: String })
   readonly game!: string;
   @Prop({ type: String, default: YESTERDAY })
@@ -320,11 +328,11 @@ export default class GamemodeLeaderboard extends Vue {
   }
 
   formatChange(value: number, uuid: string, prop: string): string {
-    if (!this.compareData.has(uuid)) return ''
+    if (!this.compareData.has(uuid)) return "";
 
-    const change = value - this.compareData.get(uuid)![prop]
+    const change = value - this.compareData.get(uuid)![prop];
 
-    return `(${(change > 0 ? '+' : '')}${change.toLocaleString()})`
+    return `(${change > 0 ? "+" : ""}${change.toLocaleString()})`;
   }
 }
 </script>

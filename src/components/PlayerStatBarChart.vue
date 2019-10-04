@@ -28,8 +28,8 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";
-import * as firebase from 'firebase/app'
-import 'firebase/database'
+import * as firebase from "firebase/app";
+import "firebase/database";
 
 @Component({
   components: {
@@ -47,36 +47,41 @@ export default class PlayerStatBarChart extends Vue {
   @Prop({ type: String })
   readonly uuid!: string;
   @Prop(String)
-  readonly property!: string
+  readonly property!: string;
   @Prop(String)
-  readonly title!: string
+  readonly title!: string;
 
   private loading: boolean = true;
 
-  private labels: string[] = [
-  ];
-  private data: number[] = [
-  ];
+  private labels: string[] = [];
+  private data: number[] = [];
 
   async fetchData(): Promise<void> {
     if (this.uuid == null) return;
 
     this.loading = true;
     try {
-      const db = firebase.database()
+      const db = firebase.database();
 
-      const snapshot = await db.ref('playerStats').child('data').child(this.uuid).child('data').child(this.property).once('value')
-      const dataObject: {[key: string]: number} = await snapshot.val()
+      const snapshot = await db
+        .ref("playerStats")
+        .child("data")
+        .child(this.uuid)
+        .child("data")
+        .child(this.property)
+        .once("value");
+      const dataObject: { [key: string]: number } = await snapshot.val();
       const data = Object.entries(dataObject)
-        .filter(([key, value]) => key !== 'total')
-        .sort(([key, value], [key2, value2]) => value2 - value)
+        .filter(([key, value]) => key !== "total")
+        .sort(([key, value], [key2, value2]) => value2 - value);
 
-      this.data = data.map(([key, value]) => value)
+      this.data = data.map(([key, value]) => value);
       this.labels = data.map(([key, value]) => {
-        if (key === 'global') return 'Global'
-        return (GameTypes as any as {[key: string]: GameType})[key].name
-      })
-    } catch {
+        if (key === "global") return "Global";
+        return ((GameTypes as any) as { [key: string]: GameType })[key].name;
+      });
+    } catch (e) {
+      console.debug(e);
     } finally {
       this.loading = false;
     }

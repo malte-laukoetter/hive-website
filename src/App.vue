@@ -9,9 +9,11 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({
   metaInfo: {
-    title: '',
-    titleTemplate: (titleChunk) => {
-      return titleChunk ? `${titleChunk} | Hive Stats and Leaderboards` : 'Hive Stats and Leaderboards';
+    title: "",
+    titleTemplate: titleChunk => {
+      return titleChunk
+        ? `${titleChunk} | Hive Stats and Leaderboards`
+        : "Hive Stats and Leaderboards";
     }
   }
 })

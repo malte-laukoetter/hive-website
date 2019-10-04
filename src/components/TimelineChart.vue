@@ -15,7 +15,7 @@ export default class TimelineChart extends Mixins(Line) {
   private datasets!: ChartDataSets[];
 
   async mounted() {
-    this.onDatasetsChange()
+    this.onDatasetsChange();
   }
 
   @Watch("datasets")

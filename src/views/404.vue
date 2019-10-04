@@ -10,12 +10,14 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-    metaInfo: {
-        title: '404',
-        meta: [{
-            property: 'robots',
-            content: 'noindex'
-        }]
-    }
+  metaInfo: {
+    title: "404",
+    meta: [
+      {
+        property: "robots",
+        content: "noindex"
+      }
+    ]
+  }
 });
 </script>

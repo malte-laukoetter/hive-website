@@ -31,32 +31,58 @@
         <player-info-card :player-info="playerInfo"></player-info-card>
       </v-col>
       <v-col cols="12" md="8">
-        <player-stat-line-chart :uuid="uuid" title="Points & Tokens" :properties="['points/total', 'tokens']" :labels="['Points', 'Tokens']"></player-stat-line-chart>
+        <player-stat-line-chart
+          :uuid="uuid"
+          title="Points & Tokens"
+          :properties="['points/total', 'tokens']"
+          :labels="['Points', 'Tokens']"
+        ></player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Achievements</v-card-title>
-          <player-stat-bar-chart :uuid="uuid" title="Achievements" property="achievements"></player-stat-bar-chart>
+          <player-stat-bar-chart
+            :uuid="uuid"
+            title="Achievements"
+            property="achievements"
+          ></player-stat-bar-chart>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Points</v-card-title>
-          <player-stat-bar-chart :uuid="uuid" title="Points" property="points"></player-stat-bar-chart>
+          <player-stat-bar-chart
+            :uuid="uuid"
+            title="Points"
+            property="points"
+          ></player-stat-bar-chart>
         </v-card>
       </v-col>
 
       <v-col cols="12" md="4">
-        <achievement-list :achievements="achievementList" title="Global Achievements"></achievement-list>
+        <achievement-list
+          :achievements="achievementList"
+          title="Global Achievements"
+        ></achievement-list>
       </v-col>
-      
+
       <v-col cols="12" md="4">
-        <player-stat-line-chart :uuid="uuid" title="Medals" :properties="['medals']" :labels="['Medals']"></player-stat-line-chart>
+        <player-stat-line-chart
+          :uuid="uuid"
+          title="Medals"
+          :properties="['medals']"
+          :labels="['Medals']"
+        ></player-stat-line-chart>
       </v-col>
-      
+
       <v-col cols="12" md="4">
-        <player-stat-line-chart :uuid="uuid" title="Achievements" :properties="['achievements/total']" :labels="['Achievements']"></player-stat-line-chart>
+        <player-stat-line-chart
+          :uuid="uuid"
+          title="Achievements"
+          :properties="['achievements/total']"
+          :labels="['Achievements']"
+        ></player-stat-line-chart>
       </v-col>
     </v-row>
   </div>
@@ -85,8 +111,8 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";
-import * as firebase from 'firebase/app'
-import 'firebase/database'
+import * as firebase from "firebase/app";
+import "firebase/database";
 
 @Component({
   components: {
@@ -151,39 +177,61 @@ export default class PlayerInfo extends Vue {
 
   @Watch("uuid", { immediate: true })
   onUuidChange(newUuid: string, oldUuid: string) {
-    const db = firebase.database()
+    const db = firebase.database();
     if (oldUuid) {
-      const oldPlayerDataRef = db.ref('playerStats').child('data').child(this.uuid).child('data')
-      oldPlayerDataRef.child('points').child('total').off('value')
-      oldPlayerDataRef.child('achievements').child('total').off('value')
+      const oldPlayerDataRef = db
+        .ref("playerStats")
+        .child("data")
+        .child(this.uuid)
+        .child("data");
+      oldPlayerDataRef
+        .child("points")
+        .child("total")
+        .off("value");
+      oldPlayerDataRef
+        .child("achievements")
+        .child("total")
+        .off("value");
     }
 
     this.fetchData();
-    const playerDataRef = db.ref('playerStats').child('data').child(this.uuid).child('data')
-    playerDataRef.child('points').child('total').on('value', (snapshot) => {
-      this.totalPoints = snapshot.val()
-    })
-    playerDataRef.child('achievements').child('total').on('value', (snapshot) => {
-      this.achievements = snapshot.val()
-    })
+    const playerDataRef = db
+      .ref("playerStats")
+      .child("data")
+      .child(this.uuid)
+      .child("data");
+    playerDataRef
+      .child("points")
+      .child("total")
+      .on("value", snapshot => {
+        this.totalPoints = snapshot.val();
+      });
+    playerDataRef
+      .child("achievements")
+      .child("total")
+      .on("value", snapshot => {
+        this.achievements = snapshot.val();
+      });
   }
 
   mounted() {
-    this.fetchGlobalAchievements()
+    this.fetchGlobalAchievements();
   }
 
   async fetchGlobalAchievements() {
-    this.globalAchievements = await Server.achievements()
+    this.globalAchievements = await Server.achievements();
   }
 
   get achievementList(): Achievement[] {
-    if (!this.playerInfo) return []
+    if (!this.playerInfo) return [];
     return [
-      ... this.playerInfo.achievements, 
-      ... this.globalAchievements
-        .filter(a => !this.playerInfo!.achievements.find(({id}) => id == a.id))
+      ...this.playerInfo.achievements,
+      ...this.globalAchievements
+        .filter(
+          a => !this.playerInfo!.achievements.find(({ id }) => id == a.id)
+        )
         .map(a => new ServerAchievement(a.id, 0, new Date(0)))
-    ]
+    ];
   }
 }
 </script>

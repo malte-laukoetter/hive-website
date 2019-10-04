@@ -13,7 +13,7 @@ export default Vue.extend({
     HelloWorld
   },
   metaInfo: {
-    title: ''
+    title: ""
   }
 });
 </script>

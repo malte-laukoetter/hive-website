@@ -55,11 +55,11 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { RouteConfig } from "vue-router";
 import PlayerListItem from "@/components/PlayerListItem.vue";
 import { mdiMagnify } from "@mdi/js";
-import { leaderboards } from '@/router'
+import { leaderboards } from "@/router";
 import gamemodeConfigs from "@/gamemodesConfig";
 import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 
-type PageSearchResult = { type: "PAGE"; path: string; name: string }
+type PageSearchResult = { type: "PAGE"; path: string; name: string };
 
 type SearchResult =
   | PageSearchResult
@@ -67,42 +67,48 @@ type SearchResult =
 
 const pageSearchResults: PageSearchResult[] = [
   {
-    type: 'PAGE',
-    path: '/',
-    name: 'Home'
+    type: "PAGE",
+    path: "/",
+    name: "Home"
   },
   {
-    type: 'PAGE',
-    path: '/team',
-    name: 'Team Changes'
+    type: "PAGE",
+    path: "/team",
+    name: "Team Changes"
   },
   {
-    type: 'PAGE',
-    path: '/maps',
-    name: 'Maps'
+    type: "PAGE",
+    path: "/maps",
+    name: "Maps"
   },
   {
-    type: 'PAGE',
-    path: '/server',
-    name: 'Server Statistics'
+    type: "PAGE",
+    path: "/server",
+    name: "Server Statistics"
   },
   {
-    type: 'PAGE',
-    path: '/rankings',
-    name: 'Rankings'
+    type: "PAGE",
+    path: "/rankings",
+    name: "Rankings"
   },
-  ... leaderboards.map(leaderboard => ({
-    type: 'PAGE',
-    path: `/rankings/${leaderboard.href}`,
-    name: leaderboard.title
-  } as PageSearchResult)),
-  ...Object.keys(gamemodeConfigs).map( type => ({
-    type: 'PAGE',
-    path: `/leaderboards/${type}`,
-    name: `${
-        ((GameTypes as any) as { [key: string]: GameType })[type].name
-      } Leaderboard`,
-  } as PageSearchResult))
+  ...leaderboards.map(
+    leaderboard =>
+      ({
+        type: "PAGE",
+        path: `/rankings/${leaderboard.href}`,
+        name: leaderboard.title
+      } as PageSearchResult)
+  ),
+  ...Object.keys(gamemodeConfigs).map(
+    type =>
+      ({
+        type: "PAGE",
+        path: `/leaderboards/${type}`,
+        name: `${
+          ((GameTypes as any) as { [key: string]: GameType })[type].name
+        } Leaderboard`
+      } as PageSearchResult)
+  )
 ];
 
 function findInRoute(search: string, route: PageSearchResult): boolean {
@@ -120,7 +126,7 @@ function findInRoute(search: string, route: PageSearchResult): boolean {
   }
 })
 export default class HiveSearch extends Vue {
-  @Prop({ type: Boolean, default: false})
+  @Prop({ type: Boolean, default: false })
   readonly solo!: boolean;
   private search: string | SearchResult = "";
   private items: SearchResult[] = [];
@@ -133,7 +139,9 @@ export default class HiveSearch extends Vue {
     }
     search = search.toLowerCase();
 
-    const routeItems: SearchResult[] = pageSearchResults.filter(route => findInRoute(search, route))
+    const routeItems: SearchResult[] = pageSearchResults.filter(route =>
+      findInRoute(search, route)
+    );
 
     if (search) {
       const res: [
@@ -143,9 +151,11 @@ export default class HiveSearch extends Vue {
         fetch(`https://api.lergin.de/hive/names/${search}`).then(res =>
           res.json()
         ),
-        search.length > 3 ? fetch(`https://api.hivemc.com/v1/player/${search}`)
-          .then(res => res.json())
-          .catch(err => ({})) : {}
+        search.length > 3
+          ? fetch(`https://api.hivemc.com/v1/player/${search}`)
+              .then(res => res.json())
+              .catch(err => ({}))
+          : {}
       ]);
 
       const playerItems: SearchResult[] = res[0]

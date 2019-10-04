@@ -1,14 +1,15 @@
 <template>
   <div>
-
     <scrollable-chart
       ref="chart"
       :datasets="dataSets"
       :width="chartWidth"
       :height="height"
     >
-      <template #header><v-card-title>{{title}}</v-card-title></template>
-      <loading-circular :loading="loading"></loading-circular>    
+      <template #header
+        ><v-card-title>{{ title }}</v-card-title></template
+      >
+      <loading-circular :loading="loading"></loading-circular>
     </scrollable-chart>
   </div>
 </template>
@@ -23,8 +24,8 @@ import {
   GameTypes,
   GameType
 } from "hive-api/dist/hive.min.js";
-import * as firebase from 'firebase/app'
-import 'firebase/database'
+import * as firebase from "firebase/app";
+import "firebase/database";
 
 @Component({
   components: {
@@ -34,46 +35,53 @@ import 'firebase/database'
 })
 export default class StatLineChart extends Vue {
   @Prop(Array)
-  readonly data!: {x: number, y: number}[][]
+  readonly data!: { x: number; y: number }[][];
   @Prop(Array)
-  readonly labels!: string[]
+  readonly labels!: string[];
   @Prop(String)
-  readonly title!: string
-  @Prop({type: Number, default: 400})
-  readonly height!: number
+  readonly title!: string;
+  @Prop({ type: Number, default: 400 })
+  readonly height!: number;
 
-  @Ref('chart')
-  readonly chart!: HTMLElement
+  @Ref("chart")
+  readonly chart!: HTMLElement;
 
-  @Prop({type: Boolean, default: true})
+  @Prop({ type: Boolean, default: true })
   private loading!: boolean;
 
   get chartWidth() {
-    const dateDifference = this.data.filter(data => data.length > 0).map(data => data[data.length - 1].x - data[0].x).sort()[0]
-    const size = dateDifference ? Math.floor(dateDifference / 30_000_000) : 1500
+    const dateDifference = this.data
+      .filter(data => data.length > 0)
+      .map(data => data[data.length - 1].x - data[0].x)
+      .sort()[0];
+    const size = dateDifference
+      ? Math.floor(dateDifference / 30_000_000)
+      : 1500;
 
-    return Math.max(size, 1500)
+    return Math.max(size, 1500);
   }
 
   get dataSets() {
-    return this.data.map((data, index) =>
-      ({
-        label: this.labels[index],
-        data: data.map(({ x, y }) => ({
-          x: new Date(x),
-          y: y
-        })),
-        borderColor: index % 2 === 1 ? ( this.$vuetify.theme.dark
-          ? (this.$vuetify.theme.themes.dark.secondary as string)
-          : (this.$vuetify.theme.themes.light.secondary as string)): undefined
-      }))
+    return this.data.map((data, index) => ({
+      label: this.labels[index],
+      data: data.map(({ x, y }) => ({
+        x: new Date(x),
+        y: y
+      })),
+      borderColor:
+        index % 2 === 1
+          ? this.$vuetify.theme.dark
+            ? (this.$vuetify.theme.themes.dark.secondary as string)
+            : (this.$vuetify.theme.themes.light.secondary as string)
+          : undefined
+    }));
   }
 
   @Watch("data", { immediate: true })
-  async onUuidChange() {    
+  async onUuidChange() {
     setTimeout(() => {
-      ;(this.chart as any).redraw()
-    }, 500)
+      (this.chart as any).redraw();
+    }, 500);
   }
 }
 </script>

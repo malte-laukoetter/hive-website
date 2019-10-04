@@ -52,7 +52,7 @@ import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
     }
   },
   metaInfo: {
-    title: 'Maps'
+    title: "Maps"
   }
 })
 export default class TeamChanges extends Vue {

@@ -105,7 +105,8 @@ export const routeConfig: RouteConfig[] = [
   {
     path: "/server",
     name: "Server",
-    component: () => import(/* webpackChunkName: "server" */ "./views/Server.vue"),
+    component: () =>
+      import(/* webpackChunkName: "server" */ "./views/Server.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }
@@ -186,11 +187,15 @@ export const routeConfig: RouteConfig[] = [
       propertyTitle: leaderboard.propertyTitle
     },
     meta: {
-      breadcrumbs: () => [breadcrumb.home, breadcrumb.leaderboard, {
-        text: leaderboard.breadcrumb,
-        exact: true,
-        to: `/rankings/${leaderboard.href}`
-      }]
+      breadcrumbs: () => [
+        breadcrumb.home,
+        breadcrumb.leaderboard,
+        {
+          text: leaderboard.breadcrumb,
+          exact: true,
+          to: `/rankings/${leaderboard.href}`
+        }
+      ]
     },
     component: () =>
       import(/* webpackChunkName: "leaderboard" */ "./views/Leaderboard.vue")
@@ -228,8 +233,8 @@ export const routeConfig: RouteConfig[] = [
           } as RouteConfig)
       ),
       {
-        path: '',
-        redirect: { path: 'HIDE' }
+        path: "",
+        redirect: { path: "HIDE" }
       }
     ],
     props: true,
@@ -248,11 +253,8 @@ export const routeConfig: RouteConfig[] = [
     }
   },
   {
-    path: '*',
-    component: () =>
-      import(
-        /* webpackChunkName: "404" */ "./views/404.vue"
-      ),
+    path: "*",
+    component: () => import(/* webpackChunkName: "404" */ "./views/404.vue")
   }
 ];
 

@@ -26,15 +26,25 @@
       </v-col>
 
       <v-col cols="12" :md="12">
-        <player-stat-line-chart :uuid="uuid" title="Points" :properties="[`points/${game}`]" :labels="['Points']"></player-stat-line-chart>
+        <player-stat-line-chart
+          :uuid="uuid"
+          title="Points"
+          :properties="[`points/${game}`]"
+          :labels="['Points']"
+        ></player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="4" v-if="playerGameInfo.achievements">
         <achievement-list :achievements="achievementList"></achievement-list>
       </v-col>
-      
+
       <v-col cols="12" md="8" v-if="playerGameInfo.achievements">
-        <player-stat-line-chart :uuid="uuid" title="Achievements" :properties="[`achievements/${game}`]" :labels="['Achievements']"></player-stat-line-chart>
+        <player-stat-line-chart
+          :uuid="uuid"
+          title="Achievements"
+          :properties="[`achievements/${game}`]"
+          :labels="['Achievements']"
+        ></player-stat-line-chart>
       </v-col>
     </v-row>
   </div>
@@ -81,7 +91,9 @@ import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
     AchievementList
   },
   metaInfo: (vue: PlayerGameInfo) => ({
-    title: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${(GameTypes[vue.game] as GameType).name}`
+    title: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${
+      (GameTypes[vue.game] as GameType).name
+    }`
   })
 })
 export default class PlayerGameInfo extends Vue {
@@ -94,7 +106,7 @@ export default class PlayerGameInfo extends Vue {
   private playerInfo: PlayerInfo | null = null;
   private playerGameInfo: HivePlayerGameInfo | null = null;
 
-  private gameAchievements: AchievementInfo[] = [] 
+  private gameAchievements: AchievementInfo[] = [];
 
   private loading: boolean = true;
   private mdiAlert = mdiAlert;
@@ -133,20 +145,26 @@ export default class PlayerGameInfo extends Vue {
 
   @Watch("game", { immediate: true })
   async fetchAchievements() {
-    this.gameAchievements = await (GameTypes[this.game] as GameType).achievements()
+    this.gameAchievements = await (GameTypes[
+      this.game
+    ] as GameType).achievements();
   }
 
   get achievementList(): Achievement[] {
-    if (!this.playerGameInfo || !((this.playerGameInfo as any).achievements)) return []
+    if (!this.playerGameInfo || !(this.playerGameInfo as any).achievements)
+      return [];
 
-    const playerGameInfo: PlayerGameInfoAchievements = this.playerGameInfo as any as PlayerGameInfoAchievements
-        
+    const playerGameInfo: PlayerGameInfoAchievements = (this
+      .playerGameInfo as any) as PlayerGameInfoAchievements;
+
     return [
-      ... playerGameInfo.achievements, 
-      ... this.gameAchievements
-        .filter(a => !playerGameInfo.achievements.find(({id}) => id == a.id))
-        .map(a => new GameAchievement(a.id, 0, new Date(0), GameTypes[this.game]))
-    ]
+      ...playerGameInfo.achievements,
+      ...this.gameAchievements
+        .filter(a => !playerGameInfo.achievements.find(({ id }) => id == a.id))
+        .map(
+          a => new GameAchievement(a.id, 0, new Date(0), GameTypes[this.game])
+        )
+    ];
   }
 }
 </script>

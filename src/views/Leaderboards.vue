@@ -18,9 +18,7 @@
         >
           <template #actions>
             <v-card-actions>
-              <v-btn text :to="`/rankings/${leaderboard.href}`"
-                >Show all</v-btn
-              >
+              <v-btn text :to="`/rankings/${leaderboard.href}`">Show all</v-btn>
             </v-card-actions>
           </template>
         </leaderboard-card>
@@ -38,7 +36,7 @@ export default Vue.extend({
     LeaderboardCard
   },
   metaInfo: {
-    title: 'Rankings'
+    title: "Rankings"
   },
   data: () =>
     ({

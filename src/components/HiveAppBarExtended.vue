@@ -24,7 +24,7 @@
 }
 .v-toolbar__title a {
   color: inherit;
-  text-decoration: inherit
+  text-decoration: inherit;
 }
 </style>
 
@@ -36,7 +36,7 @@
     :shrink-on-scroll="$vuetify.breakpoint.smAndUp"
     src="/img/hub.png"
     :extension-height="$vuetify.breakpoint.mdAndUp ? 96 : 48"
-    v-scroll="updateSearchIsSolo"  
+    v-scroll="updateSearchIsSolo"
   >
     <template v-slot:img="{ props }">
       <v-img
@@ -52,7 +52,7 @@
     </v-toolbar-title>
 
     <v-btn icon class="mr-1" v-if="$vuetify.breakpoint.xsOnly">
-      <v-icon>{{mdiHome}}</v-icon>
+      <v-icon>{{ mdiHome }}</v-icon>
     </v-btn>
 
     <v-spacer v-if="$vuetify.breakpoint.smAndUp"></v-spacer>
@@ -101,7 +101,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import HiveSearch from "../components/HiveSearch.vue";
-import { mdiHome } from "@mdi/js"
+import { mdiHome } from "@mdi/js";
 
 @Component({
   components: {
@@ -109,16 +109,17 @@ import { mdiHome } from "@mdi/js"
   }
 })
 export default class HiveAppBarExtended extends Vue {
-  private mdiHome = mdiHome
+  private mdiHome = mdiHome;
 
-  private searchIsSolo: boolean = false
+  private searchIsSolo: boolean = false;
 
   mounted() {
-    this.searchIsSolo = this.$vuetify.breakpoint.smAndUp
+    this.searchIsSolo = this.$vuetify.breakpoint.smAndUp;
   }
 
   updateSearchIsSolo(e) {
-    this.searchIsSolo = window.scrollY === 0 && this.$vuetify.breakpoint.smAndUp
+    this.searchIsSolo =
+      window.scrollY === 0 && this.$vuetify.breakpoint.smAndUp;
   }
 }
 </script>
