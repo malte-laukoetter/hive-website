@@ -203,13 +203,13 @@ export default class PlayerInfo extends Vue {
       .child("points")
       .child("total")
       .on("value", snapshot => {
-        this.totalPoints = snapshot.val() || '?';
+        this.totalPoints = snapshot.val() || "?";
       });
     playerDataRef
       .child("achievements")
       .child("total")
       .on("value", snapshot => {
-        this.achievements = snapshot.val() || '?';
+        this.achievements = snapshot.val() || "?";
       });
   }
 

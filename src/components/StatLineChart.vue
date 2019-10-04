@@ -11,7 +11,11 @@
         <v-card-title>{{ title }}</v-card-title>
       </template>
       <loading-circular :loading="loading"></loading-circular>
-      <span class="ma-2" v-if="!loading && (data.length === 0 || data[0].length === 0)">No data collected so far... Please come back later :)</span>
+      <span
+        class="ma-2"
+        v-if="!loading && (data.length === 0 || data[0].length === 0)"
+        >No data collected so far... Please come back later :)</span
+      >
     </scrollable-chart>
   </div>
 </template>
