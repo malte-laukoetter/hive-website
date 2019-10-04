@@ -11,7 +11,7 @@
     </v-card-title>
     <v-data-table
       disable-filtering
-      disable-pagination
+      :disable-pagination="filteredData.length < 20"
       disable-sort
       :mobile-breakpoint="300"
       :headers="[
@@ -29,7 +29,7 @@
           value: 'value'
         }
       ]"
-      hide-default-footer
+      :hide-default-footer="filteredData.length < 20"
       item-key="uuid"
       :items="filteredData"
       :loading="filteredData.length === 0"
