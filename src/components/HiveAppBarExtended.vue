@@ -75,17 +75,17 @@
         <v-tab to="/team" class="font-weight-bold">
           Team Changes
         </v-tab>
+        <v-tab to="/rankings" class="font-weight-bold">
+          Rankings
+        </v-tab>
+        <v-tab to="/leaderboards" class="font-weight-bold">
+          Gamemode Leaderboards
+        </v-tab>
         <v-tab to="/maps" class="font-weight-bold">
           Maps
         </v-tab>
         <v-tab to="/server" class="font-weight-bold">
           Server Statistics
-        </v-tab>
-        <v-tab to="/leaderboards" class="font-weight-bold">
-          Gamemode Leaderboards
-        </v-tab>
-        <v-tab to="/rankings" class="font-weight-bold">
-          Rankings
         </v-tab>
       </v-tabs>
       <v-tabs class="secondNav" background-color="transparent">
