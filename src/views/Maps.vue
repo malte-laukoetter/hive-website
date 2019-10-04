@@ -4,7 +4,7 @@
       <loading-circular :loading="data.length === 0"></loading-circular>
 
       <v-timeline :dense="$vuetify.breakpoint.smAndDown" v-if="data.length > 0">
-        <v-timeline-item v-for="map in data" :key="map.worldName">
+        <v-timeline-item v-for="map in loadedData" :key="map.worldName">
           <template v-slot:opposite>
             <strong>
               {{ map.date | timestampToString }}
@@ -27,6 +27,13 @@
           </v-card>
         </v-timeline-item>
       </v-timeline>
+      <infinite-loading @infinite="loadMore" v-if="data.length > 0">
+        <loading-circular
+          class="mt-2"
+          loading
+          slot="spinner"
+        ></loading-circular>
+      </infinite-loading>
     </div>
   </hive-app>
 </template>
@@ -35,10 +42,12 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import LoadingCircular from "@/components/LoadingCircular.vue";
 import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
+import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
 
 @Component({
   components: {
-    LoadingCircular
+    LoadingCircular,
+    InfiniteLoading
   },
   filters: {
     timestampToString: (timestamp: number) => {
@@ -63,6 +72,13 @@ export default class TeamChanges extends Vue {
     mapName: string;
     worldName: string;
   }[] = [];
+  private loadedData: {
+    date: number;
+    author: string;
+    gameType: string;
+    mapName: string;
+    worldName: string;
+  }[] = [];
 
   async mounted() {
     this.data = await this.fetchMaps();
@@ -80,6 +96,16 @@ export default class TeamChanges extends Vue {
     }[]
   > {
     return fetch(`https://api.lergin.de/hive/maps`).then(res => res.json());
+  }
+
+  loadMore($state: StateChanger) {
+    this.loadedData = this.data.slice(0, this.loadedData.length + 20)
+    
+    if (this.loadedData.length >= this.data.length) {
+      $state.complete();
+    } else {
+      $state.loaded();
+    }
   }
 }
 </script>

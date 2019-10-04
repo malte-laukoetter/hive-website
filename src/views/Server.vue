@@ -11,13 +11,15 @@
           v-for="gameType of Object.keys(data)"
           :key="gameType"
         >
-          <stat-line-chart
-            :height="200"
-            :data="[toChartData(data[gameType])]"
-            :title="`Unique Players - ${GameTypes[gameType].name}`"
-            :labels="['Players']"
-            :loading="loading"
-          ></stat-line-chart>
+          <v-lazy min-height="200">
+            <stat-line-chart
+              :height="200"
+              :data="[toChartData(data[gameType])]"
+              :title="`Unique Players - ${GameTypes[gameType].name}`"
+              :labels="['Players']"
+              :loading="loading"
+            ></stat-line-chart>
+          </v-lazy>
         </v-col>
       </v-row>
     </div>

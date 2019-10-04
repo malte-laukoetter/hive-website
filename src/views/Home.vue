@@ -100,12 +100,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "@/components/HelloWorld.vue";
 import HiveSearch from "@/components/HiveSearch.vue";
 
 export default Vue.extend({
   components: {
-    HelloWorld,
     HiveSearch
   },
   metaInfo: {
