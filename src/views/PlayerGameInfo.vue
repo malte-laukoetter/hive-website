@@ -74,6 +74,7 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";
+import { MetaInfo } from "vue-meta";
 import { mdiAlert } from "@mdi/js";
 import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
 
@@ -90,11 +91,11 @@ import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
     PlayerStatLineChart,
     AchievementList
   },
-  metaInfo: (vue: PlayerGameInfo) => ({
+  metaInfo: ((vue: PlayerGameInfo) => ({
     title: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${
       (GameTypes[vue.game] as GameType).name
     }`
-  })
+  })) as () => MetaInfo
 })
 export default class PlayerGameInfo extends Vue {
   @Prop({ type: String })

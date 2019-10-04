@@ -39,6 +39,7 @@ import {
 import "@/components/uuid-format.js";
 import * as firebase from "firebase/app";
 import "firebase/database";
+import { MetaInfo } from "vue-meta";
 
 @Component({
   components: {
@@ -51,9 +52,9 @@ import "firebase/database";
     HiveAppBarExtended,
     PlayerInfo
   },
-  metaInfo: (vue: Player) => ({
+  metaInfo: ((vue: Player) => ({
     title: vue.playerInfo ? vue.playerInfo.name : vue.uuid
-  })
+  })) as () => MetaInfo
 })
 export default class Player extends Vue {
   @Prop({ type: String })

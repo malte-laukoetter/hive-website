@@ -117,7 +117,7 @@ export default class HiveAppBarExtended extends Vue {
     this.searchIsSolo = this.$vuetify.breakpoint.smAndUp;
   }
 
-  updateSearchIsSolo(e) {
+  updateSearchIsSolo() {
     this.searchIsSolo =
       window.scrollY === 0 && this.$vuetify.breakpoint.smAndUp;
   }

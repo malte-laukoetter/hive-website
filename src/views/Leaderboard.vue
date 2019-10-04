@@ -46,6 +46,7 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import LeaderboardCard from "@/components/LeaderboardCard.vue";
 import LoadingCircular from "@/components/LoadingCircular.vue";
 import PlayerCard from "@/components/PlayerCard.vue";
+import { MetaInfo } from "vue-meta";
 
 type LeaderboardEntry = {
   _place: number;
@@ -60,9 +61,9 @@ type LeaderboardEntry = {
     PlayerCard,
     LoadingCircular
   },
-  metaInfo: (vue: Leaderboard) => ({
+  metaInfo: ((vue: Leaderboard) => ({
     title: vue.title
-  })
+  })) as () => MetaInfo
 })
 export default class Leaderboard extends Vue {
   @Prop({ type: String })

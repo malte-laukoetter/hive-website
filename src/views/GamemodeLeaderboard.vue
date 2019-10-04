@@ -107,6 +107,7 @@ import {
   mdiChevronRight,
   mdiHelpCircleOutline
 } from "@mdi/js";
+import { MetaInfo } from "vue-meta";
 
 type LeaderboardEntry = {
   name: string;
@@ -133,9 +134,11 @@ const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
       return ((GameTypes as any) as { [key: string]: GameType })[gameType].name;
     }
   },
-  metaInfo: (vue: GamemodeLeaderboard) => ({
-    title: `Advanced Leaderboards - ${GameTypes[vue.game].name}`
-  })
+  metaInfo: ((vue: GamemodeLeaderboard) => ({
+    title: `Advanced Leaderboards - ${
+      ((GameTypes as any) as { [key: string]: GameType })[vue.game].name
+    }`
+  })) as () => MetaInfo
 })
 export default class GamemodeLeaderboard extends Vue {
   readonly LATEST_DATE = YESTERDAY;
