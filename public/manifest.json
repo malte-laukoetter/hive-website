@@ -2,7 +2,7 @@
   "name": "Hive Stats and Leaderboards",
   "short_name": "Hive Stats",
   "description": "Hive Stats, Leaderboards, Maps, Team changes and many things more!",
-  "start_url": "/?utm=homescreen",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#4285f4",
   "background_color": "#4285f4",
