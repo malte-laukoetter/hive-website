@@ -51,7 +51,7 @@
       </router-link>
     </v-toolbar-title>
 
-    <v-btn icon class="mr-1" v-if="$vuetify.breakpoint.xsOnly">
+    <v-btn to="/" icon class="mr-1" v-if="$vuetify.breakpoint.xsOnly">
       <v-icon>{{ mdiHome }}</v-icon>
     </v-btn>
 

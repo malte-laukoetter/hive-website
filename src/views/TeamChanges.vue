@@ -47,14 +47,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue";
 import PlayerListItem from "@/components/PlayerListItem.vue";
 import LoadingCircular from "@/components/LoadingCircular.vue";
 import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
 
 @Component({
   components: {
-    HelloWorld,
     PlayerListItem,
     LoadingCircular,
     InfiniteLoading
