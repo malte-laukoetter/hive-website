@@ -137,7 +137,16 @@ const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
   metaInfo: ((vue: GamemodeLeaderboard) => ({
     title: `Advanced Leaderboards - ${
       ((GameTypes as any) as { [key: string]: GameType })[vue.game].name
-    }`
+    }`,
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: `Advanced Leaderboards - ${
+          ((GameTypes as any) as { [key: string]: GameType })[vue.game].name
+        }`
+      }
+    ]
   })) as () => MetaInfo
 })
 export default class GamemodeLeaderboard extends Vue {

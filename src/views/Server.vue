@@ -38,7 +38,14 @@ import StatLineChart from "@/components/StatLineChart.vue";
     StatLineChart
   },
   metaInfo: {
-    title: "Server"
+    title: "Server",
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: `Server`
+      }
+    ]
   }
 })
 export default class Server extends Vue {

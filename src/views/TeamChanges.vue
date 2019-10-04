@@ -86,7 +86,14 @@ import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
     }
   },
   metaInfo: {
-    title: "Team"
+    title: "Team",
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: `Team`
+      }
+    ]
   }
 })
 export default class TeamChanges extends Vue {

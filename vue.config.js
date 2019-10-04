@@ -1,5 +1,5 @@
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const PreloadWebpackPlugin = require("preload-webpack-plugin");
 
 module.exports = {
   configureWebpack: {

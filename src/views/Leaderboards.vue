@@ -36,7 +36,14 @@ export default Vue.extend({
     LeaderboardCard
   },
   metaInfo: {
-    title: "Rankings"
+    title: "Rankings",
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: `Rankings`
+      }
+    ]
   },
   data: () =>
     ({

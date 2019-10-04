@@ -53,7 +53,19 @@ import { MetaInfo } from "vue-meta";
     PlayerInfo
   },
   metaInfo: ((vue: Player) => ({
-    title: vue.playerInfo ? vue.playerInfo.name : vue.uuid
+    title: vue.playerInfo ? vue.playerInfo.name : vue.uuid,
+    meta: [
+      {
+        vmid: "og:image",
+        property: "og:image",
+        content: `https://crafatar.com/renders/body/${vue.uuid}`
+      },
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: vue.playerInfo ? vue.playerInfo.name : vue.uuid
+      }
+    ]
   })) as () => MetaInfo
 })
 export default class Player extends Vue {

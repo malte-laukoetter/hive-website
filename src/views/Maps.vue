@@ -61,7 +61,14 @@ import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
     }
   },
   metaInfo: {
-    title: "Maps"
+    title: "Maps",
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: `Maps`
+      }
+    ]
   }
 })
 export default class TeamChanges extends Vue {
@@ -99,8 +106,8 @@ export default class TeamChanges extends Vue {
   }
 
   loadMore($state: StateChanger) {
-    this.loadedData = this.data.slice(0, this.loadedData.length + 20)
-    
+    this.loadedData = this.data.slice(0, this.loadedData.length + 20);
+
     if (this.loadedData.length >= this.data.length) {
       $state.complete();
     } else {

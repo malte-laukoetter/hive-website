@@ -62,7 +62,14 @@ type LeaderboardEntry = {
     LoadingCircular
   },
   metaInfo: ((vue: Leaderboard) => ({
-    title: vue.title
+    title: vue.title,
+    meta: [
+      {
+        vmid: "og:title",
+        property: "og:title",
+        content: vue.title
+      }
+    ]
   })) as () => MetaInfo
 })
 export default class Leaderboard extends Vue {
