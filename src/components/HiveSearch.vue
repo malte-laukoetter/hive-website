@@ -4,11 +4,8 @@ a {
   text-decoration: inherit;
 }
 
-.v-autocomplete
-  >>> .v-select.v-select--is-menu-active
-  .v-input__icon--append
-  .v-icon {
-  transform: none;
+.v-autocomplete >>> .v-input__icon--append .v-icon {
+  transform: none !important;
 }
 </style>
 
@@ -91,7 +88,7 @@ const pageSearchResults: PageSearchResult[] = [
     path: "/rankings",
     name: "Rankings"
   },
-  ...leaderboards.map(
+  ...(leaderboards || []).map(
     leaderboard =>
       ({
         type: "PAGE",
