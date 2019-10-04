@@ -135,8 +135,8 @@ export default class PlayerInfo extends Vue {
 
   private player: HivePlayer | null = null;
   private playerInfo: HivePlayerInfo | null = null;
-  private totalPoints: number = 0;
-  private achievements: number = 0;
+  private totalPoints: number | string = '?';
+  private achievements: number | string = '?';
   private globalAchievements: AchievementInfo[] = [];
   private loading: boolean = true;
 
@@ -167,7 +167,6 @@ export default class PlayerInfo extends Vue {
     try {
       this.player = new HivePlayer(this.uuid);
       this.playerInfo = await this.player.info();
-      this.data = await fetch("/data.json").then(res => res.json());
     } catch {
       this.playerInfo = null;
     } finally {
