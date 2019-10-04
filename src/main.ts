@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-firebase.performance();
+;(window as any).__cmp('setConsentUiCallback', () => firebase.performance());
 
 Vue.config.productionTip = false;
 
