@@ -75,7 +75,7 @@ export const leaderboards: {
     breadcrumb: "Hide Block Levels",
     id: "hide_blocklevels",
     propertyTitle: "Block Levels",
-    href: "hide-levels"
+    href: "hide_levels"
   }
 ];
 

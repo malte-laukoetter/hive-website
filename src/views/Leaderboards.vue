@@ -81,7 +81,7 @@ export default Vue.extend({
         {
           title: "Hide Block Levels",
           id: "hide_blocklevels",
-          href: "hidelevels",
+          href: "hide_levels",
           propertyTitle: "Block Levels"
         }
       ]
