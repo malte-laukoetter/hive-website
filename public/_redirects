@@ -1,7 +1,9 @@
 # Redirect domain aliases to primary domain
-http://hivemc.xyz/* http://hive.lergin.de/:splat 301!
-# Optional: Redirect default Netlify subdomain to primary domain
-http://hive-stats.netlify.com/* http://hive.lergin.de/:splat 301!
+http://hivemc.xyz/* https://hive.lergin.de/:splat 301!
+https://hivemc.xyz/* https://hive.lergin.de/:splat 301!
+http://hive-stats.netlify.com/* https://hive.lergin.de/:splat 301!
+https://hive-stats.netlify.com/* https://hive.lergin.de/:splat 301!
+http://hive.lergin.de/*  https://hive.lergin.de/:splat 301!
 
 /player/:slug /players/:slug 301
 /stats /server 301
