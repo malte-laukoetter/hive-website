@@ -119,13 +119,14 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60277501-8"></script>
     <script>
+      window.gtag = () => null
       __cmp('getGooglePersonalization', function(consent, success) {
         if(success && consent.googlePersonalizationData.consentValue) {
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+          window.gtag = function(){dataLayer.push(arguments);}
+          window.gtag('js', new Date());
 
-          gtag('config', 'UA-60277501-8', { 'anonymize_ip': true });
+          window.gtag('config', 'UA-60277501-8', { 'anonymize_ip': true });
         }
       });
     </script>

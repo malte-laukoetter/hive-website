@@ -44,6 +44,10 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
+router.afterEach((to) => {
+  ;(window as any).gtag('config', 'UA-60277501-8', { 'anonymize_ip': true, 'page_path': to.fullPath});
+})
+
 Vue.filter("toLocaleString", function(value: any) {
   if (value == null) return "";
   if (!value.toLocaleString) return value;
