@@ -25,7 +25,11 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-;(window as any).__cmp('setConsentUiCallback', () => firebase.performance());
+;(window as any).__cmp('getGooglePersonalization', function(consent: any, success: boolean) {
+  if(success && consent.googlePersonalizationData.consentValue) {
+    firebase.performance()
+  }
+});
 
 Vue.config.productionTip = false;
 

@@ -116,5 +116,19 @@
           background-color: #eee !important;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60277501-8"></script>
+    <script>
+      __cmp('getGooglePersonalization', function(consent, success) {
+        if(success && consent.googlePersonalizationData.consentValue) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-60277501-8', { 'anonymize_ip': true });
+        }
+      });
+    </script>
+
   </body>
 </html>
