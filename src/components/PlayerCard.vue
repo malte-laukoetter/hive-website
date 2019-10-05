@@ -1,7 +1,7 @@
 <style scoped>
 a {
   text-decoration: inherit;
-  color: inherit;
+  color: inherit !important;
 }
 
 .v-avatar {
