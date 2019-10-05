@@ -10,6 +10,11 @@ import HiveBreadcrumb from "./components/HiveBreadcrumb.vue";
 import HiveFooter from "./components/HiveFooter.vue";
 import HiveApp from "./components/HiveApp.vue";
 import VueMeta from "vue-meta";
+import {Methods} from 'hive-api/dist/hive.min.js'
+
+if(location.hostname !== "localhost") {
+  Methods.BASE_URL = () => '/api/hive'
+}
 
 import "./assets/style.css";
 
