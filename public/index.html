@@ -23,7 +23,7 @@
       var scpt = document.getElementsByTagName('script')[0];
       scpt.parentNode.insertBefore(elem, scpt);
       (function() {
-      var gdprAppliesGlobally = false;
+      var gdprAppliesGlobally = true;
       function addFrame() {
           if (!window.frames['__cmpLocator']) {
           if (document.body) {
@@ -89,24 +89,24 @@
       }
       })();
       window.__cmp('init', {
-          'Language': 'en',
-      'Initial Screen Reject Button Text': 'I DO NOT ACCEPT',
-      'Initial Screen Accept Button Text': 'I ACCEPT',
-      'Purpose Screen Body Text': 'You can set your consent preferences and determine how you want your data to be used based on the purposes below. You may set your preferences for us independently from those of third-party partners. Each purpose has a description so that you know how we and partners use your data.',
-      'Purpose Screen Vendor Link Text': 'See Vendors',
-      'Purpose Screen Save and Exit Button Text': 'SAVE &amp; EXIT',
-      'Vendor Screen Body Text': 'You can set consent preferences for individual third-party partners we work with below. Expand each company list item to see what purposes they use data for to help make your choices. In some cases, companies may use your data without asking for your consent, based on their legitimate interests. You can click on their privacy policy links for more information and to object to such processing. ',
-      'Vendor Screen Accept All Button Text': 'ACCEPT ALL',
-      'Vendor Screen Reject All Button Text': 'REJECT ALL',
-      'Vendor Screen Purposes Link Text': 'Back to Purposes',
-      'Vendor Screen Save and Exit Button Text': 'SAVE &amp; EXIT',
-      'Initial Screen Body Text': 'We and our partners use technologies, such as cookies, and process personal data, such as IP addresses and cookie identifiers, to personalise ads and content based on your interests, measure the performance of ads and content, and derive insights about the audiences who saw ads and content. Click below to consent to the use of this technology and the processing of your personal data for these purposes. You can change your mind and change your consent choices at any time by returning to this site. ',
-      'Initial Screen Body Text Option': 1,
-      'Publisher Name': 'Malte Laukötter',
-      'Publisher Purpose IDs': [1,5],
-      'Consent Scope': 'service',
-      'UI Layout': 'banner',
-      'Display Persistent Consent Link': false
+        'Language': 'en',
+        'Initial Screen Reject Button Text': 'I DO NOT ACCEPT',
+        'Initial Screen Accept Button Text': 'I ACCEPT',
+        'Purpose Screen Body Text': 'You can set your consent preferences and determine how you want your data to be used based on the purposes below. You may set your preferences for us independently from those of third-party partners. Each purpose has a description so that you know how we and partners use your data.',
+        'Purpose Screen Vendor Link Text': 'See Vendors',
+        'Purpose Screen Save and Exit Button Text': 'SAVE &amp; EXIT',
+        'Vendor Screen Body Text': 'You can set consent preferences for individual third-party partners we work with below. Expand each company list item to see what purposes they use data for to help make your choices. In some cases, companies may use your data without asking for your consent, based on their legitimate interests. You can click on their privacy policy links for more information and to object to such processing. ',
+        'Vendor Screen Accept All Button Text': 'ACCEPT ALL',
+        'Vendor Screen Reject All Button Text': 'REJECT ALL',
+        'Vendor Screen Purposes Link Text': 'Back to Purposes',
+        'Vendor Screen Save and Exit Button Text': 'SAVE &amp; EXIT',
+        'Initial Screen Body Text': 'We and our partners use technologies, such as cookies, and process personal data, such as IP addresses and cookie identifiers, to personalise ads and content based on your interests, measure the performance of ads and content, and derive insights about the audiences who saw ads and content. Click below to consent to the use of this technology and the processing of your personal data for these purposes. You can change your mind and change your consent choices at any time by returning to this site. ',
+        'Initial Screen Body Text Option': 1,
+        'Publisher Name': 'Malte Laukötter',
+        'Publisher Purpose IDs': [1,5],
+        'Consent Scope': 'service',
+        'UI Layout': 'banner',
+        'Display Persistent Consent Link': false
       });
     </script>
     <!-- End Quantcast Choice. Consent Manager Tag -->
