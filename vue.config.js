@@ -14,10 +14,9 @@ module.exports = {
   pwa: {
     workboxOptions: {
       skipWaiting: true,
-      cleanupOutdatedCaches: true,
       runtimeCaching: [{
         urlPattern: /api/,
-        handler: 'NetworkFirst',
+        handler: 'networkFirst',
         options: {
           networkTimeoutSeconds: 10,
           cacheName: 'hive-api-cache',
@@ -31,7 +30,7 @@ module.exports = {
         }
       }, {
         urlPattern: new RegExp('^https://crafatar\.com/'),
-        handler: 'StaleWhileRevalidate',
+        handler: 'staleWhileRevalidate',
         options: {
           cacheableResponse: {
             statuses: [0, 200]
@@ -44,7 +43,7 @@ module.exports = {
         }
       }, {
         urlPattern: new RegExp('^https://api\.lergin\.de/'),
-        handler: 'NetworkFirst',
+        handler: 'networkFirst',
         options: {
           networkTimeoutSeconds: 10,
           cacheName: 'lergin-api-cache',
