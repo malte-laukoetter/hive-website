@@ -30,7 +30,7 @@ module.exports = {
           }
         }
       }, {
-        urlPattern: new RegExp('^https://cravatar\.com/'),
+        urlPattern: new RegExp('^https://crafatar\.com/'),
         handler: 'StaleWhileRevalidate',
         options: {
           cacheableResponse: {
