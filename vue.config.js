@@ -14,6 +14,8 @@ module.exports = {
   pwa: {
     workboxOptions: {
       skipWaiting: true,
+      navigateFallback: '/',
+      navigateFallbackBlacklist: [/api/],
       runtimeCaching: [{
         urlPattern: /api/,
         handler: 'networkFirst',
@@ -26,6 +28,7 @@ module.exports = {
           expiration: {
             maxEntries: 100,
             maxAgeSeconds: 60*60*24,
+            purgeOnQuotaError: true,
           }
         }
       }, {
@@ -39,6 +42,7 @@ module.exports = {
           expiration: {
             maxEntries: 1000,
             maxAgeSeconds: 60*60*24*30,
+            purgeOnQuotaError: true,
           }
         }
       }, {
@@ -53,6 +57,7 @@ module.exports = {
           expiration: {
             maxEntries: 25,
             maxAgeSeconds: 60*60*24,
+            purgeOnQuotaError: true,
           }
         }
       }]
