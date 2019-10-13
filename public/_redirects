@@ -14,5 +14,6 @@ http://hive.lergin.de/*  https://hive.lergin.de/:splat 301!
 /tokens /rankings/tokens 301
 /kills /rankings/kills 301
 /achievements /rankings/achievements 301
-/hide /rankings/hide-blocklevels 301
+/hide /rankings/hide_levels 301
+/rankings/hide-blocklevels /rankings/hide_levels 301
 /*    /index.html   200
