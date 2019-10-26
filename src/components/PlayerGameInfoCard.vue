@@ -1,5 +1,5 @@
 <template>
-  <base-player-info-card
+  <hive-base-player-info-card
     :name="name"
     :uuid="uuid"
     :title="`${loadingTitle ? 'Loading...' : title ? title.mcFormatName : ''}`"
@@ -20,7 +20,7 @@
         date.title
       }}</v-col>
     </v-col>
-  </base-player-info-card>
+  </hive-base-player-info-card>
 </template>
 
 <script lang="ts">
@@ -30,14 +30,9 @@ import {
   PlayerInfo,
   GameTitle
 } from "hive-api/dist/hive.min.js";
-import BasePlayerInfoCard from "@/components/BasePlayerInfoCard.vue";
 import gameModeConfigs from "@/gamemodesConfig";
 
-@Component({
-  components: {
-    BasePlayerInfoCard
-  }
-})
+@Component
 export default class PlayerGameInfoCard extends Vue {
   @Prop({ type: String })
   private name!: string;

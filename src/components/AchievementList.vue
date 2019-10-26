@@ -16,10 +16,10 @@
     </v-card-title>
     <v-list three-line subheader>
       <template v-for="achievement of achievements">
-        <achievement-list-item
+        <hive-achievement-list-item
           :key="achievement.id"
           :achievement="achievement"
-        ></achievement-list-item>
+        ></hive-achievement-list-item>
       </template>
     </v-list>
   </v-card>
@@ -28,13 +28,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { Achievement } from "hive-api/dist/hive.min.js";
-import AchievementListItem from "@/components/AchievementListItem.vue";
 
-@Component({
-  components: {
-    AchievementListItem
-  }
-})
+@Component
 export default class LeaderboardCard extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly achievements!: Achievement[];

@@ -7,7 +7,7 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { Route, RouteRecord } from "vue-router";
 
 @Component
-export default class HiveBreadcrumb extends Vue {
+export default class Breadcrumb extends Vue {
   get breadcrumbs() {
     return this.$route.matched
       .map(routeRecord => {

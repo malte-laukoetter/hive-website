@@ -1,25 +1,23 @@
 <template>
   <div>
-    <loading-circular :loading="loading"></loading-circular>
+    <hive-loading-circular :loading="loading"></hive-loading-circular>
     <span
       class="ma-2"
       v-if="!loading && (data.length === 0 || data[0].length === 0)"
       >No data collected so far... Please come back later :)</span
     >
 
-    <bar-chart
+    <hive-bar-chart
       v-if="!loading && !(data.length === 0 || data[0].length === 0)"
       :data="data"
       :labels="labels"
       :title="title"
-    ></bar-chart>
+    ></hive-bar-chart>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import BarChart from "@/components/BarChart.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -29,12 +27,7 @@ import {
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-@Component({
-  components: {
-    LoadingCircular,
-    BarChart
-  }
-})
+@Component
 export default class PlayerStatBarChart extends Vue {
   @Prop({ type: String })
   readonly uuid!: string;

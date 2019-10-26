@@ -55,14 +55,9 @@ import {
   mdiClipboardList,
   mdiFormatListNumbered
 } from "@mdi/js";
-import HiveAppBar from "./HiveAppBar.vue";
 
-@Component({
-  components: {
-    HiveAppBar
-  }
-})
-export default class HiveApp extends Vue {
+@Component
+export default class App extends Vue {
   @Prop(String)
   readonly name: string | undefined;
 

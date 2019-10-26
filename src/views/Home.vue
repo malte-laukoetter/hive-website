@@ -100,12 +100,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import HiveSearch from "@/components/HiveSearch.vue";
 
 export default Vue.extend({
-  components: {
-    HiveSearch
-  },
   metaInfo: {
     title: ""
   }

@@ -19,12 +19,12 @@ a {
       <v-container>
         <v-row dense>
           <v-col class="shrink text-center">
-            <minecraft-avatar
+            <hive-minecraft-avatar
               class="elevation-2"
               :size="96"
               :uuid="uuid"
               :name="name"
-            ></minecraft-avatar>
+            ></hive-minecraft-avatar>
             <div class="mt-2 grey--text text--darken-2 font-weight-regular">
               {{ name }}
             </div>
@@ -44,9 +44,6 @@ import "@/components/uuid-format";
 import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 
 export default Vue.extend({
-  components: {
-    MinecraftAvatar
-  },
   props: {
     uuid: String,
     name: String,

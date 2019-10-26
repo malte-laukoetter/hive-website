@@ -5,7 +5,7 @@ import { ChartOptions, ChartData, Chart, ChartDataSets } from "chart.js";
 
 Chart.defaults.global.defaultFontFamily = "Roboto";
 
-@Component({})
+@Component
 export default class TimelineChart extends Mixins(Line) {
   @Prop(Number)
   private height!: number;

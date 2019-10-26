@@ -29,11 +29,11 @@ a {
   >
     <template v-slot:item="{ item }">
       <router-link v-if="item.type === 'PLAYER'" :to="`/players/${item.uuid}`">
-        <player-list-item
+        <hive-player-list-item
           :uuid="item.uuid"
           :name="item.name"
           hide-info-icon
-        ></player-list-item>
+        ></hive-player-list-item>
       </router-link>
       <template v-if="item.type === 'PAGE'">
         <router-link :to="item.path">
@@ -52,7 +52,6 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { RouteConfig } from "vue-router";
 import { mdiMagnify } from "@mdi/js";
 import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
-import PlayerListItem from "@/components/PlayerListItem.vue";
 import { leaderboards } from "@/router";
 import gamemodeConfigs from "@/gamemodesConfig";
 
@@ -117,12 +116,8 @@ function findInRoute(search: string, route: PageSearchResult): boolean {
   return false;
 }
 
-@Component({
-  components: {
-    PlayerListItem
-  }
-})
-export default class HiveSearch extends Vue {
+@Component
+export default class Search extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly solo!: boolean;
   private search: string | SearchResult = "";

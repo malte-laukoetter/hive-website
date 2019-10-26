@@ -1,21 +1,16 @@
 <template>
-  <stat-line-chart
+  <hive-stat-line-chart
     :data="[data]"
     title="Unique Players - Server"
     :labels="['Players']"
     :loading="loading"
-  ></stat-line-chart>
+  ></hive-stat-line-chart>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
-import StatLineChart from "@/components/StatLineChart.vue";
 
-@Component({
-  components: {
-    StatLineChart
-  }
-})
+@Component
 export default class ServerUniquePlayerLineChart extends Vue {
   private loading: boolean = true;
 

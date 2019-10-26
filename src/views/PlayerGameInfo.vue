@@ -1,50 +1,52 @@
 <template>
   <div>
-    <loading-circular :loading="loading"></loading-circular>
+    <hive-loading-circular :loading="loading"></hive-loading-circular>
 
-    <no-data-banner
+    <hive-no-data-banner
       :value="!loading && (!playerGameInfo || playerGameInfo.points === 0)"
-    ></no-data-banner>
+    ></hive-no-data-banner>
 
     <v-row v-if="!loading && playerGameInfo && playerGameInfo.points !== 0">
       <v-col cols="12" md="4">
-        <player-game-info-card
+        <hive-player-game-info-card
           :name="playerInfo.name"
           :uuid="playerInfo.uuid"
           :playerGameInfo="playerGameInfo"
-        ></player-game-info-card>
+        ></hive-player-game-info-card>
       </v-col>
       <v-col cols="12" md="8">
         <v-row dense>
           <v-col cols="6" sm="4" md="4" v-for="stat in stats" :key="stat.title">
-            <count-card
+            <hive-count-card
               :count="stat.func(playerGameInfo[stat.prop])"
               :title="stat.title"
-            ></count-card>
+            ></hive-count-card>
           </v-col>
         </v-row>
       </v-col>
 
       <v-col cols="12" :md="12">
-        <player-stat-line-chart
+        <hive-player-stat-line-chart
           :uuid="uuid"
           title="Points"
           :properties="[`points/${game}`]"
           :labels="['Points']"
-        ></player-stat-line-chart>
+        ></hive-player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="4" v-if="playerGameInfo.achievements">
-        <achievement-list :achievements="achievementList"></achievement-list>
+        <hive-achievement-list
+          :achievements="achievementList"
+        ></hive-achievement-list>
       </v-col>
 
       <v-col cols="12" md="8" v-if="playerGameInfo.achievements">
-        <player-stat-line-chart
+        <hive-player-stat-line-chart
           :uuid="uuid"
           title="Achievements"
           :properties="[`achievements/${game}`]"
           :labels="['Achievements']"
-        ></player-stat-line-chart>
+        ></hive-player-stat-line-chart>
       </v-col>
     </v-row>
   </div>
@@ -52,15 +54,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import TimelineChart from "@/components/TimelineChart.vue";
-import PlayerInfoCard from "@/components/PlayerInfoCard.vue";
-import CountCard from "@/components/CountCard.vue";
-import ScrollableChart from "@/components/ScrollableChart.vue";
-import PlayerGameInfoCard from "@/components/PlayerGameInfoCard.vue";
-import BarChart from "@/components/BarChart.vue";
-import NoDataBanner from "@/components/NoDataBanner.vue";
-import AchievementList from "@/components/AchievementList.vue";
 import {
   Player as HivePlayer,
   PlayerInfo,
@@ -76,21 +69,8 @@ import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";
 import { MetaInfo } from "vue-meta";
 import { mdiAlert } from "@mdi/js";
-import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
 
 @Component({
-  components: {
-    LoadingCircular,
-    ScrollableChart,
-    TimelineChart,
-    PlayerInfoCard,
-    CountCard,
-    BarChart,
-    PlayerGameInfoCard,
-    NoDataBanner,
-    PlayerStatLineChart,
-    AchievementList
-  },
   metaInfo: ((vue: PlayerGameInfo) => ({
     title: `${vue.playerInfo ? vue.playerInfo.name : vue.uuid} - ${
       (GameTypes[vue.game] as GameType).name

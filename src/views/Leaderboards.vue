@@ -8,7 +8,7 @@
         v-for="leaderboard in leaderboards"
         :key="leaderboard.id"
       >
-        <leaderboard-card
+        <hive-leaderboard-card
           :href="
             `https://api.lergin.de/hive/leaderboard/${leaderboard.id}?limit=5`
           "
@@ -21,7 +21,7 @@
               <v-btn text :to="`/rankings/${leaderboard.href}`">Show all</v-btn>
             </v-card-actions>
           </template>
-        </leaderboard-card>
+        </hive-leaderboard-card>
       </v-col>
     </v-row>
   </hive-app>
@@ -29,12 +29,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import LeaderboardCard from "@/components/LeaderboardCard.vue";
 
 export default Vue.extend({
-  components: {
-    LeaderboardCard
-  },
   metaInfo: {
     title: "Rankings",
     meta: [

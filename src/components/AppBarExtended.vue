@@ -98,14 +98,9 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { mdiHome } from "@mdi/js";
-import HiveSearch from "@/components/HiveSearch.vue";
 
-@Component({
-  components: {
-    HiveSearch
-  }
-})
-export default class HiveAppBarExtended extends Vue {
+@Component
+export default class AppBarExtended extends Vue {
   private mdiHome = mdiHome;
 
   private searchIsSolo: boolean = false;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scrollable-chart
+    <hive-scrollable-chart
       ref="chart"
       :datasets="dataSets"
       :width="chartWidth"
@@ -10,20 +10,18 @@
       <template #header>
         <v-card-title>{{ title }}</v-card-title>
       </template>
-      <loading-circular :loading="loading"></loading-circular>
+      <hive-loading-circular :loading="loading"></hive-loading-circular>
       <span
         class="ma-2"
         v-if="!loading && (data.length === 0 || data[0].length === 0)"
         >No data collected so far... Please come back later :)</span
       >
-    </scrollable-chart>
+    </hive-scrollable-chart>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import ScrollableChart from "@/components/ScrollableChart.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -33,12 +31,7 @@ import {
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-@Component({
-  components: {
-    LoadingCircular,
-    ScrollableChart
-  }
-})
+@Component
 export default class StatLineChart extends Vue {
   @Prop(Array)
   readonly data!: { x: number; y: number }[][];

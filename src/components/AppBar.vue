@@ -78,13 +78,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
 import { mdiHome } from "@mdi/js";
-import HiveSearch from "@/components/HiveSearch.vue";
 
-@Component({
-  components: {
-    HiveSearch
-  }
-})
+@Component
 export default class AppBar extends Vue {
   private mdiHome = mdiHome;
 

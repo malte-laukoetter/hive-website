@@ -6,14 +6,11 @@ import vuetify from "./plugins/vuetify";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/performance";
-import HiveBreadcrumb from "./components/HiveBreadcrumb.vue";
-import HiveFooter from "./components/HiveFooter.vue";
-import HiveApp from "./components/HiveApp.vue";
 import VueMeta from "vue-meta";
-import {Methods} from 'hive-api/dist/hive.min.js'
+import { Methods } from "hive-api/dist/hive.min.js";
 
-if(location.hostname !== "localhost") {
-  Methods.BASE_URL = () => '/api/hive'
+if (location.hostname !== "localhost") {
+  Methods.BASE_URL = () => "/api/hive";
 }
 
 import "./assets/style.css";
@@ -30,17 +27,16 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-;(window as any).__cmp('getGooglePersonalization', function(consent: any, success: boolean) {
-  if(success && consent.googlePersonalizationData.consentValue) {
-    firebase.performance()
+(window as any).__cmp("getGooglePersonalization", function(
+  consent: any,
+  success: boolean
+) {
+  if (success && consent.googlePersonalizationData.consentValue) {
+    firebase.performance();
   }
 });
 
 Vue.config.productionTip = false;
-
-Vue.component("hive-breadcrumb", HiveBreadcrumb);
-Vue.component("hive-footer", HiveFooter);
-Vue.component("hive-app", HiveApp);
 Vue.use(VueMeta);
 
 new Vue({
@@ -49,10 +45,13 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-router.afterEach(async (to) => {
-  await Vue.nextTick()
-  ;(window as any).gtag('config', 'UA-60277501-8', { 'anonymize_ip': true, 'page_path': to.fullPath});
-})
+router.afterEach(async to => {
+  await Vue.nextTick();
+  (window as any).gtag("config", "UA-60277501-8", {
+    anonymize_ip: true,
+    page_path: to.fullPath
+  });
+});
 
 Vue.filter("toLocaleString", function(value: any) {
   if (value == null) return "";

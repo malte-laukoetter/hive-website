@@ -13,7 +13,7 @@
     <template #top>
       <v-toolbar flat color="white">
         <div class="flex-grow-1"></div>
-        <date-picker-dialog
+        <hive-date-picker-dialog
           class="mb-n6"
           @input="onDataDateChange"
           :value="dataDate"
@@ -24,8 +24,8 @@
             max: LATEST_DATE,
             'first-day-of-week': 1
           }"
-        ></date-picker-dialog>
-        <date-picker-dialog
+        ></hive-date-picker-dialog>
+        <hive-date-picker-dialog
           class="mb-n6"
           @input="onCompareDateChange"
           :value="compareDate"
@@ -36,7 +36,7 @@
             max: LATEST_DATE,
             'first-day-of-week': 1
           }"
-        ></date-picker-dialog>
+        ></hive-date-picker-dialog>
       </v-toolbar>
     </template>
     <template v-for="prop in properties" #[`item.${prop}`]="{ value, item }">
@@ -49,12 +49,12 @@
     </template>
     <template #item.uuid="{ item }">
       <router-link :to="`/players/${item.uuid}/${game}`">
-        <minecraft-avatar
+        <hive-minecraft-avatar
           class="ma-1 mr-3"
           :size="32"
           :name="item.name"
           :uuid="item.uuid"
-        ></minecraft-avatar>
+        ></hive-minecraft-avatar>
         <span>{{ item.name }}</span>
       </router-link>
     </template>
@@ -125,10 +125,6 @@ date.setMonth(date.getMonth() - 1);
 const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
 
 @Component({
-  components: {
-    DatePickerDialog,
-    MinecraftAvatar
-  },
   filters: {
     gameTypeToName: (gameType: string) => {
       return ((GameTypes as any) as { [key: string]: GameType })[gameType].name;

@@ -1,7 +1,7 @@
 <template>
   <hive-app>
     <div class="full-height">
-      <loading-circular :loading="data.length === 0"></loading-circular>
+      <hive-loading-circular :loading="data.length === 0"></hive-loading-circular>
 
       <v-timeline :dense="$vuetify.breakpoint.smAndDown" v-if="data.length > 0">
         <v-timeline-item v-for="map in loadedData" :key="map.worldName">
@@ -28,11 +28,11 @@
         </v-timeline-item>
       </v-timeline>
       <infinite-loading @infinite="loadMore" v-if="data.length > 0">
-        <loading-circular
+        <hive-loading-circular
           class="mt-2"
           loading
           slot="spinner"
-        ></loading-circular>
+        ></hive-loading-circular>
       </infinite-loading>
     </div>
   </hive-app>
@@ -40,13 +40,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
 import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
 
 @Component({
   components: {
-    LoadingCircular,
     InfiniteLoading
   },
   filters: {

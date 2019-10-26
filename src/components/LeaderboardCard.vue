@@ -40,12 +40,12 @@
       </template>
       <template v-slot:item.name="{ item }">
         <router-link :to="`/players/${item.uuid}`">
-          <minecraft-avatar
+          <hive-minecraft-avatar
             class="ma-1 mr-3"
             :size="32"
             :uuid="item.uuid"
             :name="item.name"
-          ></minecraft-avatar>
+          ></hive-minecraft-avatar>
           <span>{{ item.name }}</span>
         </router-link>
       </template>
@@ -59,7 +59,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 import {
   mdiNumeric1CircleOutline,
   mdiNumeric2CircleOutline,
@@ -73,11 +72,7 @@ type LeaderboardEntry = {
   uuid: string;
 };
 
-@Component({
-  components: {
-    MinecraftAvatar
-  }
-})
+@Component
 export default class LeaderboardCard extends Vue {
   @Prop({ type: Array, default: () => [] })
   readonly data!: LeaderboardEntry[];

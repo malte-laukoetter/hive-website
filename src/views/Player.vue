@@ -23,14 +23,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import TimelineChart from "@/components/TimelineChart.vue";
-import PlayerInfoCard from "@/components/PlayerInfoCard.vue";
-import CountCard from "@/components/CountCard.vue";
-import ScrollableChart from "@/components/ScrollableChart.vue";
-import BarChart from "@/components/BarChart.vue";
-import PlayerInfo from "@/views/PlayerInfo.vue";
-import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -42,16 +34,6 @@ import "firebase/database";
 import { MetaInfo } from "vue-meta";
 
 @Component({
-  components: {
-    LoadingCircular,
-    ScrollableChart,
-    TimelineChart,
-    PlayerInfoCard,
-    CountCard,
-    BarChart,
-    HiveAppBarExtended,
-    PlayerInfo
-  },
   metaInfo: ((vue: Player) => ({
     title: vue.playerInfo ? vue.playerInfo.name : vue.uuid,
     meta: [

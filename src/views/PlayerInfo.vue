@@ -1,88 +1,102 @@
 <template>
   <div>
-    <loading-circular :loading="loading"></loading-circular>
+    <hive-loading-circular :loading="loading"></hive-loading-circular>
 
-    <no-data-banner :value="!loading && !playerInfo"></no-data-banner>
+    <hive-no-data-banner :value="!loading && !playerInfo"></hive-no-data-banner>
 
     <v-row v-if="!loading && !!playerInfo">
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="playerInfo.tokens" title="Tokens"></count-card>
+        <hive-count-card
+          :count="playerInfo.tokens"
+          title="Tokens"
+        ></hive-count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="playerInfo.medals" title="Medals"></count-card>
+        <hive-count-card
+          :count="playerInfo.medals"
+          title="Medals"
+        ></hive-count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="achievements" title="Achievements"></count-card>
+        <hive-count-card
+          :count="achievements"
+          title="Achievements"
+        ></hive-count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card
+        <hive-count-card
           :count="playerInfo.trophies.length"
           title="Trophies"
-        ></count-card>
+        ></hive-count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="playerInfo.crates || 0" title="Crates"></count-card>
+        <hive-count-card
+          :count="playerInfo.crates || 0"
+          title="Crates"
+        ></hive-count-card>
       </v-col>
       <v-col cols="6" sm="4" md="2">
-        <count-card :count="totalPoints" title="Points"></count-card>
+        <hive-count-card :count="totalPoints" title="Points"></hive-count-card>
       </v-col>
 
       <v-col cols="12" md="4">
-        <player-info-card :player-info="playerInfo"></player-info-card>
+        <hive-player-info-card
+          :player-info="playerInfo"
+        ></hive-player-info-card>
       </v-col>
       <v-col cols="12" md="8">
-        <player-stat-line-chart
+        <hive-player-stat-line-chart
           :uuid="uuid"
           title="Points & Tokens"
           :properties="['points/total', 'tokens']"
           :labels="['Points', 'Tokens']"
-        ></player-stat-line-chart>
+        ></hive-player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Achievements</v-card-title>
-          <player-stat-bar-chart
+          <hive-player-stat-bar-chart
             :uuid="uuid"
             title="Achievements"
             property="achievements"
-          ></player-stat-bar-chart>
+          ></hive-player-stat-bar-chart>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title>Points</v-card-title>
-          <player-stat-bar-chart
+          <hive-player-stat-bar-chart
             :uuid="uuid"
             title="Points"
             property="points"
-          ></player-stat-bar-chart>
+          ></hive-player-stat-bar-chart>
         </v-card>
       </v-col>
 
       <v-col cols="12" md="4">
-        <achievement-list
+        <hive-achievement-list
           :achievements="achievementList"
           title="Global Achievements"
-        ></achievement-list>
+        ></hive-achievement-list>
       </v-col>
 
       <v-col cols="12" md="4">
-        <player-stat-line-chart
+        <hive-player-stat-line-chart
           :uuid="uuid"
           title="Medals"
           :properties="['medals']"
           :labels="['Medals']"
-        ></player-stat-line-chart>
+        ></hive-player-stat-line-chart>
       </v-col>
 
       <v-col cols="12" md="4">
-        <player-stat-line-chart
+        <hive-player-stat-line-chart
           :uuid="uuid"
           title="Achievements"
           :properties="['achievements/total']"
           :labels="['Achievements']"
-        ></player-stat-line-chart>
+        ></hive-player-stat-line-chart>
       </v-col>
     </v-row>
   </div>
@@ -90,16 +104,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import TimelineChart from "@/components/TimelineChart.vue";
-import PlayerInfoCard from "@/components/PlayerInfoCard.vue";
-import CountCard from "@/components/CountCard.vue";
-import ScrollableChart from "@/components/ScrollableChart.vue";
-import BarChart from "@/components/BarChart.vue";
-import HiveAppBarExtended from "@/components/HiveAppBarExtended.vue";
-import PlayerStatBarChart from "@/components/PlayerStatBarChart.vue";
-import PlayerStatLineChart from "@/components/PlayerStatLineChart.vue";
-import AchievementList from "@/components/AchievementList.vue";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
@@ -114,21 +118,7 @@ import NoDataBanner from "@/components/NoDataBanner.vue";
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-@Component({
-  components: {
-    LoadingCircular,
-    ScrollableChart,
-    TimelineChart,
-    PlayerInfoCard,
-    CountCard,
-    BarChart,
-    HiveAppBarExtended,
-    NoDataBanner,
-    PlayerStatBarChart,
-    PlayerStatLineChart,
-    AchievementList
-  }
-})
+@Component
 export default class PlayerInfo extends Vue {
   @Prop({ type: String })
   readonly uuid!: string;

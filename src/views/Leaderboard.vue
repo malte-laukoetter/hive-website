@@ -15,26 +15,28 @@
 <template>
   <hive-app>
     <div class="full-heigth">
-      <loading-circular :loading="data.length === 0"></loading-circular>
+      <hive-loading-circular
+        :loading="data.length === 0"
+      ></hive-loading-circular>
 
       <v-row v-if="data.length > 0">
         <v-col cols="12" sm="4" v-for="i in 3" :key="i">
-          <player-card
+          <hive-player-card
             :class="{ [`place-${i}`]: true }"
             :uuid="data[i - 1].uuid"
             :name="data[i - 1].name"
           >
             <div class="headline">{{ data[i - 1].value | toLocaleString }}</div>
             <div class="subtitle">{{ propertyTitle }}</div>
-          </player-card>
+          </hive-player-card>
         </v-col>
         <v-col cols="12">
-          <leaderboard-card
+          <hive-leaderboard-card
             :data="data"
             :property-title="propertyTitle"
             :size="97"
             :offset="3"
-          ></leaderboard-card>
+          ></hive-leaderboard-card>
         </v-col>
       </v-row>
     </div>
@@ -43,9 +45,6 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import LeaderboardCard from "@/components/LeaderboardCard.vue";
-import LoadingCircular from "@/components/LoadingCircular.vue";
-import PlayerCard from "@/components/PlayerCard.vue";
 import { MetaInfo } from "vue-meta";
 
 type LeaderboardEntry = {
@@ -56,11 +55,6 @@ type LeaderboardEntry = {
 };
 
 @Component({
-  components: {
-    LeaderboardCard,
-    PlayerCard,
-    LoadingCircular
-  },
   metaInfo: ((vue: Leaderboard) => ({
     title: vue.title,
     meta: [

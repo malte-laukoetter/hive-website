@@ -3,7 +3,7 @@
     <div class="full-height">
       <v-row>
         <v-col cols="12" md="12">
-          <server-unique-player-line-chart></server-unique-player-line-chart>
+          <hive-server-unique-player-line-chart></hive-server-unique-player-line-chart>
         </v-col>
         <v-col
           cols="12"
@@ -12,13 +12,13 @@
           :key="gameType"
         >
           <v-lazy min-height="200">
-            <stat-line-chart
+            <hive-stat-line-chart
               :height="200"
               :data="[toChartData(data[gameType])]"
               :title="`Unique Players - ${GameTypes[gameType].name}`"
               :labels="['Players']"
               :loading="loading"
-            ></stat-line-chart>
+            ></hive-stat-line-chart>
           </v-lazy>
         </v-col>
       </v-row>
@@ -29,14 +29,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { GameTypes } from "hive-api/dist/hive.min.js";
-import ServerUniquePlayerLineChart from "@/components/ServerUniquePlayerLineChart.vue";
-import StatLineChart from "@/components/StatLineChart.vue";
 
 @Component({
-  components: {
-    ServerUniquePlayerLineChart,
-    StatLineChart
-  },
   metaInfo: {
     title: "Server",
     meta: [

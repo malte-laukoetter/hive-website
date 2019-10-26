@@ -1,10 +1,10 @@
 <template>
-  <stat-line-chart
+  <hive-stat-line-chart
     :data="Object.values(data)"
     :labels="labels"
     :title="title"
     :loading="loading"
-  ></stat-line-chart>
+  ></hive-stat-line-chart>
 </template>
 
 <script lang="ts">
@@ -19,11 +19,7 @@ import StatLineChart from "@/components/StatLineChart.vue";
 import * as firebase from "firebase/app";
 import "firebase/database";
 
-@Component({
-  components: {
-    StatLineChart
-  }
-})
+@Component
 export default class PlayerStatLineChart extends Vue {
   @Prop({ type: String })
   readonly uuid!: string;

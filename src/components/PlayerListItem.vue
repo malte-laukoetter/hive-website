@@ -9,11 +9,11 @@ a {
   <router-link :to="`/players/${uuid}`">
     <v-list-item>
       <v-list-item-avatar>
-        <minecraft-avatar
+        <hive-minecraft-avatar
           :uuid="uuid"
           :name="name"
           :size="48"
-        ></minecraft-avatar>
+        ></hive-minecraft-avatar>
       </v-list-item-avatar>
 
       <v-list-item-content>
@@ -35,14 +35,9 @@ a {
 <script lang="ts">
 import Vue from "vue";
 import "@/components/uuid-format";
-import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 import { mdiInformation } from "@mdi/js";
 
 export default Vue.extend({
-  components: {
-    MinecraftAvatar
-  },
-
   props: {
     uuid: String,
     name: String,

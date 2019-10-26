@@ -1,5 +1,5 @@
 <template>
-  <base-player-info-card
+  <hive-base-player-info-card
     :name="playerInfo.name"
     :uuid="playerInfo.uuid"
     :title="`${playerInfo.rank.colorCode}${playerInfo.rank.humanName}`"
@@ -34,19 +34,14 @@
         >NameMc</v-btn
       >
     </v-col>
-  </base-player-info-card>
+  </hive-base-player-info-card>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { PlayerInfo, TheSwarmAchievement } from "hive-api/dist/hive.min.js";
-import BasePlayerInfoCard from "../components/BasePlayerInfoCard.vue";
 
-@Component({
-  components: {
-    BasePlayerInfoCard
-  }
-})
+@Component
 export default class PlayerInfoCard extends Vue {
   @Prop({ type: Object })
   private playerInfo!: PlayerInfo;

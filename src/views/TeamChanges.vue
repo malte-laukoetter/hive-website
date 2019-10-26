@@ -24,10 +24,10 @@
                 }}</v-subheader>
 
                 <template v-for="change in typeChanges.changes">
-                  <player-list-item
+                  <hive-player-list-item
                     :key="`${change.uuid}-${typeChanges.type}`"
                     v-bind="change"
-                  ></player-list-item>
+                  ></hive-player-list-item>
                 </template>
               </template>
             </v-list>
@@ -35,11 +35,11 @@
         </v-timeline-item>
       </v-timeline>
       <infinite-loading @infinite="loadMore">
-        <loading-circular
+        <hive-loading-circular
           class="mt-2"
           loading
           slot="spinner"
-        ></loading-circular>
+        ></hive-loading-circular>
       </infinite-loading>
     </div>
   </hive-app>
@@ -47,14 +47,10 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import PlayerListItem from "@/components/PlayerListItem.vue";
-import LoadingCircular from "@/components/LoadingCircular.vue";
 import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
 
 @Component({
   components: {
-    PlayerListItem,
-    LoadingCircular,
     InfiniteLoading
   },
   filters: {

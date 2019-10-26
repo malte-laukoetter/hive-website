@@ -38,9 +38,7 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { Achievement, AchievementInfo } from "hive-api/dist/hive.min.js";
 import { mdiProgressWrench, mdiLock, mdiLockOpen } from "@mdi/js";
 
-@Component({
-  components: {}
-})
+@Component
 export default class LeaderboardCard extends Vue {
   @Prop({ type: Object })
   readonly achievement!: Achievement;

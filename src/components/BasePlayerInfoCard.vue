@@ -19,12 +19,12 @@ mc-format {
     <v-container class="full-height">
       <v-row class="full-height" dense>
         <v-col cols="12" class="d-flex avatar">
-          <minecraft-avatar
+          <hive-minecraft-avatar
             class="elevation-2 mx-auto"
             :size="128"
             :uuid="uuid"
             :name="name"
-          ></minecraft-avatar>
+          ></hive-minecraft-avatar>
         </v-col>
         <v-col cols="12" class="headline text-center">{{ name }}</v-col>
         <v-col cols="12" class="overline text-center"
@@ -44,13 +44,8 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { PlayerInfo, TheSwarmAchievement } from "hive-api/dist/hive.min.js";
 import "mc-format";
 import "@/components/uuid-format.js";
-import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 
-@Component({
-  components: {
-    MinecraftAvatar
-  }
-})
+@Component
 export default class BasePlayerInfoCard extends Vue {
   @Prop({ type: String })
   private name!: String;

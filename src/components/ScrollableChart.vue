@@ -26,14 +26,14 @@ canvas.axis {
           height="0"
           ref="axis"
         ></canvas>
-        <timeline-chart
+        <hive-timeline-chart
           :datasets="datasets"
           :width="width"
           :height="height"
           :plugins="plugins"
           ref="chart"
           @rendered="renderAxis"
-        ></timeline-chart>
+        ></hive-timeline-chart>
       </div>
     </div>
     <slot></slot>
@@ -56,14 +56,9 @@ import {
   ChartData,
   Chart
 } from "chart.js";
-
 import TimelineChart from "@/components/TimelineChart.vue";
 
-@Component({
-  components: {
-    TimelineChart
-  }
-})
+@Component
 export default class ScrollableChart extends Vue {
   @Ref("chart")
   chart!: TimelineChart;
