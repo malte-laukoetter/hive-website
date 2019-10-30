@@ -1874,10 +1874,6 @@ const gameModeConfigs: {
         title: "Victories"
       },
       {
-        key: "deathmatches",
-        title: "Deathmatches"
-      },
-      {
         key: "kills",
         title: "Kills"
       },
