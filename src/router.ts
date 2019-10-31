@@ -105,7 +105,8 @@ export const routeConfig: RouteConfig[] = [
   {
     path: "/titles",
     name: "Titles",
-    component: () => import(/* webpackChunkName: "titles" */ "./views/Titles.vue"),
+    component: () =>
+      import(/* webpackChunkName: "titles" */ "./views/Titles.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }

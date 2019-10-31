@@ -1,7 +1,9 @@
 <template>
   <hive-app>
     <div class="full-height">
-      <hive-loading-circular :loading="data.length === 0"></hive-loading-circular>
+      <hive-loading-circular
+        :loading="data.length === 0"
+      ></hive-loading-circular>
 
       <v-timeline :dense="$vuetify.breakpoint.smAndDown" v-if="data.length > 0">
         <v-timeline-item v-for="map in loadedData" :key="map.worldName">
