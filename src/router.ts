@@ -103,9 +103,9 @@ export const routeConfig: RouteConfig[] = [
     }
   },
   {
-    path: "/ranks",
-    name: "Ranks",
-    component: () => import(/* webpackChunkName: "ranks" */ "./views/Ranks.vue"),
+    path: "/titles",
+    name: "Titles",
+    component: () => import(/* webpackChunkName: "titles" */ "./views/Titles.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }
@@ -113,7 +113,7 @@ export const routeConfig: RouteConfig[] = [
   {
     path: "/faq",
     name: "FAQ",
-    component: () => import(/* webpackChunkName: "ranks" */ "./views/Faq.vue"),
+    component: () => import(/* webpackChunkName: "faq" */ "./views/Faq.vue"),
     meta: {
       breadcrumbs: [breadcrumb.home]
     }

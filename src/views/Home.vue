@@ -38,16 +38,10 @@
               Unique Player Statistics
             </a>
             <a
-              href="/players/837b4c2a2649480e8786d5b2b10274af"
+              href="/titles"
               class="subheading my-1"
             >
-              ClankStar
-            </a>
-            <a
-              href="/players/ad9cb047a0634ebe8e9219312ed91dda"
-              class="subheading my-1"
-            >
-              b0xx3r
+              Game Titles
             </a>
           </div>
         </v-col>

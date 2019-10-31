@@ -23,17 +23,17 @@ import {
 
 @Component({
   metaInfo: {
-    title: "Ranks",
+    title: "Titles",
     meta: [
       {
         vmid: "og:title",
         name: "og:title",
-        content: `Hive Gamemode Ranks`
+        content: `Hive Gamemode Titles`
       }
     ]
   }
 })
-export default class Ranks extends Vue {
+export default class Titles extends Vue {
   supportedGameTypes: GameType[] = [
     /*GameTypes.SG,*/ GameTypes.BP, GameTypes.CAI, GameTypes.CR, GameTypes.DR,
     GameTypes.HB, /*GameTypes.HERO,*/ GameTypes.HIDE, GameTypes.OITC, GameTypes.SP, GameTypes.TIMV, GameTypes.SKY,
