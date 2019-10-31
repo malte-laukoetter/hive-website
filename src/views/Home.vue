@@ -37,8 +37,8 @@
             <a href="/server" class="subheading my-1">
               Unique Player Statistics
             </a>
-            <a href="/titles" class="subheading my-1">
-              Game Titles
+            <a href="/ranks" class="subheading my-1">
+              Game Ranks
             </a>
           </div>
         </v-col>

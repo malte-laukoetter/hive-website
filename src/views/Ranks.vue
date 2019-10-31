@@ -21,17 +21,17 @@ import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 
 @Component({
   metaInfo: {
-    title: "Titles",
+    title: "Ranks",
     meta: [
       {
         vmid: "og:title",
         name: "og:title",
-        content: `Hive Gamemode Titles`
+        content: `Hive Gamemode Ranks`
       }
     ]
   }
 })
-export default class Titles extends Vue {
+export default class Ranks extends Vue {
   supportedGameTypes: GameType[] = [
     /*GameTypes.SG,*/ GameTypes.BP,
     GameTypes.CAI,
