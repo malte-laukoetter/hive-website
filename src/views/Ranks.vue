@@ -52,12 +52,13 @@ export default class Ranks extends Vue {
     GameTypes.RR,
     GameTypes.GNT,
     GameTypes.GNTM,
-    GameTypes.PMK,
+    /*    GameTypes.PMK,*/
     GameTypes.BD,
     /*GameTypes.SGN,*/ GameTypes.SPL,
     GameTypes.MIMV,
     GameTypes.BED,
-    /*GameTypes.SURV,*/ GameTypes.EE /*, GameTypes.SHU*/
+    /*GameTypes.SURV,*/ GameTypes.EE,
+    GameTypes.SHU
   ];
 }
 </script>
