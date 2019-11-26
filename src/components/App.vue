@@ -41,13 +41,6 @@
         <slot></slot>
       </v-container>
     </v-content>
-
-    <v-bottom-sheet v-if="new Date().getTime() < 1575154800000" :inset="$vuetify.breakpoint.smAndUp" :value="true" hide-overlay>
-      <a href="https://fridaysforfuture.org">
-        <v-img src="https://fridaysforfuture.org/static/images/global4justbeginning.png"></v-img>
-      </a>
-    </v-bottom-sheet>
-
     <hive-footer></hive-footer>
   </v-app>
 </template>
