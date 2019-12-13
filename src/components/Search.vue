@@ -84,10 +84,20 @@ const pageSearchResults: PageSearchResult[] = [
   },
   {
     type: "PAGE",
+    path: "/faq",
+    name: "FAQ"
+  },
+  {
+    type: "PAGE",
+    path: "/ranks",
+    name: "Ranks"
+  },
+  {
+    type: "PAGE",
     path: "/rankings",
     name: "Rankings"
   },
-  ...(leaderboards || []).map(
+  ... leaderboards.map(
     leaderboard =>
       ({
         type: "PAGE",
@@ -95,7 +105,7 @@ const pageSearchResults: PageSearchResult[] = [
         name: leaderboard.title
       } as PageSearchResult)
   ),
-  ...Object.keys(gamemodeConfigs).map(
+  ... Object.keys(gamemodeConfigs).map(
     type =>
       ({
         type: "PAGE",
