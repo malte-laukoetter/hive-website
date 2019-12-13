@@ -71,6 +71,13 @@ export const leaderboards: {
     href: "tokens"
   },
   {
+    title: "Games Played Ranking",
+    breadcrumb: "Games Played",
+    id: "gamesplayed",
+    propertyTitle: "Games",
+    href: "games_played"
+  },
+  {
     title: "Hide Block Levels Ranking",
     breadcrumb: "Hide Block Levels",
     id: "hide_blocklevels",

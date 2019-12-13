@@ -75,6 +75,12 @@ export default Vue.extend({
           propertyTitle: "Kills"
         },
         {
+          title: "Games Played",
+          id: "gamesplayed",
+          propertyTitle: "Games",
+          href: "games_played"
+        },
+        {
           title: "Hide Block Levels",
           id: "hide_blocklevels",
           href: "hide_levels",
