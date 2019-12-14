@@ -96,7 +96,7 @@ const pageSearchResults: PageSearchResult[] = [
     type: "PAGE",
     path: "/rankings",
     name: "Rankings"
-  },
+  },/*
   ... leaderboards.map(
     leaderboard =>
       ({
@@ -104,7 +104,7 @@ const pageSearchResults: PageSearchResult[] = [
         path: `/rankings/${leaderboard.href}`,
         name: leaderboard.title
       } as PageSearchResult)
-  ),
+  ),*/
   ... Object.keys(gamemodeConfigs).map(
     type =>
       ({
