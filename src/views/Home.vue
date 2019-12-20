@@ -4,7 +4,7 @@
       <v-row justify="center">
         <v-col :cols="12">
           <v-img
-            :src="require('../../public/img/icons/icon-128x128.png')"
+            :src="require('../assets/icon.png')"
             class="my-3"
             contain
             height="128"

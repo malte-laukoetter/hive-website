@@ -1,5 +1,7 @@
+const path = require('path');
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 module.exports = {
   chainWebpack: config => {
@@ -21,7 +23,25 @@ module.exports = {
     });
   },
   configureWebpack: {
-    plugins: [new MomentLocalesPlugin()]
+    plugins: [
+      new MomentLocalesPlugin(),
+      new WebpackPwaManifest({
+        name: "Hive Stats and Leaderboards",
+        short_name: "Hive Stats",
+        description:
+          "Hive Stats, Leaderboards, Maps, Team changes and many things more!",
+        start_url: "/",
+        display: "standalone",
+        theme_color: "#4285f4",
+        background_color: "#4285f4",
+        icons: [
+          {
+            src: path.resolve("src/assets/icon.png"),
+            sizes: [96, 128, 192, 256, 384, 512, 1024]
+          }
+        ]
+      })
+    ]
   },
   css: {
     loaderOptions: {
