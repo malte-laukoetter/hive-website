@@ -102,14 +102,16 @@ export default class Player extends Vue {
     if (this.uuid.length < 32) {
       this.$router.push(`/players/${this.player.uuid}`);
     } else {
-      const db = firebase.database();
-      db.ref("latestPlayersPub")
-        .push()
-        .set({ uuid: this.uuid, name: this.playerInfo.name });
-      db.ref("playerStats")
-        .child("daily")
-        .child(this.uuid)
-        .set(0);
+      if (!navigator.userAgent.includes('bot')) {
+        const db = firebase.database();
+        db.ref("latestPlayersPub")
+          .push()
+          .set({ uuid: this.uuid, name: this.playerInfo.name });
+        db.ref("playerStats")
+          .child("daily")
+          .child(this.uuid)
+          .set(0);
+      }
     }
   }
 
