@@ -5,17 +5,11 @@
     :title="`${playerInfo.rank.colorCode}${playerInfo.rank.humanName}`"
   >
     <v-spacer></v-spacer>
-    <v-col cols="6">
+    <v-col cols="12">
       <v-col cols="12" class="text-center subtitle-1">
         {{ playerInfo.firstLogin | dateFormat }}
       </v-col>
       <v-col cols="12" class="text-center subtitle-2 mt-n5">First Login</v-col>
-    </v-col>
-    <v-col cols="6">
-      <v-col cols="12" class="text-center subtitle-1">
-        {{ playerInfo.lastLogin | dateFormat }}
-      </v-col>
-      <v-col cols="12" class="text-center subtitle-2 mt-n5">Last Login</v-col>
     </v-col>
     <v-col cols="12" class="d-flex flex-wrap">
       <v-btn class="flex-grow-1" v-if="swarm" text :to="`/players/${swarm}`"

@@ -113,11 +113,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -194,11 +189,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -364,11 +354,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -446,11 +431,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -614,11 +594,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -677,11 +652,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -725,11 +695,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -795,11 +760,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -873,11 +833,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1025,11 +980,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1102,11 +1052,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1221,11 +1166,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1285,11 +1225,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1358,11 +1293,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1447,11 +1377,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1509,11 +1434,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1587,11 +1507,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1713,11 +1628,6 @@ const gameModeConfigs: {
         title: "First Win",
         prop: "firstWinDay",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1786,11 +1696,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1852,11 +1757,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -1926,11 +1826,6 @@ const gameModeConfigs: {
         title: "First Login",
         prop: "firstLogin",
         func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
       }
     ],
     leaderboard: [
@@ -1999,11 +1894,6 @@ const gameModeConfigs: {
       {
         title: "First Login",
         prop: "firstLogin",
-        func: dateFormat
-      },
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
         func: dateFormat
       }
     ],
@@ -2097,11 +1987,6 @@ const gameModeConfigs: {
       }
     ],
     logins: [
-      {
-        title: "Latest Login",
-        prop: "lastLogin",
-        func: dateFormat
-      }
     ],
     leaderboard: [
       {
