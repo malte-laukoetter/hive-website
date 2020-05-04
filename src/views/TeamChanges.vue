@@ -56,6 +56,10 @@ import InfiniteLoading, { StateChanger } from "vue-infinite-loading";
   filters: {
     changeType(type: string) {
       switch (type) {
+        case "HELPER_ADD":
+          return "New Helpers";
+        case "HELPER_REMOVE":
+          return "Former Helpers";
         case "MODERATOR_ADD":
           return "New Moderators";
         case "MODERATOR_REMOVE":
