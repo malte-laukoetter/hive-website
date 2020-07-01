@@ -63,12 +63,6 @@ export default Vue.extend({
           propertyTitle: "Tokens"
         },
         {
-          title: "Achievements",
-          id: "achievement",
-          href: "achievements",
-          propertyTitle: "Achievements"
-        },
-        {
           title: "Kills",
           id: "totalkills",
           href: "kills",

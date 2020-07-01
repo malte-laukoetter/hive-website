@@ -33,21 +33,6 @@
           :labels="['Points']"
         ></hive-player-stat-line-chart>
       </v-col>
-
-      <v-col cols="12" md="4" v-if="playerGameInfo.achievements">
-        <hive-achievement-list
-          :achievements="achievementList"
-        ></hive-achievement-list>
-      </v-col>
-
-      <v-col cols="12" md="8" v-if="playerGameInfo.achievements">
-        <hive-player-stat-line-chart
-          :uuid="uuid"
-          title="Achievements"
-          :properties="[`achievements/${game}`]"
-          :labels="['Achievements']"
-        ></hive-player-stat-line-chart>
-      </v-col>
     </v-row>
   </div>
 </template>
@@ -96,8 +81,6 @@ export default class PlayerGameInfo extends Vue {
   private playerInfo: PlayerInfo | null = null;
   private playerGameInfo: HivePlayerGameInfo | null = null;
 
-  private gameAchievements: AchievementInfo[] = [];
-
   private loading: boolean = true;
   private mdiAlert = mdiAlert;
 
@@ -131,30 +114,6 @@ export default class PlayerGameInfo extends Vue {
   @Watch("game", { immediate: false })
   onUuidChange() {
     this.fetchData();
-  }
-
-  @Watch("game", { immediate: true })
-  async fetchAchievements() {
-    this.gameAchievements = await (GameTypes[
-      this.game
-    ] as GameType).achievements();
-  }
-
-  get achievementList(): Achievement[] {
-    if (!this.playerGameInfo || !(this.playerGameInfo as any).achievements)
-      return [];
-
-    const playerGameInfo: PlayerGameInfoAchievements = (this
-      .playerGameInfo as any) as PlayerGameInfoAchievements;
-
-    return [
-      ...playerGameInfo.achievements,
-      ...this.gameAchievements
-        .filter(a => !playerGameInfo.achievements.find(({ id }) => id == a.id))
-        .map(
-          a => new GameAchievement(a.id, 0, new Date(0), GameTypes[this.game])
-        )
-    ];
   }
 }
 </script>

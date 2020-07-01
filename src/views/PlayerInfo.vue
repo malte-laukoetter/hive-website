@@ -19,12 +19,6 @@
       </v-col>
       <v-col cols="6" sm="4" md="2">
         <hive-count-card
-          :count="achievements"
-          title="Achievements"
-        ></hive-count-card>
-      </v-col>
-      <v-col cols="6" sm="4" md="2">
-        <hive-count-card
           :count="playerInfo.trophies.length"
           title="Trophies"
         ></hive-count-card>
@@ -55,16 +49,6 @@
 
       <v-col cols="12" md="6">
         <v-card>
-          <v-card-title>Achievements</v-card-title>
-          <hive-player-stat-bar-chart
-            :uuid="uuid"
-            title="Achievements"
-            property="achievements"
-          ></hive-player-stat-bar-chart>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-card>
           <v-card-title>Points</v-card-title>
           <hive-player-stat-bar-chart
             :uuid="uuid"
@@ -87,15 +71,6 @@
           title="Medals"
           :properties="['medals']"
           :labels="['Medals']"
-        ></hive-player-stat-line-chart>
-      </v-col>
-
-      <v-col cols="12" md="4">
-        <hive-player-stat-line-chart
-          :uuid="uuid"
-          title="Achievements"
-          :properties="['achievements/total']"
-          :labels="['Achievements']"
         ></hive-player-stat-line-chart>
       </v-col>
     </v-row>
@@ -126,8 +101,6 @@ export default class PlayerInfo extends Vue {
   private player: HivePlayer | null = null;
   private playerInfo: HivePlayerInfo | null = null;
   private totalPoints: number | string = "?";
-  private achievements: number | string = "?";
-  private globalAchievements: AchievementInfo[] = [];
   private loading: boolean = true;
 
   private data = [];
@@ -177,10 +150,6 @@ export default class PlayerInfo extends Vue {
         .child("points")
         .child("total")
         .off("value");
-      oldPlayerDataRef
-        .child("achievements")
-        .child("total")
-        .off("value");
     }
 
     this.fetchData();
@@ -195,32 +164,6 @@ export default class PlayerInfo extends Vue {
       .on("value", snapshot => {
         this.totalPoints = snapshot.val() || "?";
       });
-    playerDataRef
-      .child("achievements")
-      .child("total")
-      .on("value", snapshot => {
-        this.achievements = snapshot.val() || "?";
-      });
-  }
-
-  mounted() {
-    this.fetchGlobalAchievements();
-  }
-
-  async fetchGlobalAchievements() {
-    this.globalAchievements = await Server.achievements();
-  }
-
-  get achievementList(): Achievement[] {
-    if (!this.playerInfo) return [];
-    return [
-      ...this.playerInfo.achievements,
-      ...this.globalAchievements
-        .filter(
-          a => !this.playerInfo!.achievements.find(({ id }) => id == a.id)
-        )
-        .map(a => new ServerAchievement(a.id, 0, new Date(0)))
-    ];
   }
 }
 </script>

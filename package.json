@@ -15,7 +15,7 @@
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
     "firebase": "^7.0.0",
-    "hive-api": "^1.13.9",
+    "hive-api": "^1.14.2",
     "lz-string": "^1.4.4",
     "mc-format": "^1.1.0",
     "moment-locales-webpack-plugin": "^1.1.0",

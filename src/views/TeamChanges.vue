@@ -1,6 +1,9 @@
 <template>
   <hive-app>
     <div class="full-height">
+      <v-alert type="info">
+        This is a historic view showing changes up to 2020-06-30 and no longer updated.
+      </v-alert>
       <v-timeline
         :dense="!$vuetify.breakpoint.mdAndUp"
         v-if="changes.length > 0"

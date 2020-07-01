@@ -33,31 +33,15 @@ import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
 })
 export default class Ranks extends Vue {
   supportedGameTypes: GameType[] = [
-    /*GameTypes.SG,*/ GameTypes.BP,
-    GameTypes.CAI,
-    GameTypes.CR,
+    GameTypes.BP,
     GameTypes.DR,
-    GameTypes.HB,
-    /*GameTypes.HERO,*/ GameTypes.HIDE,
-    GameTypes.OITC,
+    GameTypes.HIDE,
     GameTypes.SP,
     GameTypes.TIMV,
     GameTypes.SKY,
-    GameTypes.LAB,
     GameTypes.DRAW,
-    GameTypes.SLAP,
-    GameTypes.EF,
-    GameTypes.MM,
     GameTypes.GRAV,
-    GameTypes.RR,
-    GameTypes.GNT,
-    GameTypes.GNTM,
-    /*    GameTypes.PMK,*/
-    GameTypes.BD,
-    /*GameTypes.SGN,*/ GameTypes.SPL,
-    GameTypes.MIMV,
     GameTypes.BED,
-    /*GameTypes.SURV,*/ GameTypes.EE,
     GameTypes.SHU
   ];
 }
