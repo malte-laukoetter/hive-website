@@ -62,32 +62,9 @@ export default class Player extends Vue {
 
     GameTypes.BED,
     GameTypes.SKY,
-    GameTypes.GNT,
-    GameTypes.GNTM,
-
     GameTypes.TIMV,
-    GameTypes.MIMV,
-
     GameTypes.BP,
     GameTypes.DRAW,
-
-    GameTypes.SG,
-    GameTypes.SGN,
-    GameTypes.HERO,
-
-    GameTypes.SP,
-    GameTypes.CAI,
-    GameTypes.LAB,
-    GameTypes.HB,
-
-    GameTypes.BD,
-    GameTypes.CR,
-    GameTypes.EF,
-    GameTypes.MM,
-    GameTypes.OITC,
-    GameTypes.RR,
-    GameTypes.SLAP,
-    GameTypes.SPL
   ];
 
   private player: HivePlayer | null = null;
