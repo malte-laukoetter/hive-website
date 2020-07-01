@@ -12,9 +12,6 @@
       <v-col cols="12" class="text-center subtitle-2 mt-n5">First Login</v-col>
     </v-col>
     <v-col cols="12" class="d-flex flex-wrap">
-      <v-btn class="flex-grow-1" v-if="swarm" text :to="`/players/${swarm}`"
-        >The Swarm</v-btn
-      >
       <v-btn
         class="flex-grow-1"
         text
@@ -33,24 +30,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { PlayerInfo, TheSwarmAchievement } from "hive-api/dist/hive.min.js";
+import { PlayerInfo } from "hive-api/dist/hive.min.js";
 
 @Component
 export default class PlayerInfoCard extends Vue {
   @Prop({ type: Object })
   private playerInfo!: PlayerInfo;
-
-  get swarm() {
-    const swarmAchievement = this.playerInfo.achievements.find(
-      achievement => achievement.id === "THESWARM"
-    );
-
-    if (!swarmAchievement || !(swarmAchievement instanceof TheSwarmAchievement))
-      return false;
-
-    if (!swarmAchievement.theSwarmFrom) return false;
-
-    return swarmAchievement.theSwarmFrom.uuid;
-  }
 }
 </script>

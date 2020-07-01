@@ -1142,11 +1142,6 @@
 	<changefreq>daily</changefreq>
 </url>
 <url>
-	<loc>https://hive.lergin.de/rankings/achievements</loc>
-	<priority>.5</priority>
-	<changefreq>daily</changefreq>
-</url>
-<url>
 	<loc>https://hive.lergin.de/rankings/hide_levels</loc>
 	<priority>.5</priority>
 	<changefreq>daily</changefreq>

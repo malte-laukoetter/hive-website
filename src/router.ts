@@ -57,13 +57,6 @@ export const leaderboards: {
     href: "points"
   },
   {
-    title: "Achievements Ranking",
-    breadcrumb: "Achievements",
-    id: "achievement",
-    propertyTitle: "Achievements",
-    href: "achievements"
-  },
-  {
     title: "Tokens Ranking",
     breadcrumb: "Tokens",
     id: "token",

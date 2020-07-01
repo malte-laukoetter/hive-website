@@ -79,9 +79,6 @@
             <a href="/rankings/tokens" class="subheading my-1">
               Tokens Ranking
             </a>
-            <a href="/rankings/achievements" class="subheading my-1">
-              Achievements Ranking
-            </a>
           </div>
         </v-col>
       </v-row>

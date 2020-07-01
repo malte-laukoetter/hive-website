@@ -45,10 +45,6 @@ import {
   PlayerGameInfo as HivePlayerGameInfo,
   GameTypes,
   GameType,
-  AchievementInfo,
-  Achievement,
-  GameAchievement,
-  PlayerGameInfoAchievements
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import gameModeConfigs from "@/gamemodesConfig";

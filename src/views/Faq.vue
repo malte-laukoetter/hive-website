@@ -54,18 +54,6 @@ export default class FAQ extends Vue {
         "The calculation takes the block experience for all blocks and adds these together. Then these are converted to a level using the algorithm The Hive uses for calculating the levels while ignoring that a highest level exists."
     },
     {
-      question:
-        "The achievement count used by the rankings is different than on the profile page!",
-      answer:
-        "The achievement ranking only includes achievements that can still be collected on the server. The profile page includes all achievements."
-    },
-    {
-      question:
-        "The maximal achievement count for the same game mode is different between players!",
-      answer:
-        "The Hive API achievement list is missing the map win achievements, these are therefore only shown if they have already been collected. The count is therefore not always correct as it calculates the current amount of completed achievements + the missing achievements according to the api. With this calculation missing map achievements are not counted for the maximum number of possible achievements."
-    },
-    {
       question: "Is there a forum post about this site?",
       answer:
         'Yes there is: <a href="https://forum.hivemc.com/threads/lergins-hive-stats-and-leaderboards.279319/">https://forum.hivemc.com/threads/lergins-hive-stats-and-leaderboards.279319/</a>'

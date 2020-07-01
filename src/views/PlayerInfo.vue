@@ -59,13 +59,6 @@
       </v-col>
 
       <v-col cols="12" md="4">
-        <hive-achievement-list
-          :achievements="achievementList"
-          title="Global Achievements"
-        ></hive-achievement-list>
-      </v-col>
-
-      <v-col cols="12" md="4">
         <hive-player-stat-line-chart
           :uuid="uuid"
           title="Medals"
@@ -83,10 +76,7 @@ import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
   GameTypes,
-  Server,
-  AchievementInfo,
-  Achievement,
-  ServerAchievement
+  Server
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";

@@ -41,7 +41,7 @@ mc-format {
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { PlayerInfo, TheSwarmAchievement } from "hive-api/dist/hive.min.js";
+import { PlayerInfo } from "hive-api/dist/hive.min.js";
 import "mc-format";
 import "@/components/uuid-format.js";
 
