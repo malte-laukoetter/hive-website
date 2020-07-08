@@ -520,50 +520,6 @@ const gameModeConfigs: {
     ]
   },
   SKY: {
-    stats: [
-      {
-        title: "Points",
-        prop: "points",
-        func: numFormat
-      },
-      {
-        title: "Victories",
-        prop: "victories",
-        func: numFormat
-      },
-      {
-        title: "Games Played",
-        prop: "gamesPlayed",
-        func: numFormat
-      },
-      {
-        title: "Kills",
-        prop: "kills",
-        func: numFormat
-      },
-      {
-        title: "Deaths",
-        prop: "deaths",
-        func: numFormat
-      },
-      {
-        title: "Most Points",
-        prop: "mostPoints",
-        func: numFormat
-      },
-      {
-        title: "Time Alive",
-        prop: "timeAlive",
-        func: timeFormat
-      }
-    ],
-    logins: [
-      {
-        title: "First Login",
-        prop: "firstLogin",
-        func: dateFormat
-      }
-    ],
     leaderboard: [
       {
         key: "total_points",

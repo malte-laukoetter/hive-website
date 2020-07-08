@@ -61,7 +61,6 @@ export default class Player extends Vue {
     GameTypes.HIDE,
 
     GameTypes.BED,
-    GameTypes.SKY,
     GameTypes.TIMV,
     GameTypes.BP,
     GameTypes.DRAW,
