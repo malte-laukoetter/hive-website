@@ -2,7 +2,7 @@
   <hive-base-player-info-card
     :name="playerInfo.name"
     :uuid="playerInfo.uuid"
-    :title="`${playerInfo.rank != null ? playerInfo.rank.colorCode : ''}${playerInfo.rank.humanName}`"
+    :title="`${playerInfo.rank != null ? playerInfo.rank.colorCode : ''}${playerInfo.rank != null ? playerInfo.rank.humanName : ''}`"
   >
     <v-spacer></v-spacer>
     <v-col cols="12">
