@@ -177,16 +177,19 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCKWED5FWQ"></script>
     <script>
+      window['gtag_enable_tcf_support'] = true
+
 /*      window.gtag = () => null
       __tcfapi('getGooglePersonalization', function(consent, success) {
         if(success && consent.googlePersonalizationData.consentValue) {*/
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function(){dataLayer.push(arguments);}
-          window.gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){dataLayer.push(arguments);}
+      window.gtag('js', new Date());
 
-          window.gtag('config', 'G-HCKWED5FWQ', { 'anonymize_ip': true });
+      window.gtag('config', 'G-HCKWED5FWQ', { 'anonymize_ip': true });
   //      }
-      });
+    //  });
+      window.__cmp = () => false
     </script>
 
   </body>
