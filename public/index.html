@@ -5,166 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Hive Stats and Leaderboards</title>
-    
-        <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
-<script type="text/javascript" async=true>
-(function() {
-  var host = window.location.hostname;
-  var element = document.createElement('script');
-  var firstScript = document.getElementsByTagName('script')[0];
-  var url = 'https://quantcast.mgr.consensu.org'
-    .concat('/choice/', 'a5EZ7Tk32MePN', '/', host, '/choice.js')
-  var uspTries = 0;
-  var uspTriesLimit = 3;
-  element.async = true;
-  element.type = 'text/javascript';
-  element.src = url;
-
-  firstScript.parentNode.insertBefore(element, firstScript);
-
-  function makeStub() {
-    var TCF_LOCATOR_NAME = '__tcfapiLocator';
-    var queue = [];
-    var win = window;
-    var cmpFrame;
-
-    function addFrame() {
-      var doc = win.document;
-      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
-
-      if (!otherCMP) {
-        if (doc.body) {
-          var iframe = doc.createElement('iframe');
-
-          iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
-        } else {
-          setTimeout(addFrame, 5);
-        }
-      }
-      return !otherCMP;
-    }
-
-    function tcfAPIHandler() {
-      var gdprApplies;
-      var args = arguments;
-
-      if (!args.length) {
-        return queue;
-      } else if (args[0] === 'setGdprApplies') {
-        if (
-          args.length > 3 &&
-          args[2] === 2 &&
-          typeof args[3] === 'boolean'
-        ) {
-          gdprApplies = args[3];
-          if (typeof args[2] === 'function') {
-            args[2]('set', true);
-          }
-        }
-      } else if (args[0] === 'ping') {
-        var retr = {
-          gdprApplies: gdprApplies,
-          cmpLoaded: false,
-          cmpStatus: 'stub'
-        };
-
-        if (typeof args[2] === 'function') {
-          args[2](retr);
-        }
-      } else {
-        queue.push(args);
-      }
-    }
-
-    function postMessageEventHandler(event) {
-      var msgIsString = typeof event.data === 'string';
-      var json = {};
-
-      try {
-        if (msgIsString) {
-          json = JSON.parse(event.data);
-        } else {
-          json = event.data;
-        }
-      } catch (ignore) {}
-
-      var payload = json.__tcfapiCall;
-
-      if (payload) {
-        window.__tcfapi(
-          payload.command,
-          payload.version,
-          function(retValue, success) {
-            var returnMsg = {
-              __tcfapiReturn: {
-                returnValue: retValue,
-                success: success,
-                callId: payload.callId
-              }
-            };
-            if (msgIsString) {
-              returnMsg = JSON.stringify(returnMsg);
-            }
-            event.source.postMessage(returnMsg, '*');
-          },
-          payload.parameter
-        );
-      }
-    }
-
-    while (win) {
-      try {
-        if (win.frames[TCF_LOCATOR_NAME]) {
-          cmpFrame = win;
-          break;
-        }
-      } catch (ignore) {}
-
-      if (win === window.top) {
-        break;
-      }
-      win = win.parent;
-    }
-    if (!cmpFrame) {
-      addFrame();
-      win.__tcfapi = tcfAPIHandler;
-      win.addEventListener('message', postMessageEventHandler, false);
-    }
-  };
-
-  makeStub();
-
-  var uspStubFunction = function() {
-    var arg = arguments;
-    if (typeof window.__uspapi !== uspStubFunction) {
-      setTimeout(function() {
-        if (typeof window.__uspapi !== 'undefined') {
-          window.__uspapi.apply(window.__uspapi, arg);
-        }
-      }, 500);
-    }
-  };
-
-  var checkIfUspIsReady = function() {
-    uspTries++;
-    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
-      console.warn('USP is not accessible');
-    } else {
-      clearInterval(uspInterval);
-    }
-  };
-
-  if (typeof window.__uspapi === 'undefined') {
-    window.__uspapi = uspStubFunction;
-    var uspInterval = setInterval(checkIfUspIsReady, 6000);
-  }
-})();
-</script>
-<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
-    
+    <title>Hive Stats and Leaderboards</title>   
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
   </head>
   <body style="margin: 0px">
@@ -177,18 +18,18 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCKWED5FWQ"></script>
     <script>
-      window['gtag_enable_tcf_support'] = true
-
-/*      window.gtag = () => null
-      __tcfapi('getGooglePersonalization', function(consent, success) {
-        if(success && consent.googlePersonalizationData.consentValue) {*/
       window.dataLayer = window.dataLayer || [];
       window.gtag = function(){dataLayer.push(arguments);}
+      window.gtag('set', 'ads_data_redaction', true);
+      window.gtag('consent', 'default', {
+        // Deny consent for ad_storage
+        'ad_storage': 'denied',
+        // Grant consent for analytics_storage
+        'analytics_storage': 'denied'
+      });
       window.gtag('js', new Date());
 
       window.gtag('config', 'G-HCKWED5FWQ', { 'anonymize_ip': true });
-  //      }
-    //  });
       window.__cmp = () => false
     </script>
 
