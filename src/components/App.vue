@@ -38,7 +38,7 @@
       <v-container>
         <div class="headline font-weight-light">{{ name || $route.name }}</div>
         <hive-breadcrumb></hive-breadcrumb>
-        <v-alert type="warning">
+        <v-alert type="error">
           Hive: Java Edition will be shutting down at April 25th 2020. This site will stop updating any data some days earlier and will be shut down as well some time after the server has been closed. You can find more information about this in the forums: <a href="https://forum.hivemc.com/threads/hive-java-edition.339307/">https://forum.hivemc.com/threads/hive-java-edition.339307/</a> 
         </v-alert>
         <slot></slot>
