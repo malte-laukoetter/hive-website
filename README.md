@@ -1,29 +1,3 @@
-# hive-website-2
+# [hive.lergin.de](https://hive.lergin.de)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[![Watch the video](https://img.youtube.com/vi/Ck0-yPhSMQ8/maxresdefault.jpg)](https://youtu.be/Ck0-yPhSMQ8)
