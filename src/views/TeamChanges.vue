@@ -2,7 +2,7 @@
   <hive-app>
     <div class="full-height">
       <v-alert type="info">
-        This is a historic view showing changes up to 2020-06-30 and no longer updated.
+        This page is no longer providing any real data. It only shows how this page once looked.
       </v-alert>
       <v-timeline
         :dense="!$vuetify.breakpoint.mdAndUp"
@@ -171,7 +171,7 @@ export default class TeamChanges extends Vue {
     return changes;
   }
 
-  fetchTeamChanges(
+  async fetchTeamChanges(
     page: number = 0
   ): Promise<
     {
@@ -181,9 +181,42 @@ export default class TeamChanges extends Vue {
       uuid: string;
     }[]
   > {
-    return fetch(`https://api.lergin.de/hive/team/${page}`).then(res =>
-      res.json()
-    );
+    
+    let team: Set<{
+      date: number;
+      name: string;
+      type: string;
+      uuid: string;
+    }>= new Set();
+    for (let i = 0; i < 100; i++) {
+      team.add({
+        date: new Date().getTime() - (Math.random() + page) * 10000000000,
+        name: "NotARealPlayer",
+        type: randomType(),
+        uuid: "ebdf264aabda45708f61f2d7a2bb4758",
+      } as any);
+    }
+    return await [...team.values()].sort((a, b) => b.date - a.date)
+  }
+}
+
+
+
+function randomType() {
+  const r = Math.random();
+  
+  if (r < 0.3) {
+    return "MODERATOR_REMOVE";
+  } else if (r < 0.6) {
+    return "MODERATOR_ADD";
+  } else if (r < 0.7) {
+    return "SENIOR_MODERATOR_REMOVE";
+  } else if (r < 0.8) {
+    return "SENIOR_MODERATOR_ADD";
+  } else if (r < 0.9) {
+    return "DEVELOPER_REMOVE";
+  } else {
+    return "DEVELOPER_ADD";
   }
 }
 </script>
