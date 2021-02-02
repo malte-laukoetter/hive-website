@@ -24,8 +24,6 @@ import {
   GameTypes,
   GameType
 } from "hive-api/dist/hive.min.js";
-import * as firebase from "firebase/app";
-import "firebase/database";
 
 @Component
 export default class PlayerStatBarChart extends Vue {
@@ -45,17 +43,10 @@ export default class PlayerStatBarChart extends Vue {
     if (this.uuid == null) return;
 
     this.loading = true;
-    try {
-      const db = firebase.database();
+    try {      
+      const snapshot = await fetch(`/api/firebase/playerStats/${this.property.split('/')[0]}`).then(data => data.json());
+      const dataObject: { [key: string]: number } = this.property.split('/').length > 1 ? snapshot[this.property.split('/')[1]] : snapshot;
 
-      const snapshot = await db
-        .ref("playerStats")
-        .child("data")
-        .child(this.uuid)
-        .child("data")
-        .child(this.property)
-        .once("value");
-      const dataObject: { [key: string]: number } = await snapshot.val();
       const data = Object.entries(dataObject)
         .filter(([key, value]) => key !== "total")
         .sort(([key, value], [key2, value2]) => value2 - value);

@@ -16,8 +16,6 @@ import {
   GameType
 } from "hive-api/dist/hive.min.js";
 import StatLineChart from "@/components/StatLineChart.vue";
-import * as firebase from "firebase/app";
-import "firebase/database";
 
 @Component
 export default class PlayerStatLineChart extends Vue {
@@ -35,15 +33,8 @@ export default class PlayerStatLineChart extends Vue {
   private data: { [key: string]: { x: number; y: number }[] } = {};
 
   async fetchData(property: string): Promise<void> {
-    const db = firebase.database();
-
-    const snapshot = await db
-      .ref("playerStats")
-      .child("data")
-      .child(this.uuid)
-      .child(property)
-      .once("value");
-    const dataObject: { [key: string]: number } = await snapshot.val();
+    const snapshot = await fetch(`/api/firebase/playerStats/${property.split('/')[0]}`).then(data => data.json());
+    const dataObject: { [key: string]: number } = property.split('/').length > 1 ? snapshot[property.split('/')[1]] : snapshot;
     const data = Object.entries(dataObject);
 
     this.$set(

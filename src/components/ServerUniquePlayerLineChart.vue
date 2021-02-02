@@ -18,7 +18,7 @@ export default class ServerUniquePlayerLineChart extends Vue {
 
   async fetchData(): Promise<void> {
     const dataObject: { [key: string]: number } = await fetch(
-      "https://api.lergin.de/hive/uniqueplayers"
+      "/api/lergin/uniqueplayers"
     ).then(res => res.json());
     const data = Object.entries(dataObject);
 
