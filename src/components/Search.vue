@@ -133,6 +133,11 @@ export default class Search extends Vue {
   private search: string | SearchResult = "";
   private items: SearchResult[] = [];
   private mdiMagnify = mdiMagnify;
+  private names: [string, string][] = [];
+
+  async mounted() {
+    const names = Object.entries(await fetch(`/api/lergin/names`).then(res => res.json()));
+  }
 
   @Watch("search")
   async onSearchChange(search: string) {
@@ -145,32 +150,10 @@ export default class Search extends Vue {
       findInRoute(search, route)
     );
 
-    if (search) {
-      const res: [
-        { uuid: string; name: string }[],
-        { username: string; UUID: string }
-      ] = await Promise.all([
-        fetch(`https://api.lergin.de/hive/names/${search}`).then(res =>
-          res.json()
-        ),
-        search.length > 3
-          ? fetch(`https://api.hivemc.com/v1/player/${search}`)
-              .then(res => res.json())
-              .catch(err => ({}))
-          : {}
-      ]);
-
-      const playerItems: SearchResult[] = res[0]
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map(({ uuid, name }) => ({ type: "PLAYER", uuid, name }));
-
-      if (res[1].username) {
-        playerItems.unshift({
-          name: res[1].username,
-          uuid: res[1].UUID,
-          type: "PLAYER"
-        });
-      }
+    if (search) {    
+      const playerItems: SearchResult[] = this.names.filter(([uuid,name]) => uuid.startsWith(search) || name.startsWith(search))
+        .sort((a, b) => a[1].localeCompare(b[1]))
+        .map(([ uuid, name ]) => ({ type: "PLAYER", uuid, name }));
 
       this.items = [...routeItems, ...playerItems];
     } else {
@@ -186,7 +169,7 @@ export default class Search extends Vue {
         this.$router.push(selectedItem.path);
         break;
       case "PLAYER":
-        this.$router.push(`/players/${selectedItem.uuid}`);
+        this.$router.push(`/players/ebdf264aabda45708f61f2d7a2bb4758`);
         break;
     }
   }
