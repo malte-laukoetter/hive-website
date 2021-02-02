@@ -42,6 +42,8 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import {
   Player as HivePlayer,
   PlayerInfo,
+  PlayerInfoFactory,
+  playerGameInfoFactoryForGametype,
   PlayerGameInfo as HivePlayerGameInfo,
   GameTypes,
   GameType,
@@ -93,8 +95,12 @@ export default class PlayerGameInfo extends Vue {
 
     try {
       const [playerGameInfo, playerInfo] = await Promise.all([
-        this.player.gameInfo(gameType),
-        this.player.info()
+        playerGameInfoFactoryForGametype(gameType).fromResponse(await fetch(
+          `/data/player/${gameType.id}.json`
+        ).then(res => res.json())).create(),
+        new PlayerInfoFactory().fromResponse(await fetch(
+          `/data/player.json`
+        ).then(res => res.json())).create();
       ]);
       this.playerInfo = playerInfo;
       this.playerGameInfo = playerGameInfo;

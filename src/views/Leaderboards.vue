@@ -10,7 +10,7 @@
       >
         <hive-leaderboard-card
           :href="
-            `https://api.lergin.de/hive/leaderboard/${leaderboard.id}?limit=5`
+            `/data/leaderboard_${leaderboard.id}.json`
           "
           :title="leaderboard.title"
           :property-title="leaderboard.propertyTitle"

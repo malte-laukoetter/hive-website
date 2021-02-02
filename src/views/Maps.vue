@@ -102,7 +102,7 @@ export default class TeamChanges extends Vue {
       worldName: string;
     }[]
   > {
-    return fetch(`https://api.lergin.de/hive/maps`).then(res => res.json());
+    return fetch(`/data/maps.json`).then(res => res.json());
   }
 
   loadMore($state: StateChanger) {

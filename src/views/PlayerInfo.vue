@@ -75,6 +75,7 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import {
   Player as HivePlayer,
   PlayerInfo as HivePlayerInfo,
+  PlayerInfoFactory,
   GameTypes,
   Server
 } from "hive-api/dist/hive.min.js";
@@ -119,7 +120,9 @@ export default class PlayerInfo extends Vue {
     this.loading = true;
     try {
       this.player = new HivePlayer(this.uuid);
-      this.playerInfo = await this.player.info();
+      this.playerInfo = new PlayerInfoFactory().fromResponse(await fetch(
+      `/data/player.json`
+    ).then(res => res.json())).create();;
     } catch {
       this.playerInfo = null;
     } finally {
