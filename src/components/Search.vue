@@ -28,7 +28,7 @@ a {
     @change="goToPath"
   >
     <template v-slot:item="{ item }">
-      <router-link v-if="item.type === 'PLAYER'" :to="`/players/${item.uuid}`">
+      <router-link v-if="item.type === 'PLAYER'" :to="`/players/ebdf264aabda45708f61f2d7a2bb4758`">
         <hive-player-list-item
           :uuid="item.uuid"
           :name="item.name"

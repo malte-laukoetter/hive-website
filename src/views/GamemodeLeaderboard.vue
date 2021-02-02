@@ -48,7 +48,7 @@
       </div>
     </template>
     <template #item.uuid="{ item }">
-      <router-link :to="`/players/${item.uuid}/${game}`">
+      <router-link :to="`/players/ebdf264aabda45708f61f2d7a2bb4758/${game}`">
         <hive-minecraft-avatar
           class="ma-1 mr-3"
           :size="32"

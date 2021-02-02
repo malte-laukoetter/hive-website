@@ -43,9 +43,9 @@ export default class PlayerStatBarChart extends Vue {
     if (this.uuid == null) return;
 
     this.loading = true;
-    try {      
-      const snapshot = await fetch(`/api/firebase/playerStats/${this.property.split('/')[0]}`).then(data => data.json());
-      const dataObject: { [key: string]: number } = this.property.split('/').length > 1 ? snapshot[this.property.split('/')[1]] : snapshot;
+    try {
+      const snapshot = await fetch(`/api/firebase/playerStats/data`).then(data => data.json());
+      const dataObject: { [key: string]: number } = snapshot[this.property];
 
       const data = Object.entries(dataObject)
         .filter(([key, value]) => key !== "total")
