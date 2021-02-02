@@ -55,6 +55,7 @@ module.exports = {
       skipWaiting: true,
       navigateFallback: "/",
       navigateFallbackBlacklist: [/api/],
+      exclude: [/api/],
       runtimeCaching: [
         {
           urlPattern: /api/,
