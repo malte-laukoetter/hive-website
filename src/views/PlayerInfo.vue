@@ -58,7 +58,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <hive-player-stat-line-chart
           :uuid="uuid"
           title="Medals"

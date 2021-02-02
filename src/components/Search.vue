@@ -136,7 +136,7 @@ export default class Search extends Vue {
   private names: [string, string][] = [];
 
   async mounted() {
-    const names = Object.entries(await fetch(`/api/lergin/names`).then(res => res.json()));
+    this.names = Object.entries(await fetch(`/api/lergin/names`).then(res => res.json()));
   }
 
   @Watch("search")
