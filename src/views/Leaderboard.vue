@@ -82,7 +82,7 @@ export default class Leaderboard extends Vue {
     if (this.id == null) return;
 
     this.data = await fetch(
-      `https://api.lergin.de/hive/leaderboard/${this.id}?limit=100`
+      `/api/lergin/leaderboard/${this.id}?limit=100`
     ).then(res => res.json());
   }
 

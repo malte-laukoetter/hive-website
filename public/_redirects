@@ -5,9 +5,8 @@ http://hive-stats.netlify.com/* https://hive.lergin.de/:splat 301!
 https://hive-stats.netlify.com/* https://hive.lergin.de/:splat 301!
 http://hive.lergin.de/*  https://hive.lergin.de/:splat 301!
 
-/api/hive/player/:player/* /api/hive/player/Lergin_/:splat   200
+/api/hive/player/:player/* /api/hive/player/Lergin_/:splat.json   200
 /api/* /api/:splat.json   200
-
 
 /player/:slug /players/:slug 301
 /stats /server 301
