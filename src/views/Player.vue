@@ -16,6 +16,10 @@
     </template>
 
     <div class="full-height">
+        <v-alert type="info">
+          All player profiles have been removed so here is Lergin_'s profile to show you what once was available here :)
+        </v-alert>
+
       <router-view></router-view>
     </div>
   </hive-app>

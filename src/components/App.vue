@@ -39,7 +39,7 @@
         <div class="headline font-weight-light">{{ name || $route.name }}</div>
         <hive-breadcrumb></hive-breadcrumb>
         <v-alert type="error">
-          The Hive: Java Edition will be shutting down at April 15th 2021. This site will stop updating any data at a similar time. At the beginning of May 2021 all player profiles will be deleted. You can find more information about this in the forums: <a href="https://forum.hivemc.com/threads/hive-java-edition.339307/">https://forum.hivemc.com/threads/hive-java-edition.339307/</a> 
+          The Hive: Java Edition has shutdown at April 15th 2021. This site is still providing some unchanging data.
         </v-alert>
         <slot></slot>
       </v-container>
