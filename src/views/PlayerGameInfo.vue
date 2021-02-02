@@ -100,7 +100,7 @@ export default class PlayerGameInfo extends Vue {
         ).then(res => res.json())).create(),
         new PlayerInfoFactory().fromResponse(await fetch(
           `/data/player.json`
-        ).then(res => res.json())).create();
+        ).then(res => res.json())).create()
       ]);
       this.playerInfo = playerInfo;
       this.playerGameInfo = playerGameInfo;
