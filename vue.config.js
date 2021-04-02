@@ -2,6 +2,7 @@ const path = require('path');
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+process.env.VUE_APP_BUILD_DATE = new Date().toISOString();
 
 module.exports = {
   chainWebpack: config => {
