@@ -16,6 +16,10 @@
     </template>
 
     <div class="full-height">
+        <v-alert type="info">
+          All player profiles have been removed so here is Lergin_'s profile to show you what once was available here :)
+        </v-alert>
+
       <router-view></router-view>
     </div>
   </hive-app>
@@ -29,8 +33,6 @@ import {
   GameTypes
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
-import * as firebase from "firebase/app";
-import "firebase/database";
 import { MetaInfo } from "vue-meta";
 
 @Component({
@@ -77,33 +79,12 @@ export default class Player extends Vue {
 
     if (this.uuid.length < 32) {
       this.$router.push(`/players/${this.player.uuid}`);
-    } else {
-      if (!navigator.userAgent.includes('bot')) {
-        const db = firebase.database();
-        db.ref("latestPlayersPub")
-          .push()
-          .set({ uuid: this.uuid, name: this.playerInfo.name });
-        db.ref("playerStats")
-          .child("daily")
-          .child(this.uuid)
-          .set(0);
-      }
     }
   }
 
   @Watch("uuid", { immediate: true })
   onUuidChange() {
     this.fetchData();
-    this.updateVisitData();
-  }
-
-  async updateVisitData() {
-    if (this.uuid == null) return;
-    const db = firebase.database();
-
-    db.ref("latestPlayers")
-      .push()
-      .set(this.uuid);
   }
 }
 </script>

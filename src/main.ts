@@ -4,8 +4,6 @@ import router from "./router";
 import "./registerServiceWorker";
 import vuetify from "./plugins/vuetify";
 import * as firebase from "firebase/app";
-import "firebase/analytics";
-import "firebase/performance";
 import VueMeta from "vue-meta";
 import { Methods } from "hive-api/dist/hive.min.js";
 

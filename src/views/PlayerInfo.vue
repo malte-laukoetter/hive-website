@@ -58,7 +58,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <hive-player-stat-line-chart
           :uuid="uuid"
           title="Medals"
@@ -80,8 +80,6 @@ import {
 } from "hive-api/dist/hive.min.js";
 import "@/components/uuid-format.js";
 import NoDataBanner from "@/components/NoDataBanner.vue";
-import * as firebase from "firebase/app";
-import "firebase/database";
 
 @Component
 export default class PlayerInfo extends Vue {
@@ -128,32 +126,11 @@ export default class PlayerInfo extends Vue {
   }
 
   @Watch("uuid", { immediate: true })
-  onUuidChange(newUuid: string, oldUuid: string) {
-    const db = firebase.database();
-    if (oldUuid) {
-      const oldPlayerDataRef = db
-        .ref("playerStats")
-        .child("data")
-        .child(this.uuid)
-        .child("data");
-      oldPlayerDataRef
-        .child("points")
-        .child("total")
-        .off("value");
-    }
-
+  async onUuidChange(newUuid: string, oldUuid: string) {
     this.fetchData();
-    const playerDataRef = db
-      .ref("playerStats")
-      .child("data")
-      .child(this.uuid)
-      .child("data");
-    playerDataRef
-      .child("points")
-      .child("total")
-      .on("value", snapshot => {
-        this.totalPoints = snapshot.val() || "?";
-      });
+      
+    const snapshot = await fetch(`/api/firebase/playerStats/data`).then(data => data.json());
+    this.totalPoints = snapshot.points.total;
   }
 }
 </script>

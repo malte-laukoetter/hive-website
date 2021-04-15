@@ -50,7 +50,7 @@ export default class Server extends Vue {
 
   async fetchData(): Promise<void> {
     this.data = await fetch(
-      "https://api.lergin.de/hive/gamemodePlayersAll"
+      "/api/lergin/gamemodePlayersAll"
     ).then(res => res.json());
   }
 

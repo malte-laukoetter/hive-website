@@ -39,7 +39,7 @@
         <span v-if="value > 3">{{ value | toLocaleString }}</span>
       </template>
       <template v-slot:item.name="{ item }">
-        <router-link :to="`/players/${item.uuid}`">
+        <router-link :to="`/players/ebdf264aabda45708f61f2d7a2bb4758`">
           <hive-minecraft-avatar
             class="ma-1 mr-3"
             :size="32"

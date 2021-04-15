@@ -6,7 +6,7 @@ a {
 </style>
 
 <template>
-  <router-link :to="`/players/${uuid}`">
+  <router-link :to="`/players/ebdf264aabda45708f61f2d7a2bb4758`">
     <v-list-item>
       <v-list-item-avatar>
         <hive-minecraft-avatar

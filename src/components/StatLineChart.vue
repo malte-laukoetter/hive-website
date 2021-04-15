@@ -28,8 +28,6 @@ import {
   GameTypes,
   GameType
 } from "hive-api/dist/hive.min.js";
-import * as firebase from "firebase/app";
-import "firebase/database";
 
 @Component
 export default class StatLineChart extends Vue {

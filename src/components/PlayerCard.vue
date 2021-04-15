@@ -15,7 +15,7 @@ a {
 
 <template>
   <v-card>
-    <router-link :to="`/players/${uuid}`">
+    <router-link :to="`/players/ebdf264aabda45708f61f2d7a2bb4758`">
       <v-container>
         <v-row dense>
           <v-col class="shrink text-center">
