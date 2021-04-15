@@ -146,7 +146,7 @@ const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
   })) as () => MetaInfo
 })
 export default class GamemodeLeaderboard extends Vue {
-  readonly LATEST_DATE = YESTERDAY;
+  readonly LATEST_DATE = "2021-04-15";
   readonly OLDEST_DATE = "2017-12-06";
   @Prop({ type: String })
   readonly game!: string;
