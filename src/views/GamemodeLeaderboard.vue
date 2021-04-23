@@ -118,12 +118,6 @@ type LeaderboardEntry = {
 };
 type Leaderboard = LeaderboardEntry[];
 
-let date = new Date();
-date.setDate(date.getDate() - 1);
-const YESTERDAY = date.toISOString().substring(0, 10);
-date.setMonth(date.getMonth() - 1);
-const ONE_MONTY_BEFORE = date.toISOString().substring(0, 10);
-
 @Component({
   filters: {
     gameTypeToName: (gameType: string) => {
@@ -150,9 +144,9 @@ export default class GamemodeLeaderboard extends Vue {
   readonly OLDEST_DATE = "2017-12-06";
   @Prop({ type: String })
   readonly game!: string;
-  @Prop({ type: String, default: YESTERDAY })
+  @Prop({ type: String, default: "2021-04-15" })
   private dataDate!: string;
-  @Prop({ type: String, default: ONE_MONTY_BEFORE })
+  @Prop({ type: String, default: "2020-04-15" })
   private compareDate!: string;
 
   private data: Leaderboard = [];
