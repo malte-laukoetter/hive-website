@@ -13,30 +13,24 @@
     <template #top>
       <v-toolbar flat color="white">
         <div class="flex-grow-1"></div>
-        <hive-date-picker-dialog
-          class="mb-n6"
+        <v-select
+          style="max-width: 120px;"
+          class="mb-n8"
+          outlined
           @input="onDataDateChange"
           :value="dataDate"
           label="Data from"
-          :date-picker-props="{
-            reactive: true,
-            min: OLDEST_DATE,
-            max: LATEST_DATE,
-            'first-day-of-week': 1
-          }"
-        ></hive-date-picker-dialog>
-        <hive-date-picker-dialog
-          class="mb-n6"
+          :items="['2021', '2020', '2019', '2019', '2017']">
+        </v-select>
+        <v-select
+          style="max-width: 120px;"
+          class="ml-1 mb-n8"
+          outlined
           @input="onCompareDateChange"
           :value="compareDate"
           label="Compared with"
-          :datePickerProps="{
-            reactive: true,
-            min: OLDEST_DATE,
-            max: LATEST_DATE,
-            'first-day-of-week': 1
-          }"
-        ></hive-date-picker-dialog>
+          :items="['2021', '2020', '2019', '2019', '2017']">
+        </v-select>
       </v-toolbar>
     </template>
     <template v-for="prop in properties" #[`item.${prop}`]="{ value, item }">
@@ -92,9 +86,6 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import DatePickerDialog from "@/components/DatePickerDialog.vue";
 import MinecraftAvatar from "@/components/MinecraftAvatar.vue";
 import { GameTypes, GameType } from "hive-api/dist/hive.min.js";
-import * as firebase from "firebase/app";
-import "firebase/firebase-firestore";
-import LZString from "lz-string";
 import gameModeConfigs from "@/gamemodesConfig";
 import {
   mdiNumeric1CircleOutline,
@@ -140,13 +131,11 @@ type Leaderboard = LeaderboardEntry[];
   })) as () => MetaInfo
 })
 export default class GamemodeLeaderboard extends Vue {
-  readonly LATEST_DATE = "2021-04-15";
-  readonly OLDEST_DATE = "2017-12-06";
   @Prop({ type: String })
   readonly game!: string;
-  @Prop({ type: String, default: "2021-04-15" })
+  @Prop({ type: String, default: "2021" })
   private dataDate!: string;
-  @Prop({ type: String, default: "2020-04-15" })
+  @Prop({ type: String, default: "2017" })
   private compareDate!: string;
 
   private data: Leaderboard = [];
@@ -299,23 +288,7 @@ export default class GamemodeLeaderboard extends Vue {
     if (this.dataStore[`${date}-${page}`])
       return this.dataStore[`${date}-${page}`];
 
-    const db = firebase.firestore();
-    const doc = await db
-      .collection("gameLeaderboards")
-      .doc(this.game)
-      .collection("data")
-      .doc(`${date}-${page}`)
-      .get();
-
-    if (!doc || !doc.exists) return [];
-
-    const data: { a: firebase.firestore.Blob } | undefined = doc.data() as {
-      a: firebase.firestore.Blob;
-    };
-
-    if (!data) return [];
-
-    return JSON.parse(LZString.decompressFromBase64(data.a.toBase64()));
+    return fetch(`/api/firestore/${this.game}/${date}/${page}.json`).then(res => res.json())
   }
 
   placeIcon(place: 1 | 2 | 3): string {

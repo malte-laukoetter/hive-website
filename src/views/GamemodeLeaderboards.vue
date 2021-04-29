@@ -13,6 +13,7 @@
     </template>
 
     <div class="full-height">
+      <v-alert type="info">The date specific leaderboard data has been removed in favor of one data set for every year. The data shows the leaderboard at the last day of the year.</v-alert>
       <router-view></router-view>
     </div>
   </hive-app>
