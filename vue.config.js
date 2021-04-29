@@ -5,8 +5,8 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 process.env.VUE_APP_BUILD_DATE = new Date().toISOString();
 
 module.exports = {
-  chainWebpack: config => {
-    config.plugin("VuetifyLoaderPlugin").tap(args => {
+  chainWebpack: (config) => {
+    config.plugin("VuetifyLoaderPlugin").tap((args) => {
       return [
         {
           match(originalTag, { kebabTag, camelTag, path, component }) {
@@ -15,14 +15,15 @@ module.exports = {
                 camelTag,
                 `import ${camelTag} from '@/components/${camelTag.substring(
                   4
-                )}.vue'`
+                )}.vue'`,
               ];
             }
-          }
-        }
+          },
+        },
       ];
     });
   },
+
   configureWebpack: {
     plugins: [
       new MomentLocalesPlugin(),
@@ -38,19 +39,21 @@ module.exports = {
         icons: [
           {
             src: path.resolve("src/assets/icon.png"),
-            sizes: [96, 128, 192, 256, 384, 512, 1024]
-          }
-        ]
-      })
-    ]
+            sizes: [96, 128, 192, 256, 384, 512, 1024],
+          },
+        ],
+      }),
+    ],
   },
+
   css: {
     loaderOptions: {
       sass: {
-        data: `@import "~@/assets/main.scss"`
-      }
-    }
+        data: `@import "~@/assets/main.scss"`,
+      },
+    },
   },
+
   pwa: {
     workboxOptions: {
       skipWaiting: true,
@@ -65,29 +68,29 @@ module.exports = {
             networkTimeoutSeconds: 10,
             cacheName: "hive-api-cache",
             cacheableResponse: {
-              statuses: [0, 200, 404]
+              statuses: [0, 200, 404],
             },
             expiration: {
               maxEntries: 100,
               maxAgeSeconds: 60 * 60 * 24,
-              purgeOnQuotaError: true
-            }
-          }
+              purgeOnQuotaError: true,
+            },
+          },
         },
         {
           urlPattern: new RegExp("^https://crafatar.com/"),
           handler: "staleWhileRevalidate",
           options: {
             cacheableResponse: {
-              statuses: [0, 200]
+              statuses: [0, 200],
             },
             cacheName: "cravatar-cache",
             expiration: {
               maxEntries: 1000,
               maxAgeSeconds: 60 * 60 * 24 * 30,
-              purgeOnQuotaError: true
-            }
-          }
+              purgeOnQuotaError: true,
+            },
+          },
         },
         {
           urlPattern: new RegExp("^https://api.lergin.de/"),
@@ -96,16 +99,26 @@ module.exports = {
             networkTimeoutSeconds: 10,
             cacheName: "lergin-api-cache",
             cacheableResponse: {
-              statuses: [0, 200]
+              statuses: [0, 200],
             },
             expiration: {
               maxEntries: 25,
               maxAgeSeconds: 60 * 60 * 24,
-              purgeOnQuotaError: true
-            }
-          }
-        }
-      ]
-    }
-  }
+              purgeOnQuotaError: true,
+            },
+          },
+        },
+      ],
+    },
+  },
+
+  pluginOptions: {
+    prerenderSpa: {
+      registry: undefined,
+      renderRoutes: ["/"],
+      useRenderEvent: true,
+      headless: true,
+      onlyProduction: true,
+    },
+  },
 };
